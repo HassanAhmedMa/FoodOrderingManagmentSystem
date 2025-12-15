@@ -1,7 +1,6 @@
 package dao;
 
 import com.example.demo2.db.DBConnection;
-
 import java.sql.*;
 
 public class OrderDAO {

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<TitledPane expanded="false"
+            collapsible="true"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml">
+
+    <!-- ===== HEADER (always visible) ===== -->
+    <graphic>
+        <HBox spacing="10">
+            <ImageView fitHeight="30" fitWidth="30"/>
+            <VBox>
+                <Label text="Pizza Heaven"
+                       style="-fx-font-weight: bold;"/>
+                <Label text="12/16/2025 · 2 items"
+                       style="-fx-text-fill: #777;"/>
+            </VBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label text="Confirmed"
+                   style="-fx-text-fill: #ff6a00;"/>
+        </HBox>
+    </graphic>
+
+    <!-- ===== DROPDOWN CONTENT ===== -->
+    <content>
+        <VBox spacing="20">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+
+            <Label text="Order Progress"/>
+
+            <HBox spacing="20">
+                <Label text="Placed"/>
+                <Label text="Confirmed"/>
+                <Label text="Preparing"/>
+                <Label text="Out for delivery"/>
+                <Label text="Delivered"/>
+            </HBox>
+
+            <Separator/>
+
+            <Label text="Items"/>
+
+            <HBox spacing="10">
+                <Label text="Margherita Pizza"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label text="14.99$"/>
+            </HBox>
+
+            <HBox spacing="10">
+                <Label text="Garlic Bread"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label text="23.96$"/>
+            </HBox>
+
+            <Separator/>
+
+            <HBox>
+                <Label text="Total"
+                       style="-fx-font-weight: bold;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label text="45.84$"
+                       style="-fx-text-fill: #ff6a00; -fx-font-weight: bold;"/>
+            </HBox>
+
+        </VBox>
+    </content>
+
+</TitledPane>
