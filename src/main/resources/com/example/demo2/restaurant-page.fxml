@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane stylesheets="@restaurant-page.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+
+    <!-- NAVBAR -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="20" styleClass="navbar">
+
+            <Button styleClass="back-button" text="Back" />
+
+            <Label styleClass="logo" text="FoodHub" />
+        </HBox>
+    </top>
+
+    <!-- CONTENT -->
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
+
+            <VBox spacing="30">
+
+                <!-- HERO / INFO -->
+                <VBox spacing="12" styleClass="restaurant-hero">
+
+                    <Label styleClass="hero-title" text="Pizza Heaven" />
+
+                    <Label styleClass="hero-desc" text="Authentic Italian pizzas made with love" />
+
+                    <HBox spacing="15">
+                        <Label styleClass="hero-text" text="Rating: 4.8 (456 reviews)" />
+                        <Label styleClass="hero-text" text="Location: Midtown" />
+                        <Label styleClass="hero-text" text="Time: 30-40 min" />
+                        <Label styleClass="hero-delivery" text="1.99 delivery" />
+                    </HBox>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+                </VBox>
+
+                <!-- MENU -->
+                <HBox spacing="30">
+
+                    <!-- CATEGORIES -->
+                    <VBox spacing="10" styleClass="categories-box">
+
+                        <Label styleClass="section-title" text="Categories" />
+
+                        <Button styleClass="category-btn" text="All" />
+                        <Button styleClass="category-btn" text="Pizza" />
+                        <Button styleClass="category-btn" text="Sides" />
+                        <Button styleClass="category-btn" text="Drinks" />
+                    </VBox>
+
+                    <!-- ITEMS -->
+                    <VBox spacing="20">
+
+                        <Label styleClass="section-title" text="Menu" />
+
+                        <FlowPane hgap="20" vgap="20">
+
+                            <VBox spacing="8" styleClass="food-card">
+
+                                <ImageView fitHeight="120" fitWidth="160">
+                                    <image>
+                                        <Image url="https://picsum.photos/200/120" />
+                                    </image>
+                                </ImageView>
+
+                                <Label styleClass="food-title" text="Margherita Pizza" />
+
+                                <Label styleClass="food-desc" text="Classic tomato and mozzarella" />
+
+                                <HBox alignment="CENTER_RIGHT" spacing="10">
+
+                                    <Label styleClass="food-price" text="14.99" />
+
+                                    <Button styleClass="add-btn" text="+ Add" />
+                                </HBox>
+                            </VBox>
+
+                        </FlowPane>
+                    </VBox>
+                </HBox>
+
+                <!-- REVIEWS -->
+                <VBox spacing="10" styleClass="reviews-box">
+
+                    <Label styleClass="section-title" text="Reviews (0)" />
+
+                    <Label styleClass="review-text" text="No reviews yet. Be the first to review!" />
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

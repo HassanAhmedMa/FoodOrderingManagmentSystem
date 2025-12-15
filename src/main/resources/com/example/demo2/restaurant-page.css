@@ -1,0 +1,108 @@
+.root {
+    -fx-background-color: #fafafa;
+    -fx-font-family: "Segoe UI";
+}
+
+/* ================= NAVBAR ================= */
+.navbar {
+    -fx-background-color: #ff6a1a;
+    -fx-padding: 16 24;
+}
+
+.logo {
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.back-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+/* ================= RESTAURANT HERO ================= */
+.restaurant-hero {
+    -fx-background-color: #fff0e6;
+    -fx-background-radius: 28;
+    -fx-padding: 28;
+    -fx-border-color: #ff6a1a;
+    -fx-border-width: 0 0 0 6;
+    -fx-border-radius: 28;
+}
+
+.hero-title {
+    -fx-font-size: 26;
+    -fx-font-weight: bold;
+    -fx-text-fill: #222;
+}
+
+.hero-desc {
+    -fx-text-fill: #555;
+}
+
+.hero-text {
+    -fx-text-fill: #444;
+}
+
+.hero-delivery {
+    -fx-text-fill: #ff6a1a;
+    -fx-font-weight: bold;
+}
+
+/* ================= CATEGORIES ================= */
+.categories-box {
+    -fx-background-color: white;
+    -fx-padding: 18;
+    -fx-background-radius: 18;
+}
+
+.category-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #333;
+}
+
+/* ================= MENU ================= */
+.section-title {
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+    -fx-text-fill: #222;
+}
+
+.food-card {
+    -fx-background-color: white;
+    -fx-padding: 14;
+    -fx-background-radius: 18;
+}
+
+.food-title {
+    -fx-font-weight: bold;
+    -fx-text-fill: #222;
+}
+
+.food-desc {
+    -fx-text-fill: #666;
+}
+
+.food-price {
+    -fx-text-fill: #ff6a1a;
+    -fx-font-weight: bold;
+}
+
+.add-btn {
+    -fx-background-color: #ff6a1a;
+    -fx-text-fill: white;
+    -fx-background-radius: 18;
+    -fx-font-weight: bold;
+}
+
+/* ================= REVIEWS ================= */
+.reviews-box {
+    -fx-background-color: white;
+    -fx-padding: 22;
+    -fx-background-radius: 18;
+}
+
+.review-text {
+    -fx-text-fill: #777;
+}
