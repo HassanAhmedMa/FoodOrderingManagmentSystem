@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:controller="com.example.demo2.RestaurantCardController"
+      spacing="10"
+      prefWidth="300"
+      style="-fx-background-color: white;
+             -fx-background-radius: 15;
+             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10,0,0,4);"
+      xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml">
+
+    <padding>
+        <Insets top="15" right="15" bottom="15" left="15"/>
+    </padding>
+
+    <ImageView fx:id="restaurantImage"
+               fitHeight="150"
+               fitWidth="270"
+               preserveRatio="true"/>
+
+    <Label fx:id="nameLabel"
+           style="-fx-font-weight: bold;"/>
+
+    <Label fx:id="descriptionLabel"
+           style="-fx-text-fill: #777;"/>
+
+    <Label fx:id="ratingLabel"/>
+
+    <Label fx:id="metaLabel"
+           style="-fx-text-fill: #ff6a00;"/>
+
+</VBox>
