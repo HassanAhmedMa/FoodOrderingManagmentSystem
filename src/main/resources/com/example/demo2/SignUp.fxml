@@ -1,14 +1,143 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.Color?>
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.demo2.SignUp"
-            prefHeight="400.0" prefWidth="600.0">
+            fx:controller="model.controller.SignUpController"
+            prefHeight="560.0" prefWidth="900.0"
+            style="-fx-background-color: transparent;">
 
+    <children>
+        <!-- Full screen container -->
+        <HBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              spacing="0.0">
+
+            <!-- LEFT SIDE (full height) -->
+            <VBox prefWidth="360.0" alignment="CENTER_LEFT" spacing="14.0"
+                  style="-fx-background-color: linear-gradient(to bottom, #1b0f08, #3a1b0b, #6a2f12);
+                         -fx-background-radius: 0;">
+                <padding>
+                    <Insets top="34" right="34" bottom="34" left="34"/>
+                </padding>
+
+                <Label text="Fresh Hub Market"
+                       style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                <Label text="Create your account to start ordering or managing your store."
+                       wrapText="true"
+                       style="-fx-text-fill: rgba(255,255,255,0.88); -fx-font-size: 13px;"/>
+
+                <VBox spacing="10.0"
+                      style="-fx-background-color: rgba(0,0,0,0.22); -fx-background-radius: 12;">
+                    <padding>
+                        <Insets top="14" right="14" bottom="14" left="14"/>
+                    </padding>
+
+                    <Label text="Why sign up?"
+                           style="-fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold;"/>
+                    <Label text="• Track orders and delivery status"
+                           style="-fx-text-fill: rgba(255,255,255,0.84); -fx-font-size: 12px;"/>
+                    <Label text="• Save favorites and addresses"
+                           style="-fx-text-fill: rgba(255,255,255,0.84); -fx-font-size: 12px;"/>
+                    <Label text="• Restaurant owners manage menus"
+                           style="-fx-text-fill: rgba(255,255,255,0.84); -fx-font-size: 12px;"/>
+                </VBox>
+
+                <Region VBox.vgrow="ALWAYS"/>
+
+                <Label text="Already have an account?"
+                       style="-fx-text-fill: rgba(255,255,255,0.82); -fx-font-size: 12px;"/>
+                <Hyperlink text="Log in"
+                           onAction="#goToLogin"
+                           style="-fx-text-fill: #FDBA74; -fx-font-size: 12px;"/>
+            </VBox>
+
+            <!-- RIGHT SIDE (full height) -->
+            <VBox alignment="TOP_CENTER" spacing="16.0"
+                  HBox.hgrow="ALWAYS"
+                  style="-fx-background-color: white; -fx-background-radius: 0;">
+                <padding>
+                    <Insets top="34" right="34" bottom="34" left="34"/>
+                </padding>
+
+                <effect>
+                    <DropShadow radius="20" offsetY="10">
+                        <color>
+                            <Color red="0" green="0" blue="0" opacity="0.15"/>
+                        </color>
+                    </DropShadow>
+                </effect>
+
+                <Label text="Create account"
+                       style="-fx-text-fill: #0f172a; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                <Label text="Fill in your details below"
+                       style="-fx-text-fill: #64748B; -fx-font-size: 13px;"/>
+
+                <GridPane hgap="12.0" vgap="12.0" maxWidth="520.0">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50"/>
+                        <ColumnConstraints percentWidth="50"/>
+                    </columnConstraints>
+
+                    <Label text="First name" GridPane.rowIndex="0" GridPane.columnIndex="0"
+                           style="-fx-text-fill: #0f172a; -fx-font-size: 12px; -fx-font-weight: bold;"/>
+                    <Label text="Last name" GridPane.rowIndex="0" GridPane.columnIndex="1"
+                           style="-fx-text-fill: #0f172a; -fx-font-size: 12px; -fx-font-weight: bold;"/>
+
+                    <TextField fx:id="firstNameField" promptText="e.g. Ali"
+                               GridPane.rowIndex="1" GridPane.columnIndex="0"
+                               style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #E5E7EB; -fx-padding: 10;"/>
+                    <TextField fx:id="lastNameField" promptText="e.g. Ahmed"
+                               GridPane.rowIndex="1" GridPane.columnIndex="1"
+                               style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #E5E7EB; -fx-padding: 10;"/>
+
+                    <Label text="Email" GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.columnSpan="2"
+                           style="-fx-text-fill: #0f172a; -fx-font-size: 12px; -fx-font-weight: bold;"/>
+                    <TextField fx:id="emailField" promptText="name@example.com"
+                               GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.columnSpan="2"
+                               style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #E5E7EB; -fx-padding: 10;"/>
+
+                    <Label text="Password" GridPane.rowIndex="4" GridPane.columnIndex="0"
+                           style="-fx-text-fill: #0f172a; -fx-font-size: 12px; -fx-font-weight: bold;"/>
+                    <Label text="Confirm" GridPane.rowIndex="4" GridPane.columnIndex="1"
+                           style="-fx-text-fill: #0f172a; -fx-font-size: 12px; -fx-font-weight: bold;"/>
+
+                    <PasswordField fx:id="passwordField" promptText="password"
+                                   GridPane.rowIndex="5" GridPane.columnIndex="0"
+                                   style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #E5E7EB; -fx-padding: 10;"/>
+                    <PasswordField fx:id="confirmPasswordField" promptText="confirm password"
+                                   GridPane.rowIndex="5" GridPane.columnIndex="1"
+                                   style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #E5E7EB; -fx-padding: 10;"/>
+
+                    <Label text="Role" GridPane.rowIndex="6" GridPane.columnIndex="0" GridPane.columnSpan="2"
+                           style="-fx-text-fill: #0f172a; -fx-font-size: 12px; -fx-font-weight: bold;"/>
+                    <ComboBox fx:id="roleBox" promptText="Choose role"
+                              GridPane.rowIndex="7" GridPane.columnIndex="0" GridPane.columnSpan="2"
+                              style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #E5E7EB;"/>
+                </GridPane>
+
+                <HBox spacing="10.0" alignment="CENTER_LEFT" maxWidth="520.0">
+                    <CheckBox fx:id="termsCheck"
+                              text="I agree to the Terms and Privacy"
+                              style="-fx-text-fill: #334155; -fx-font-size: 12px;"/>
+                </HBox>
+
+                <Button text="Create account"
+                        fx:id="signupButton"
+                        onAction="#onSignup"
+                        maxWidth="520.0"
+                        style="-fx-background-color: #F97316; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 12; -fx-padding: 12 14;"/>
+
+                <Label fx:id="messageLabel" text="" wrapText="true"
+                       style="-fx-text-fill: #b91c1c; -fx-font-size: 12px;"
+                       maxWidth="520.0"/>
+            </VBox>
+
+        </HBox>
+    </children>
 </AnchorPane>
