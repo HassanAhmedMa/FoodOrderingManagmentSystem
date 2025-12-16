@@ -55,18 +55,9 @@
             <Insets bottom="0" left="30" right="30" top="10" />
         </padding>
 
-        <ToggleButton selected="true" text="All" />
-        <ToggleButton text="American" />
-        <ToggleButton text="Italian" />
-        <ToggleButton text="Japanese" />
-        <ToggleButton text="Mexican" />
-        <ToggleButton text="Indian" />
-        <ToggleButton text="Chinese" />
-        <ToggleButton text="Asian" />
 
         <Region HBox.hgrow="ALWAYS" />
 
-        <CheckBox fx:id="openNowCheck" text="Open now" />
     </HBox>
 
     <!-- ================= RESULT COUNT ================= -->
