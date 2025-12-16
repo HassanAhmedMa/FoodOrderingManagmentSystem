@@ -1,67 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<VBox prefWidth="320" spacing="15" style="-fx-background-color: white;              -fx-background-radius: 15;              -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10,0,0,4);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefWidth="320" spacing="15"
+      style="-fx-background-color: white;
+             -fx-background-radius: 15;
+             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10,0,0,4);"
+      xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1">
 
     <padding>
-        <Insets bottom="20" left="20" right="20" top="20" />
+        <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
 
-    <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Order Summary" />
+    <Label text="Order Summary" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+    <Label text="Delivery Address" style="-fx-font-weight: bold;" />
+    <TextField fx:id="addressField" promptText="Enter your address..." />
 
-    <Label style="-fx-font-weight: bold;" text="Delivery Address" />
-
-    <TextField promptText="Enter your address..." />
-
-    <Label style="-fx-font-weight: bold;" text="Payment Method" />
+    <Label text="Payment Method" style="-fx-font-weight: bold;" />
 
     <HBox spacing="10">
-        <Button prefWidth="140" style="-fx-background-color: #fff;                        -fx-border-color: #ff6a00;                        -fx-text-fill: #ff6a00;                        -fx-font-weight: bold;                        -fx-background-radius: 10;                        -fx-border-radius: 10;" text="💳 Card" />
-
-        <Button prefWidth="140" style="-fx-background-color: #fff;                        -fx-border-color: #ddd;                        -fx-background-radius: 10;                        -fx-border-radius: 10;" text="💵 Cash" />
+        <Button fx:id="cardButton" text="💳 Card" prefWidth="140"
+                style="-fx-background-radius:10;-fx-border-radius:10;
+                       -fx-border-color:#ff6a00;-fx-text-fill:#ff6a00;"/>
+        <Button fx:id="cashButton" text="💵 Cash" prefWidth="140"
+                style="-fx-background-radius:10;-fx-border-radius:10;
+                       -fx-border-color:#ddd;"/>
     </HBox>
 
-    <!-- Price Breakdown -->
-    <VBox spacing="6">
-        <HBox>
-            <Label text="Subtotal" />
-            <Label text="38.95$">
-            <HBox.margin>
-               <Insets left="10.0" />
-            </HBox.margin></Label>
-        </HBox>
+    <Label fx:id="subtotalLabel" text="Subtotal 0.00$"/>
+    <Label text="Delivery Fee 2.99$"/>
+    <Label fx:id="taxLabel" text="Tax 0.00$"/>
+    <Label fx:id="totalLabel" text="Total 0.00$" style="-fx-font-weight:bold;"/>
 
-        <HBox>
-            <Label text="Delivery Fee" />
-            <Label text="2.99$">
-            <HBox.margin>
-               <Insets left="10.0" />
-            </HBox.margin></Label>
-        </HBox>
-
-        <HBox>
-            <Label text="Tax" />
-            <Label text="3.90$">
-            <HBox.margin>
-               <Insets left="10.0" />
-            </HBox.margin></Label>
-        </HBox>
-    </VBox>
-
-    <HBox>
-        <Label style="-fx-font-weight: bold;" text="Total" />
-        <Label style="-fx-font-weight: bold;" text="45.84$">
-         <HBox.margin>
-            <Insets left="10.0" />
-         </HBox.margin></Label>
-    </HBox>
-
-    <Button prefHeight="16.0" prefWidth="82.0" style="-fx-background-color: #ff6a00;                    -fx-text-fill: white;                    -fx-font-weight: bold;                    -fx-background-radius: 12;" text="Place Order" />
-
+    <Button fx:id="placeOrderButton"
+            text="Place Order"
+            prefWidth="140"
+            style="-fx-background-radius:12;" />
 </VBox>

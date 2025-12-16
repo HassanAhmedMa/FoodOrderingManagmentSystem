@@ -2,6 +2,7 @@ package model.controller;
 
 import dao.OrderDAO;
 import model.order.Order;
+import model.state.DeliveredState;
 
 public class DeliveryController {
 
@@ -14,7 +15,10 @@ public class DeliveryController {
         // ✅ update DB
         orderDAO.updateOrderStatus(order.getId(), "DELIVERED");
 
-        // ✅ update in-memory object
-        order.setStatus("DELIVERED");
+        // ✅ update in-memory object (STATE PATTERN)
+        order.setState(new DeliveredState());
+
+        // ✅ notify observers
+        order.notifyObservers();
     }
 }

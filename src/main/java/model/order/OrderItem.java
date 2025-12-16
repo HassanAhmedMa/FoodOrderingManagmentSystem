@@ -20,6 +20,16 @@ public class OrderItem {
         return quantity;
     }
 
+    public void increaseQuantity() {
+        quantity++;
+    }
+
+    public void decreaseQuantity() {
+        if (quantity > 1) {
+            quantity--;
+        }
+    }
+
     public double getTotalPrice() {
         return item.getPrice() * quantity;
     }

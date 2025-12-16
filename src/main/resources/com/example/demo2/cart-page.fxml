@@ -1,37 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
 <ScrollPane fitToWidth="true"
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="model.controller.CartController">
 
-    <VBox spacing="30"
-          style="-fx-background-color: #FFF8F2;">
+    <VBox spacing="30" style="-fx-background-color: #FFF8F2;">
 
         <!-- NAVBAR -->
-        <HBox spacing="20"
-              style="-fx-background-color: white;
-                     -fx-border-color: #eee;">
+        <HBox spacing="20" style="-fx-background-color: white; -fx-border-color: #eee;">
             <padding>
                 <Insets top="15" right="20" bottom="15" left="20"/>
             </padding>
 
-            <Label text="🍴 FoodHub"
-                   style="-fx-font-size: 20px; -fx-font-weight: bold;" />
-
+            <Label text="🍴 FoodHub" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
             <Region HBox.hgrow="ALWAYS"/>
-
-            <Button text="Browse"
-                    style="-fx-background-color: transparent;" />
-
+            <Button text="Browse" style="-fx-background-color: transparent;" />
             <Label text="hassan"
                    style="-fx-background-color: #FFE5D1;
                           -fx-padding: 6 12;
@@ -41,27 +29,26 @@
         <!-- CONTENT -->
         <HBox spacing="40">
             <padding>
-                <Insets top="0" right="40" bottom="40" left="40"/>
+                <Insets left="40" right="40" bottom="40"/>
             </padding>
 
             <!-- LEFT CART -->
             <VBox spacing="20" prefWidth="600">
+                <Label text="Your Cart" style="-fx-font-size: 26px; -fx-font-weight: bold;" />
 
-                <Label text="Your Cart"
-                       style="-fx-font-size: 26px; -fx-font-weight: bold;" />
+                <!-- 🔥 CART ITEMS CONTAINER -->
+                <VBox fx:id="cartItemsBox" spacing="15">
+                    <fx:include source="cart-item-card.fxml"/>
+                    <fx:include source="cart-item-card.fxml"/>
+                </VBox>
 
-                <!-- Cart Items -->
-                <fx:include source="cart-item-card.fxml"/>
-                <fx:include source="cart-item-card.fxml"/>
-
-                <Button text="Clear Cart"
-                        style="-fx-background-color: transparent;
-                               -fx-text-fill: red;" />
+                <Button fx:id="clearCartButton"
+                        text="Clear Cart"
+                        style="-fx-background-color: transparent; -fx-text-fill: red;" />
             </VBox>
 
             <!-- RIGHT SUMMARY -->
-            <fx:include source="order-summary-card.fxml"/>
-
+            <fx:include fx:id="orderSummary" source="order-summary-card.fxml"/>
         </HBox>
 
         <Region prefHeight="40"/>

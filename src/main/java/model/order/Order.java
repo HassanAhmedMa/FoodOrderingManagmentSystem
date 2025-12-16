@@ -16,16 +16,44 @@ import java.util.List;
 
 public class Order implements Subject {
 
+    /* =====================
+       CORE FIELDS
+       ===================== */
+
     private int id;
     private Customer customer;
     private Restaurant restaurant;
     private DeliveryStaff deliveryStaff;
 
     private List<OrderItem> items = new ArrayList<>();
+
+    /* =====================
+       PAYMENT
+       ===================== */
+
     private PaymentStrategy paymentStrategy;
 
+    /* =====================
+       DELIVERY
+       ===================== */
+
+    private String deliveryAddress;
+
+    /* =====================
+       STATE PATTERN
+       ===================== */
+
     private OrderState state = new PlacedState();
+
+    /* =====================
+       OBSERVER PATTERN
+       ===================== */
+
     private List<Observer> observers = new ArrayList<>();
+
+    /* =====================
+       CONSTRUCTOR
+       ===================== */
 
     public Order(int id, Customer customer, Restaurant restaurant) {
         this.id = id;
@@ -34,13 +62,19 @@ public class Order implements Subject {
     }
 
     /* =====================
-       Order Items
+       ORDER ITEMS
        ===================== */
+
+    public void addItem(OrderItem item) {
+        items.add(item);
+    }
+
     public List<OrderItem> getItems() {
         return items;
     }
-    public void addItem(OrderItem item) {
-        items.add(item);
+
+    public boolean isEmpty() {
+        return items.isEmpty();
     }
 
     public double calculateTotal() {
@@ -50,7 +84,7 @@ public class Order implements Subject {
     }
 
     /* =====================
-       Payment (FINAL)
+       PAYMENT LOGIC
        ===================== */
 
     public void setPaymentStrategy(PaymentStrategy strategy) {
@@ -58,17 +92,15 @@ public class Order implements Subject {
     }
 
     public void payOrder() {
+
         if (paymentStrategy == null) {
             throw new IllegalStateException("Payment strategy not set");
         }
 
-        // 1️⃣ Create Payment (matches DAO)
         Payment payment = new Payment(this.id, paymentStrategy);
 
-        // 2️⃣ Execute payment
         payment.pay(calculateTotal());
 
-        // 3️⃣ Persist payment
         PaymentDAO paymentDAO = new PaymentDAO();
         paymentDAO.createPayment(
                 payment.getOrderId(),
@@ -78,7 +110,7 @@ public class Order implements Subject {
     }
 
     /* =====================
-       Delivery
+       DELIVERY
        ===================== */
 
     public void assignDelivery(DeliveryStaff staff) {
@@ -86,8 +118,16 @@ public class Order implements Subject {
         System.out.println("Assigned to delivery: " + staff.getFullName());
     }
 
+    public void setDeliveryAddress(String address) {
+        this.deliveryAddress = address;
+    }
+
+    public String getDeliveryAddress() {
+        return deliveryAddress;
+    }
+
     /* =====================
-       State Pattern
+       STATE MANAGEMENT
        ===================== */
 
     public void nextState() {
@@ -99,20 +139,33 @@ public class Order implements Subject {
         this.state = state;
     }
 
+    /** ✅ FIX FOR YOUR ERROR */
     public String getStatus() {
         return state.getStatus();
     }
 
     /* =====================
-       Getters
+       GETTERS
        ===================== */
 
     public int getId() {
         return id;
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public DeliveryStaff getDeliveryStaff() {
+        return deliveryStaff;
+    }
+
     /* =====================
-       Observer Pattern
+       OBSERVER IMPLEMENTATION
        ===================== */
 
     @Override
@@ -128,12 +181,5 @@ public class Order implements Subject {
     @Override
     public void notifyObservers() {
         observers.forEach(o -> o.update(this));
-    }
-
-    public Restaurant getRestaurant() {
-        return restaurant;
-    }
-
-    public void setStatus(String delivered) {
     }
 }
