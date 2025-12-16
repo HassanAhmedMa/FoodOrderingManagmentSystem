@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.Color?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="model.controller.LoginController"
+            prefHeight="560.0" prefWidth="900.0"
+            style="-fx-background-color: transparent;">
+
+    <children>
+        <HBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              spacing="0.0">
+
+            <!-- LEFT SIDE (same as signup) -->
+            <VBox prefWidth="360.0" alignment="CENTER_LEFT" spacing="14.0"
+                  style="-fx-background-color: linear-gradient(to bottom, #1b0f08, #3a1b0b, #6a2f12);
+                         -fx-background-radius: 0;">
+                <padding>
+                    <Insets top="34" right="34" bottom="34" left="34"/>
+                </padding>
+
+                <Label text="Fresh Hub Market"
+                       style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                <Label text="Welcome back! Log in to continue."
+                       wrapText="true"
+                       style="-fx-text-fill: rgba(255,255,255,0.88); -fx-font-size: 13px;"/>
+
+                <VBox spacing="10.0"
+                      style="-fx-background-color: rgba(0,0,0,0.22); -fx-background-radius: 12;">
+                    <padding>
+                        <Insets top="14" right="14" bottom="14" left="14"/>
+                    </padding>
+
+                    <Label text="Quick tips"
+                           style="-fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold;"/>
+                    <Label text="• Use the same email you used to sign up"
+                           style="-fx-text-fill: rgba(255,255,255,0.84); -fx-font-size: 12px;"/>
+                    <Label text="• Choose your role after login (later)"
+                           style="-fx-text-fill: rgba(255,255,255,0.84); -fx-font-size: 12px;"/>
+                </VBox>
+
+                <Region VBox.vgrow="ALWAYS"/>
+
+                <Label text="New here?"
+                       style="-fx-text-fill: rgba(255,255,255,0.82); -fx-font-size: 12px;"/>
+                <Hyperlink text="Create an account"
+                           onAction="#goToSignup"
+                           style="-fx-text-fill: #FDBA74; -fx-font-size: 12px;"/>
+            </VBox>
+
+            <!-- RIGHT SIDE -->
+            <VBox alignment="TOP_CENTER" spacing="16.0"
+                  HBox.hgrow="ALWAYS"
+                  style="-fx-background-color: white; -fx-background-radius: 0;">
+                <padding>
+                    <Insets top="34" right="34" bottom="34" left="34"/>
+                </padding>
+
+                <effect>
+                    <DropShadow radius="20" offsetY="10">
+                        <color>
+                            <Color red="0" green="0" blue="0" opacity="0.15"/>
+                        </color>
+                    </DropShadow>
+                </effect>
+
+                <Label text="Log in"
+                       style="-fx-text-fill: #0f172a; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                <Label text="Enter your email and password"
+                       style="-fx-text-fill: #64748B; -fx-font-size: 13px;"/>
+
+                <GridPane hgap="12.0" vgap="12.0" maxWidth="520.0">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="100"/>
+                    </columnConstraints>
+
+                    <Label text="Email" GridPane.rowIndex="0" GridPane.columnIndex="0"
+                           style="-fx-text-fill: #0f172a; -fx-font-size: 12px; -fx-font-weight: bold;"/>
+                    <TextField fx:id="emailField" promptText="name@example.com"
+                               GridPane.rowIndex="1" GridPane.columnIndex="0"
+                               style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #E5E7EB; -fx-padding: 10;"/>
+
+                    <Label text="Password" GridPane.rowIndex="2" GridPane.columnIndex="0"
+                           style="-fx-text-fill: #0f172a; -fx-font-size: 12px; -fx-font-weight: bold;"/>
+                    <PasswordField fx:id="passwordField" promptText="password"
+                                   GridPane.rowIndex="3" GridPane.columnIndex="0"
+                                   style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #E5E7EB; -fx-padding: 10;"/>
+                </GridPane>
+
+                <HBox alignment="CENTER_LEFT" spacing="10.0" maxWidth="520.0">
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Hyperlink text="Forgot password?"
+                               onAction="#onForgotPassword"
+                               style="-fx-text-fill: #F97316; -fx-font-size: 12px;"/>
+                </HBox>
+
+                <Button text="Log in"
+                        fx:id="loginButton"
+                        onAction="#onLogin"
+                        maxWidth="520.0"
+                        style="-fx-background-color: #F97316; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 12; -fx-padding: 12 14;"/>
+
+                <Label fx:id="messageLabel" text="" wrapText="true"
+                       style="-fx-text-fill: #b91c1c; -fx-font-size: 12px;"
+                       maxWidth="520.0"/>
+            </VBox>
+
+        </HBox>
+    </children>
+</AnchorPane>
