@@ -1,0 +1,100 @@
+/* ================= PAGE ================= */
+.root {
+    -fx-background-color: #fffaf6;
+    -fx-font-family: "Segoe UI";
+}
+
+/* ================= NAVBAR ================= */
+.navbar {
+    -fx-background-color: linear-gradient(to right, #ff6a00, #5a2901);
+    -fx-padding: 16 24;
+}
+
+.nav-title {
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.nav-back {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.nav-back:hover {
+    -fx-text-fill: #ffe5d1;
+}
+
+/* ================= RESTAURANT CARD ================= */
+.restaurant-card {
+    -fx-background-color: white;
+    -fx-background-radius: 16;
+    -fx-padding: 12;
+    -fx-pref-width: 300;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 4);
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+
+
+.restaurant-card:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+/* Title */
+.restaurant-name {
+    -fx-font-weight: bold;
+    -fx-font-size: 15;
+}
+
+.restaurant-card:hover .restaurant-name {
+    -fx-text-fill: #ff6a00;
+}
+
+/* Description */
+.restaurant-desc {
+    -fx-text-fill: #777;
+}
+
+/* Rating badge */
+.rating-badge {
+    -fx-background-color: rgba(0,0,0,0.75);
+    -fx-text-fill: white;
+    -fx-padding: 4 8;
+    -fx-background-radius: 12;
+    -fx-font-size: 12;
+}
+
+/* Info */
+.restaurant-info {
+    -fx-text-fill: #ff6a00;
+    -fx-font-size: 12;
+}
+
+
+/* ================= HERO TITLE ================= */
+.page-hero {
+    -fx-background-color: linear-gradient(
+            to right,
+            #ff6a00,
+            #753201
+    );
+    -fx-background-radius: 28;
+    -fx-padding: 28 40;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 20, 0.3, 0, 6);
+}
+
+.page-hero-title {
+    -fx-font-size: 30;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.page-hero-subtitle {
+    -fx-text-fill: #ffe6d5;
+    -fx-font-size: 14;
+}

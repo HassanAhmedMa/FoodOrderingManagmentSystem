@@ -3,12 +3,15 @@ package model.controller;
 import com.example.demo2.Navigator;
 import dao.RestaurantDAO;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import model.restaurant.Restaurant;
 
@@ -90,37 +93,66 @@ public class BrowseRestaurantController {
         );
     }
 
+    /* ================= CARD ================= */
+
     private VBox createRestaurantCard(Restaurant r) {
 
+        /* ---------- IMAGE ---------- */
         ImageView image = new ImageView();
         image.setFitWidth(300);
         image.setFitHeight(160);
         image.setPreserveRatio(false);
         image.setSmooth(true);
-        image.setMouseTransparent(true); // 🔥 click fix
+        image.setMouseTransparent(true);
 
-        loadImageSafely(image, r.getImageUrl());
+        loadImageSafely(image, resolveRestaurantImage(r));
 
+        /* ---------- RATING BADGE ---------- */
+        Label rating = new Label("⭐ " + r.getRatingAvg());
+        rating.getStyleClass().add("rating-badge");
+
+        StackPane imageWrapper = new StackPane(image);
+        StackPane.setAlignment(rating, Pos.TOP_RIGHT);
+        StackPane.setMargin(rating, new Insets(10));
+        imageWrapper.getChildren().add(rating);
+
+        /* ---------- CLOSED OVERLAY ---------- */
+        if (!r.isOpen()) {
+            Label closed = new Label("Currently Closed");
+            closed.setStyle("""
+                -fx-background-color: rgba(0,0,0,0.6);
+                -fx-text-fill: white;
+                -fx-font-weight: bold;
+                -fx-padding: 6 12;
+                -fx-background-radius: 20;
+            """);
+            StackPane.setAlignment(closed, Pos.CENTER);
+            imageWrapper.getChildren().add(closed);
+        }
+
+        /* ---------- TEXT ---------- */
         Label name = new Label(r.getName());
-        name.setStyle("-fx-font-weight: bold;");
+        name.getStyleClass().add("restaurant-name");
 
         Label desc = new Label(r.getDescription());
-        desc.setStyle("-fx-text-fill: #777;");
+        desc.getStyleClass().add("restaurant-desc");
+        desc.setWrapText(true);
 
-        Label rating = new Label("⭐ " + r.getRatingAvg());
+        Label info = new Label("25–35 min · " + r.getLocation());
+        info.getStyleClass().add("restaurant-info");
 
-        Label info = new Label(
-                "25-35 min · " + r.getLocation() + " · $2.99 delivery"
+        /* ---------- CARD ---------- */
+        VBox card = new VBox(10, imageWrapper, name, desc, info);
+        card.getStyleClass().add("restaurant-card");
+
+        // 🔥 CLICK FEEDBACK (THIS IS WHERE IT GOES)
+        card.setOnMousePressed(e ->
+                card.setStyle(card.getStyle() + "; -fx-opacity: 0.9;")
         );
-        info.setStyle("-fx-text-fill: #ff6a00;");
 
-        VBox card = new VBox(10, image, name, desc, rating, info);
-        card.setPrefWidth(300);
-        card.setStyle("""
-            -fx-background-color: white;
-            -fx-background-radius: 15;
-            -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10,0,0,4);
-        """);
+        card.setOnMouseReleased(e ->
+                card.setStyle(card.getStyle().replace("-fx-opacity: 0.9;", ""))
+        );
 
         card.setOnMouseClicked(e ->
                 Navigator.goToRestaurant(r.getId())
@@ -129,13 +161,24 @@ public class BrowseRestaurantController {
         return card;
     }
 
+    /* ================= IMAGE RESOLUTION ================= */
+
+    private String resolveRestaurantImage(Restaurant r) {
+
+        String name = r.getName().toLowerCase();
+
+        if (name.contains("pizza")) return "/images/restaurants/pizza palace.jpg";
+        if (name.contains("burger")) return "/images/restaurants/burgerhub.jpg";
+        if (name.contains("sushi")) return "/images/restaurants/sushi.jpg";
+        if (name.contains("pasta")) return "/images/restaurants/pasta.jpg";
+        if (name.contains("taco")) return "/images/restaurants/tacos.jpg";
+
+        return "/images/restaurants/burger palace.jpg"; // fallback
+    }
+
     /* ================= IMAGE SAFE LOADER ================= */
 
     private void loadImageSafely(ImageView imageView, String path) {
-
-        if (path == null || path.isBlank()) {
-            return;
-        }
 
         try {
             URL url = getClass().getResource(path);
@@ -151,6 +194,6 @@ public class BrowseRestaurantController {
 
     @FXML
     private void handleBack() {
-        Navigator. goTo("/com/example/demo2/hello-view.fxml");
+        Navigator.goTo("/com/example/demo2/hello-view.fxml");
     }
 }

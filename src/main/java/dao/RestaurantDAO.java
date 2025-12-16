@@ -126,7 +126,7 @@ public class RestaurantDAO {
                 rs.getString("location"),
                 rs.getDouble("rating_avg"),
                 rs.getBoolean("is_open"),
-                rs.getString("image_url"),   // 🔥 NEW
+                null,               // 🔥 NO IMAGE FROM DB
                 owner
         );
     }

@@ -10,30 +10,43 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox spacing="20" style="-fx-background-color: #fffaf6;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="model.controller.BrowseRestaurantController">
+<VBox spacing="20"
+      stylesheets="@browse-restaurants.css"
+      xmlns="http://javafx.com/javafx/23.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="model.controller.BrowseRestaurantController">
 
     <!-- ================= TOP NAV BAR ================= -->
-    <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: white; -fx-border-color: #eee;">
+    <HBox alignment="CENTER_LEFT"
+          spacing="20"
+          styleClass="navbar">
 
         <padding>
-            <Insets bottom="15" left="20" right="20" top="15" />
+            <Insets bottom="15" left="20" right="20" top="15"/>
         </padding>
 
-        <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="FoodHub" />
+        <Label text="FoodHub"
+               styleClass="nav-title"/>
 
-        <Region prefHeight="27.0" prefWidth="702.0" HBox.hgrow="ALWAYS" />
+        <Region HBox.hgrow="ALWAYS"/>
 
-        <Label onMouseClicked="#handleBack" text="Back" />
+        <Label text="Back"
+               onMouseClicked="#handleBack"
+               styleClass="nav-back"/>
     </HBox>
 
-    <!-- ================= PAGE HEADER ================= -->
-    <VBox spacing="5">
-        <padding>
-            <Insets bottom="0" left="30" right="30" top="20" />
-        </padding>
 
-        <Label style="-fx-font-size: 26px; -fx-font-weight: bold;" text="Browse Restaurants" />
-        <Label style="-fx-text-fill: #777;" text="Find your favorite food from restaurants" />
+    <!-- ================= PAGE HEADER ================= -->
+    <VBox alignment="CENTER"
+          spacing="6"
+          styleClass="page-hero">
+
+        <Label text="Browse Restaurants"
+               styleClass="page-hero-title"/>
+
+        <Label text="Find your favorite food from restaurants"
+               styleClass="page-hero-subtitle"/>
+
     </VBox>
 
     <!-- ================= SEARCH & FILTER ================= -->
