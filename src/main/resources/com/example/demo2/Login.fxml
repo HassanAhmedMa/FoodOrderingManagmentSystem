@@ -96,7 +96,7 @@
                 <HBox alignment="CENTER_LEFT" spacing="10.0" maxWidth="520.0">
                     <Region HBox.hgrow="ALWAYS"/>
                     <Hyperlink text="Forgot password?"
-                               onAction="#onForgotPassword"
+
                                style="-fx-text-fill: #F97316; -fx-font-size: 12px;"/>
                 </HBox>
 
