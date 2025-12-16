@@ -11,15 +11,24 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane stylesheets="@restaurant-page.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane
+        xmlns="http://javafx.com/javafx/23.0.1"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="model.controller.RestaurantPageController"
+        stylesheets="@restaurant-page.css">
 
     <!-- NAVBAR -->
     <top>
         <HBox alignment="CENTER_LEFT" spacing="20" styleClass="navbar">
 
-            <Button styleClass="back-button" text="Back" />
+            <Button
+                    fx:id="backButton"
+                    text="Back"
+                    styleClass="back-button"
+                    onAction="#handleBack"/>
 
-            <Label styleClass="logo" text="FoodHub" />
+            <Label text="FoodHub" styleClass="logo"/>
+
         </HBox>
     </top>
 
@@ -27,77 +36,87 @@
     <center>
         <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
 
-            <VBox spacing="30">
+            <VBox spacing="30" >
 
-                <!-- HERO / INFO -->
+                <!-- HERO / RESTAURANT INFO -->
                 <VBox spacing="12" styleClass="restaurant-hero">
 
-                    <Label styleClass="hero-title" text="Pizza Heaven" />
+                    <Label text="Pizza Heaven" styleClass="hero-title"/>
 
-                    <Label styleClass="hero-desc" text="Authentic Italian pizzas made with love" />
+                    <Label
+                            text="Authentic Italian pizzas made with love"
+                            styleClass="hero-desc"/>
 
                     <HBox spacing="15">
-                        <Label styleClass="hero-text" text="Rating: 4.8 (456 reviews)" />
-                        <Label styleClass="hero-text" text="Location: Midtown" />
-                        <Label styleClass="hero-text" text="Time: 30-40 min" />
-                        <Label styleClass="hero-delivery" text="1.99 delivery" />
+                        <Label text="Rating: 4.8 (456 reviews)" styleClass="hero-text"/>
+                        <Label text="Location: Midtown" styleClass="hero-text"/>
+                        <Label text="Time: 30-40 min" styleClass="hero-text"/>
+                        <Label text="1.99 delivery" styleClass="hero-delivery"/>
                     </HBox>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
+
+                    <VBox.margin>
+                        <Insets top="10"/>
+                    </VBox.margin>
                 </VBox>
 
-                <!-- MENU -->
+                <!-- MENU SECTION -->
                 <HBox spacing="30">
 
                     <!-- CATEGORIES -->
                     <VBox spacing="10" styleClass="categories-box">
 
-                        <Label styleClass="section-title" text="Categories" />
+                        <Label text="Categories" styleClass="section-title"/>
 
-                        <Button styleClass="category-btn" text="All" />
-                        <Button styleClass="category-btn" text="Pizza" />
-                        <Button styleClass="category-btn" text="Sides" />
-                        <Button styleClass="category-btn" text="Drinks" />
+                        <Button text="All" styleClass="category-btn"/>
+                        <Button text="Pizza" styleClass="category-btn"/>
+                        <Button text="Sides" styleClass="category-btn"/>
+                        <Button text="Drinks" styleClass="category-btn"/>
+
                     </VBox>
 
-                    <!-- ITEMS -->
+                    <!-- MENU ITEMS -->
                     <VBox spacing="20">
 
-                        <Label styleClass="section-title" text="Menu" />
+                        <Label text="Menu" styleClass="section-title"/>
 
-                        <FlowPane hgap="20" vgap="20">
+                        <FlowPane fx:id="menuFlowPane" hgap="20" vgap="20">
 
+                        <!-- FOOD CARD -->
                             <VBox spacing="8" styleClass="food-card">
 
-                                <ImageView fitHeight="120" fitWidth="160">
+                                <ImageView fitWidth="160" fitHeight="120">
                                     <image>
-                                        <Image url="https://picsum.photos/200/120" />
+                                        <Image url="https://picsum.photos/200/120"/>
                                     </image>
                                 </ImageView>
 
-                                <Label styleClass="food-title" text="Margherita Pizza" />
+                                <Label text="Margherita Pizza" styleClass="food-title"/>
 
-                                <Label styleClass="food-desc" text="Classic tomato and mozzarella" />
+                                <Label
+                                        text="Classic tomato and mozzarella"
+                                        styleClass="food-desc"/>
 
-                                <HBox alignment="CENTER_RIGHT" spacing="10">
-
-                                    <Label styleClass="food-price" text="14.99" />
-
-                                    <Button styleClass="add-btn" text="+ Add" />
+                                <HBox spacing="10" alignment="CENTER_RIGHT">
+                                    <Label text="14.99" styleClass="food-price"/>
+                                    <Button text="+ Add" styleClass="add-btn"/>
                                 </HBox>
+
                             </VBox>
 
                         </FlowPane>
+
                     </VBox>
                 </HBox>
 
                 <!-- REVIEWS -->
                 <VBox spacing="10" styleClass="reviews-box">
 
-                    <Label styleClass="section-title" text="Reviews (0)" />
+                    <Label text="Reviews (0)" styleClass="section-title"/>
 
-                    <Label styleClass="review-text" text="No reviews yet. Be the first to review!" />
+                    <Label
+                            text="No reviews yet. Be the first to review!"
+                            styleClass="review-text"/>
+
                 </VBox>
 
             </VBox>

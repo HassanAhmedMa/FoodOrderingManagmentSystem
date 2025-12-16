@@ -21,35 +21,42 @@
     -fx-font-weight: bold;
 }
 
-/* ================= RESTAURANT HERO ================= */
+/* =========================
+   RESTAURANT HERO (ORANGE GRADIENT)
+   ========================= */
 .restaurant-hero {
-    -fx-background-color: #fff0e6;
+    -fx-background-color: linear-gradient(
+            to right,
+            #6c2404,
+            #d15814
+    );
     -fx-background-radius: 28;
     -fx-padding: 28;
-    -fx-border-color: #ff6a1a;
-    -fx-border-width: 0 0 0 6;
-    -fx-border-radius: 28;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 20, 0.3, 0, 6);
 }
 
+/* Title */
 .hero-title {
     -fx-font-size: 26;
     -fx-font-weight: bold;
-    -fx-text-fill: #222;
+    -fx-text-fill: white;
 }
 
+/* Description */
 .hero-desc {
-    -fx-text-fill: #555;
+    -fx-text-fill: #ffe7d9;
 }
 
+/* Info text */
 .hero-text {
-    -fx-text-fill: #444;
+    -fx-text-fill: #fff3ec;
 }
 
+/* Delivery highlight */
 .hero-delivery {
-    -fx-text-fill: #ff6a1a;
+    -fx-text-fill: white;
     -fx-font-weight: bold;
 }
-
 /* ================= CATEGORIES ================= */
 .categories-box {
     -fx-background-color: white;
@@ -60,6 +67,11 @@
 .category-btn {
     -fx-background-color: transparent;
     -fx-text-fill: #333;
+    -fx-font-size: 14;
+}
+
+.category-btn:hover {
+    -fx-text-fill: #ff6a1a;
 }
 
 /* ================= MENU ================= */
@@ -105,4 +117,20 @@
 
 .review-text {
     -fx-text-fill: #777;
+}
+
+
+/* Food card hover */
+.food-card {
+    -fx-background-color: white;
+    -fx-padding: 12;
+    -fx-background-radius: 14;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0.2, 0, 4);
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+}
+
+.food-card:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
 }

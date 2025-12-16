@@ -1,13 +1,19 @@
 package dao;
 
 import com.example.demo2.db.DBConnection;
+import model.restaurant.MenuItem;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MenuItemDAO {
 
+    /* =========================
+       INSERT MENU ITEM
+       ========================= */
     public void addMenuItem(
             int restaurantId,
             String name,
@@ -37,8 +43,49 @@ public class MenuItemDAO {
 
             stmt.executeUpdate();
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /* =========================
+       READ MENU ITEMS (Restaurant Page)
+       ========================= */
+    public List<MenuItem> getMenuItemsByRestaurant(int restaurantId) {
+
+        List<MenuItem> items = new ArrayList<>();
+
+        String sql = """
+            SELECT restaurant_id, name, description, price, category, image_url, available
+            FROM menu_items
+            WHERE restaurant_id = ? AND available = true
+        """;
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, restaurantId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                MenuItem item = new MenuItem(
+                        rs.getInt("restaurant_id"),
+                        rs.getString("name"),
+                        rs.getDouble("price")
+                );
+
+                item.setDescription(rs.getString("description"));
+                item.setCategory(rs.getString("category"));
+                item.setImageUrl(rs.getString("image_url"));
+                item.setAvailable(rs.getBoolean("available"));
+
+                items.add(item);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return items;
     }
 }
