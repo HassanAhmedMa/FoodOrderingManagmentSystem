@@ -40,8 +40,13 @@ public class LoginController {
 
             User user = userDAO.getUserByEmail(r.email);
             Session.setUser(user);
+            if(user.getRole().equals("RESTAURANT")) {
+                Navigator.goTo("/com/example/demo2/restaurant-dashboard.fxml");
+            }
+            else{
+                Navigator.goTo("/com/example/demo2/hello-view.fxml");
+            }
 
-            Navigator.goTo("/com/example/demo2/hello-view.fxml");
 
         } catch (LoginValidationException ex) {
             markInvalidByKey(ex.getFieldKey());

@@ -136,7 +136,7 @@ public class OrderDAO {
 
     private OrderState mapState(String status) {
         return switch (status) {
-            case "CONFIRMED" -> new PlacedState();
+            case "PLACED" -> new PlacedState();
             case "PREPARING" -> new PreparingState();
             case "DELIVERED" -> new DeliveredState();
             default -> new PlacedState();
