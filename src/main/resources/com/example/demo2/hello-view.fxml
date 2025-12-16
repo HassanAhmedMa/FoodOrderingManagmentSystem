@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo2.HelloController">
+<ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo2.HomePageController">
 
     <VBox spacing="40" style="-fx-background-color: #FFF8F2;">
 
@@ -26,9 +26,9 @@
             <Region HBox.hgrow="ALWAYS" />
 
             <Button text="Browse">
-            <HBox.margin>
-               <Insets right="110.0" />
-            </HBox.margin></Button>
+                <HBox.margin>
+                    <Insets right="110.0" />
+                </HBox.margin></Button>
 
             <Label style="-fx-background-color: #FFE5D1;                           -fx-padding: 6 12;                           -fx-background-radius: 20;" text="hassanahmed9975" />
         </HBox>
@@ -50,7 +50,7 @@
                 <HBox spacing="10">
                     <TextField prefWidth="300" promptText="Enter your delivery address..." />
 
-                    <Button prefWidth="120" style="-fx-background-color: #ff6a00;                                    -fx-text-fill: white;                                    -fx-font-weight: bold;" text="Find Food" />
+                    <Button fx:id="FindFoodButton" onAction="#onBrowseClicked" prefWidth="120" style="-fx-background-color: #ff6a00;                                    -fx-text-fill: white;                                    -fx-font-weight: bold;" text="Find Food" />
                 </HBox>
 
                 <!-- Stats -->
@@ -81,7 +81,7 @@
 
                 <Region HBox.hgrow="ALWAYS" />
 
-                <Button style="-fx-background-color: transparent;                                -fx-text-fill: #ff6a00;                                -fx-font-weight: bold;" text="View All →" />
+                <Button onMouseClicked="#onBrowseClicked" style="-fx-background-color: transparent;                                -fx-text-fill: #ff6a00;                                -fx-font-weight: bold;" text="View All →" />
             </HBox>
 
             <!-- Restaurant Cards -->

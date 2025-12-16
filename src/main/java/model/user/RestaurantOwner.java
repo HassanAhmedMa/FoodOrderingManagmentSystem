@@ -1,11 +1,24 @@
 package model.user;
 
+public class RestaurantOwner {
 
-public class RestaurantOwner extends User {
+    private int id;
+    private String name;
+    private String email;
+
+    // FULL constructor
     public RestaurantOwner(int id, String name, String email) {
-        super(id, name, email);
+        this.id = id;
+        this.name = name;
+        this.email = email;
     }
 
+    // 🔥 REQUIRED FOR DAO
+    public RestaurantOwner(int id) {
+        this.id = id;
+    }
 
-    public String getRole() { return "RESTAURANT_OWNER"; }
+    public int getId() {
+        return id;
+    }
 }
