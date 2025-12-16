@@ -1,6 +1,8 @@
 package dao;
 
 import com.example.demo2.db.DBConnection;
+import model.user.Customer;
+import model.user.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -113,6 +115,49 @@ public class UserDAO {
 
         return null;
     }
+
+    public User getUserByEmail(String email) {
+
+        String sql = "SELECT * FROM users WHERE email = ? LIMIT 1";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+
+                String role = rs.getString("role");
+
+                // CUSTOMER
+                if ("CUSTOMER".equalsIgnoreCase(role)) {
+                    return new Customer(
+                            rs.getInt("user_id"),
+                            rs.getString("full_name"),
+                            rs.getString("email"),
+                            rs.getString("phone"),
+                            role
+                    );
+                }
+
+                // fallback if you add more roles later
+                return new User(
+                        rs.getInt("user_id"),
+                        rs.getString("full_name"),
+                        rs.getString("email"),
+                        rs.getString("phone"),
+                        role
+                ) {};
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
 
     // ✅ small DTO class used only for login
     public static class UserLoginData {

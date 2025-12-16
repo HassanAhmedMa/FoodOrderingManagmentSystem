@@ -10,7 +10,7 @@ public class MenuItem {
     private String imageUrl;
     private boolean available;
 
-    public MenuItem(int restaurantId, int restaurant_id, String name, double price) {
+    public MenuItem(int restaurantId, String name, double price) {
         this.restaurantId = restaurantId;
         this.name = name;
         this.price = price;

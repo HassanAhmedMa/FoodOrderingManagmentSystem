@@ -70,7 +70,6 @@ public class MenuItemDAO {
 
                 MenuItem item = new MenuItem(
                         rs.getInt("item_id"),
-                        rs.getInt("restaurant_id"),
                         rs.getString("name"),
                         rs.getDouble("price")
                 );

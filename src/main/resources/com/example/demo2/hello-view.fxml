@@ -10,78 +10,52 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane fitToWidth="true"
-            xmlns="http://javafx.com/javafx/23.0.1"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="model.controller.HomePageController">
+<ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="model.controller.HomePageController">
 
     <VBox spacing="40" style="-fx-background-color: #FFF8F2;">
 
         <!-- ================= NAVBAR ================= -->
-        <HBox alignment="CENTER_LEFT" spacing="30"
-              style="-fx-background-color: white; -fx-border-color: #eee;">
+        <HBox alignment="CENTER_LEFT" spacing="30" style="-fx-background-color: white; -fx-border-color: #eee;">
             <padding>
-                <Insets bottom="15" left="15" right="15" top="15"/>
+                <Insets bottom="15" left="15" right="15" top="15" />
             </padding>
 
-            <Label style="-fx-font-size: 20px; -fx-font-weight: bold;"
-                   text="🍴 FoodHub"/>
+            <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="🍴 FoodHub" />
 
-            <Region HBox.hgrow="ALWAYS"/>
+            <Region HBox.hgrow="ALWAYS" />
 
-            <Button text="Browse" onAction="#onBrowseClicked"/>
-            <Button text="My Orders"/>
+            <Button onAction="#onBrowseClicked" text="Browse" />
+            <Button onAction="#goToOrders" text="My Orders" />
 
-            <Label text="hassanahmed9975"
-                   style="-fx-background-color: #FFE5D1;
-                          -fx-padding: 6 12;
-                          -fx-background-radius: 20;"/>
+            <Label style="-fx-background-color: #FFE5D1;                           -fx-padding: 6 12;                           -fx-background-radius: 20;" text="hassanahmed9975" />
         </HBox>
 
         <!-- ================= HERO SECTION ================= -->
-        <StackPane prefHeight="420"
-                   style="-fx-background-color: linear-gradient(to right, #4a1f0f, #ff7a18);">
+        <StackPane prefHeight="420" style="-fx-background-color: linear-gradient(to right, #4a1f0f, #ff7a18);">
 
             <VBox alignment="CENTER_LEFT" maxWidth="600" spacing="15">
                 <padding>
-                    <Insets bottom="60" left="60" right="60" top="60"/>
+                    <Insets bottom="60" left="60" right="60" top="60" />
                 </padding>
 
-                <Label text="Delicious Food,"
-                       style="-fx-text-fill: white;
-                              -fx-font-size: 42px;
-                              -fx-font-weight: bold;"/>
+                <Label style="-fx-text-fill: white;                               -fx-font-size: 42px;                               -fx-font-weight: bold;" text="Delicious Food," />
 
-                <Label text="Delivered Fast"
-                       style="-fx-text-fill: #ff8c42;
-                              -fx-font-size: 42px;
-                              -fx-font-weight: bold;"/>
+                <Label style="-fx-text-fill: #ff8c42;                               -fx-font-size: 42px;                               -fx-font-weight: bold;" text="Delivered Fast" />
 
-                <Label wrapText="true"
-                       text="Order from your favorite restaurants and track your delivery in real-time."
-                       style="-fx-text-fill: white; -fx-font-size: 15;"/>
+                <Label style="-fx-text-fill: white; -fx-font-size: 15;" text="Order from your favorite restaurants and track your delivery in real-time." wrapText="true" />
 
                 <HBox spacing="10">
-                    <TextField prefWidth="300"
-                               promptText="Enter your delivery address..."/>
-                    <Button text="Find Food"
-                            onAction="#onBrowseClicked"
-                            prefWidth="120"
-                            style="-fx-background-color: #ff6a00;
-                                   -fx-text-fill: white;
-                                   -fx-font-weight: bold;"/>
+                    <TextField prefWidth="300" promptText="Enter your delivery address..." />
+                    <Button onAction="#onBrowseClicked" prefWidth="120" style="-fx-background-color: #ff6a00;                                    -fx-text-fill: white;                                    -fx-font-weight: bold;" text="Find Food" />
                 </HBox>
 
                 <HBox spacing="30">
                     <padding>
-                        <Insets top="20"/>
+                        <Insets top="20" />
                     </padding>
-                    <Label text="⭐ 4.8 Rating&#10;10k+ Reviews"
-                           style="-fx-text-fill: white;"/>
-                    <Label text="⏱ 25 min&#10;Avg. Delivery"
-                           style="-fx-text-fill: white;"/>
-                    <Label text="✔ 100%&#10;Safe Delivery"
-                           style="-fx-text-fill: white;"/>
+                    <Label style="-fx-text-fill: white;" text="⭐ 4.8 Rating&#10;10k+ Reviews" />
+                    <Label style="-fx-text-fill: white;" text="⏱ 25 min&#10;Avg. Delivery" />
+                    <Label style="-fx-text-fill: white;" text="✔ 100%&#10;Safe Delivery" />
                 </HBox>
 
             </VBox>
@@ -90,60 +64,36 @@
         <!-- ================= POPULAR RESTAURANTS ================= -->
         <VBox spacing="20">
             <padding>
-                <Insets bottom="40" left="40" right="40" top="40"/>
+                <Insets bottom="40" left="40" right="40" top="40" />
             </padding>
 
             <HBox alignment="CENTER_LEFT">
                 <VBox>
-                    <Label text="Popular Restaurants"
-                           style="-fx-font-size: 26px; -fx-font-weight: bold;"/>
-                    <Label text="Top rated restaurants in your area"
-                           style="-fx-text-fill: #777;"/>
+                    <Label style="-fx-font-size: 26px; -fx-font-weight: bold;" text="Popular Restaurants" />
+                    <Label style="-fx-text-fill: #777;" text="Top rated restaurants in your area" />
                 </VBox>
 
-                <Region HBox.hgrow="ALWAYS"/>
+                <Region HBox.hgrow="ALWAYS" />
 
-                <Button text="View All →"
-                        onAction="#onBrowseClicked"
-                        style="-fx-background-color: transparent;
-                               -fx-text-fill: #ff6a00;
-                               -fx-font-weight: bold;"/>
+                <Button onAction="#onBrowseClicked" style="-fx-background-color: transparent;                                -fx-text-fill: #ff6a00;                                -fx-font-weight: bold;" text="View All →" />
             </HBox>
 
             <!-- 🔥 DYNAMIC RESTAURANT CARDS (FROM DATABASE) -->
-            <HBox fx:id="popularRestaurantsBox"
-                  spacing="20"/>
+            <HBox fx:id="popularRestaurantsBox" spacing="20" />
         </VBox>
 
         <!-- ================= CTA ================= -->
-        <StackPane prefHeight="300"
-                   style="-fx-background-color: linear-gradient(to right, #ff6a00, #ee0979);">
+        <StackPane prefHeight="300" style="-fx-background-color: linear-gradient(to right, #ff6a00, #ee0979);">
 
             <VBox alignment="CENTER" spacing="15">
-                <Label text="Ready to Order?"
-                       style="-fx-text-fill: white;
-                              -fx-font-size: 36px;
-                              -fx-font-weight: bold;"/>
+                <Label style="-fx-text-fill: white;                               -fx-font-size: 36px;                               -fx-font-weight: bold;" text="Ready to Order?" />
 
-                <Label wrapText="true"
-                       maxWidth="500"
-                       text="Join thousands of happy customers and get your favorite food delivered today."
-                       style="-fx-text-fill: white;
-                              -fx-font-size: 15;
-                              -fx-alignment: center;"/>
+                <Label maxWidth="500" style="-fx-text-fill: white;                               -fx-font-size: 15;                               -fx-alignment: center;" text="Join thousands of happy customers and get your favorite food delivered today." wrapText="true" />
 
-                <Button text="Start Ordering Now →"
-                        onAction="#onBrowseClicked"
-                        prefHeight="45"
-                        prefWidth="220"
-                        style="-fx-background-color: #fff2e6;
-                               -fx-text-fill: #ff6a00;
-                               -fx-font-size: 14;
-                               -fx-font-weight: bold;
-                               -fx-background-radius: 25;"/>
+                <Button onAction="#onBrowseClicked" prefHeight="45" prefWidth="220" style="-fx-background-color: #fff2e6;                                -fx-text-fill: #ff6a00;                                -fx-font-size: 14;                                -fx-font-weight: bold;                                -fx-background-radius: 25;" text="Start Ordering Now →" />
             </VBox>
         </StackPane>
 
-        <Region prefHeight="50"/>
+        <Region prefHeight="50" />
     </VBox>
 </ScrollPane>

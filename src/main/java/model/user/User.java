@@ -1,9 +1,5 @@
 package model.user;
 
-/**
- * Domain model for users table
- * NO database logic here
- */
 public abstract class User {
 
     protected int id;
@@ -12,13 +8,7 @@ public abstract class User {
     protected String phone;
     protected String role;
 
-    protected User(
-            int id,
-            String fullName,
-            String email,
-            String phone,
-            String role
-    ) {
+    protected User(int id, String fullName, String email, String phone, String role) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
@@ -26,27 +16,9 @@ public abstract class User {
         this.role = role;
     }
 
-    /* ======================
-       Getters
-       ====================== */
-
-    public int getId() {
-        return id;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public String getRole() {
-        return role;
-    }
+    public int getId() { return id; }
+    public String getFullName() { return fullName; }
+    public String getEmail() { return email; }
+    public String getPhone() { return phone; }
+    public String getRole() { return role; }
 }

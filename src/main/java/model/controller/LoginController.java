@@ -1,12 +1,14 @@
 package model.controller;
 
 import com.example.demo2.Navigator;
+import com.example.demo2.Session;
 import dao.UserDAO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import model.user.User;
 
 import java.util.regex.Pattern;
 
@@ -59,6 +61,8 @@ public class LoginController {
         }
 
 //        showSuccess("Welcome " + data.getFullName() + " (" + data.getRole() + ")");
+        User user = userDAO.getUserByEmail(email);
+        Session.setUser(user);
         Navigator.goTo("/com/example/demo2/hello-view.fxml");
         // Next step: redirect by role
         // e.g. if role == Customer -> open customer dashboard

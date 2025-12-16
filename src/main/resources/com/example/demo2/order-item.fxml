@@ -9,60 +9,48 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<TitledPane collapsible="true" expanded="false" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<TitledPane
+        xmlns="http://javafx.com/javafx/17"
+        xmlns:fx="http://javafx.com/fxml"
+        fx:controller="model.controller.OrderItemController"
+        collapsible="true"
+        expanded="false">
 
-    <!-- ===== HEADER (always visible) ===== -->
+    <!-- ===== HEADER ===== -->
     <graphic>
         <HBox spacing="10">
             <ImageView fitHeight="30" fitWidth="30" />
             <VBox>
-                <Label style="-fx-font-weight: bold;" text="Pizza Heaven" />
-                <Label style="-fx-text-fill: #777;" text="12/16/2025 · 2 items" />
+                <Label fx:id="restaurantNameLabel"
+                       style="-fx-font-weight: bold;" />
+                <Label fx:id="orderMetaLabel"
+                       style="-fx-text-fill: #777;" />
             </VBox>
             <Region HBox.hgrow="ALWAYS" />
-            <Label prefHeight="17.0" prefWidth="192.0" style="-fx-text-fill: #ff6a00;" text="Confirmed" />
+            <Label fx:id="statusLabel"
+                   style="-fx-text-fill: #ff6a00;" />
         </HBox>
     </graphic>
 
-    <!-- ===== DROPDOWN CONTENT ===== -->
+    <!-- ===== CONTENT ===== -->
     <content>
         <VBox spacing="20">
             <padding>
-                <Insets bottom="15" left="15" right="15" top="15" />
+                <Insets bottom="15" left="15" right="15" top="15"/>
             </padding>
-
-            <Label text="Order Progress" />
-
-            <HBox spacing="20">
-                <Label text="Placed" />
-                <Label text="Confirmed" />
-                <Label text="Preparing" />
-                <Label text="Out for delivery" />
-                <Label text="Delivered" />
-            </HBox>
-
-            <Separator />
 
             <Label text="Items" />
 
-            <HBox spacing="10">
-                <Label text="Margherita Pizza" />
-                <Region HBox.hgrow="ALWAYS" />
-                <Label text="14.99$" />
-            </HBox>
+            <!-- Items container -->
+            <VBox fx:id="itemsContainer" spacing="10"/>
 
-            <HBox spacing="10">
-                <Label text="Garlic Bread" />
-                <Region HBox.hgrow="ALWAYS" />
-                <Label text="23.96$" />
-            </HBox>
-
-            <Separator />
+            <Separator/>
 
             <HBox>
-                <Label style="-fx-font-weight: bold;" text="Total" />
-                <Region HBox.hgrow="ALWAYS" />
-                <Label style="-fx-text-fill: #ff6a00; -fx-font-weight: bold;" text="45.84$" />
+                <Label text="Total" style="-fx-font-weight: bold;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="totalLabel"
+                       style="-fx-text-fill: #ff6a00; -fx-font-weight: bold;"/>
             </HBox>
 
         </VBox>

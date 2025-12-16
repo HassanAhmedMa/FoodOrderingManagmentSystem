@@ -36,7 +36,9 @@ public class Order implements Subject {
     /* =====================
        Order Items
        ===================== */
-
+    public List<OrderItem> getItems() {
+        return items;
+    }
     public void addItem(OrderItem item) {
         items.add(item);
     }
@@ -126,5 +128,12 @@ public class Order implements Subject {
     @Override
     public void notifyObservers() {
         observers.forEach(o -> o.update(this));
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setStatus(String delivered) {
     }
 }

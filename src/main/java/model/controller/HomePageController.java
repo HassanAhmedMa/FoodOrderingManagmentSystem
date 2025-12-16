@@ -108,4 +108,8 @@ public class HomePageController {
             System.out.println("Failed to load image: " + path);
         }
     }
+    @FXML
+    public void goToOrders(){
+        Navigator.goTo("/com/example/demo2/my-orders.fxml");
+    }
 }

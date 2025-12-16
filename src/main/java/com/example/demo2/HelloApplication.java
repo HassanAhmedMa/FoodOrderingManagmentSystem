@@ -12,7 +12,7 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws Exception {
 
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/com/example/demo2/SignUp.fxml")
+                getClass().getResource("/com/example/demo2/Login.fxml")
         );
 
         Parent root = loader.load();
