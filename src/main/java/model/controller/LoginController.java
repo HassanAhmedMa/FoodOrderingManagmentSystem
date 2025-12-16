@@ -4,13 +4,9 @@ import com.example.demo2.Navigator;
 import com.example.demo2.Session;
 import dao.UserDAO;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import model.user.User;
-
-import java.util.regex.Pattern;
+import model.validation.login.*;
 
 public class LoginController {
 
@@ -19,9 +15,6 @@ public class LoginController {
     @FXML private Label messageLabel;
 
     private final UserDAO userDAO = new UserDAO();
-
-    private static final Pattern EMAIL_PATTERN =
-            Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
 
     @FXML
     private void initialize() {
@@ -33,43 +26,30 @@ public class LoginController {
         clearMessage();
         clearMarks();
 
-        String email = emailField.getText().trim();
-        String pass  = passwordField.getText();
+        LoginRequest r = new LoginRequest();
+        r.email = emailField.getText().trim();
+        r.password = passwordField.getText();
 
-        if (email.isEmpty()) { markInvalid(emailField); showError("Email is required."); return; }
-        if (!EMAIL_PATTERN.matcher(email).matches()) {
-            markInvalid(emailField);
-            showError("Please enter a valid email.");
-            return;
-        }
-        if (pass.isEmpty()) { markInvalid(passwordField); showError("Password is required."); return; }
+        LoginHandler chain = new EmailValidationHandler();
+        chain.setNext(new PasswordRequiredHandler())
+                .setNext(new UserExistsHandler(userDAO))
+                .setNext(new PasswordMatchesHandler());
 
-        // ---- DB lookup ----
-        UserDAO.UserLoginData data = userDAO.getLoginDataByEmail(email);
+        try {
+            chain.handle(r);
 
-        if (data == null) {
-            markInvalid(emailField);
-            showError("No account found with this email.");
-            return;
-        }
+            User user = userDAO.getUserByEmail(r.email);
+            Session.setUser(user);
 
-        // ---- Password check (plain text currently) ----
-        if (!pass.equals(data.getPassword())) {
-            markInvalid(passwordField);
-            showError("Incorrect password.");
-            return;
-        }
-
-//        showSuccess("Welcome " + data.getFullName() + " (" + data.getRole() + ")");
-        User user = userDAO.getUserByEmail(email);
-        Session.setUser(user);
-        if ("RESTAURANT".equals(user.getRole())) {
-            Navigator.goTo("/com/example/demo2/restaurant-dashboard.fxml");
-        } else {
             Navigator.goTo("/com/example/demo2/hello-view.fxml");
+
+        } catch (LoginValidationException ex) {
+            markInvalidByKey(ex.getFieldKey());
+            showError(ex.getMessage());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            showError("Login failed. Please try again.");
         }
-        // Next step: redirect by role
-        // e.g. if role == Customer -> open customer dashboard
     }
 
     @FXML
@@ -83,11 +63,6 @@ public class LoginController {
         messageLabel.setText(msg);
     }
 
-    private void showSuccess(String msg) {
-        messageLabel.setStyle("-fx-text-fill: #166534;");
-        messageLabel.setText(msg);
-    }
-
     private void clearMessage() {
         if (messageLabel != null) messageLabel.setText("");
     }
@@ -95,6 +70,14 @@ public class LoginController {
     private void markInvalid(Control c) {
         String base = c.getStyle() == null ? "" : c.getStyle();
         c.setStyle(base + "; -fx-border-color: #ef4444; -fx-border-width: 2; -fx-border-radius: 10;");
+    }
+
+    private void markInvalidByKey(String key) {
+        switch (key) {
+            case "email" -> markInvalid(emailField);
+            case "password" -> markInvalid(passwordField);
+            default -> { }
+        }
     }
 
     private void clearMarks() {
