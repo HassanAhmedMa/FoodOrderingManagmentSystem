@@ -20,21 +20,15 @@ public class HomePageController {
 
     private final RestaurantDAO restaurantDAO = new RestaurantDAO();
 
-    /* ================= INIT ================= */
-
     @FXML
     public void initialize() {
         loadPopularRestaurants();
     }
 
-    /* ================= NAV ================= */
-
     @FXML
     private void onBrowseClicked() {
         Navigator.goTo("/com/example/demo2/browse-restaurants.fxml");
     }
-
-    /* ================= DATA ================= */
 
     private void loadPopularRestaurants() {
 
@@ -48,18 +42,16 @@ public class HomePageController {
         }
     }
 
-    /* ================= UI CARD ================= */
-
     private VBox createRestaurantCard(Restaurant r) {
 
         ImageView image = new ImageView();
         image.setFitWidth(300);
-        image.setFitHeight(170);
+        image.setFitHeight(150);
         image.setPreserveRatio(false);
         image.setSmooth(true);
-        image.setMouseTransparent(true); // 🔥 VERY IMPORTANT (click fix)
+        image.setMouseTransparent(true);
 
-        loadImageSafely(image, r.getImageUrl());
+        image.setImage(loadImage(r.getImageUrl()));
 
         Label name = new Label(r.getName());
         name.setStyle("-fx-font-weight: bold;");
@@ -67,7 +59,7 @@ public class HomePageController {
         Label desc = new Label(r.getDescription());
         desc.setStyle("-fx-text-fill: #777;");
 
-        Label rating = new Label("⭐ " + r.getRatingAvg());
+        Label rating = new Label(" " + r.getRatingAvg());
 
         Label info = new Label(
                 "25-35 min · " + r.getLocation() + " · $2.99 delivery"
@@ -82,6 +74,7 @@ public class HomePageController {
             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10,0,0,4);
         """);
 
+        // 🔥 CLICK WORKS FOR ALL CARDS
         card.setOnMouseClicked(e ->
                 Navigator.goToRestaurant(r.getId())
         );
@@ -89,23 +82,41 @@ public class HomePageController {
         return card;
     }
 
-    /* ================= IMAGE SAFE LOADER ================= */
+    /* ================= IMAGE LOADING ================= */
 
-    private void loadImageSafely(ImageView imageView, String path) {
+    private Image loadImage(String path) {
 
         if (path == null || path.isBlank()) {
-            return; // no image → empty card (allowed)
+            return loadPlaceholder();
         }
 
         try {
             URL url = getClass().getResource(path);
-            if (url != null) {
-                imageView.setImage(new Image(url.toExternalForm(), true));
-            } else {
-                System.out.println("Image not found: " + path);
+
+            if (url == null) {
+                System.out.println(" Image not found: " + path);
+                return loadPlaceholder();
             }
+
+            return new Image(url.toExternalForm(), true);
+
         } catch (Exception e) {
-            System.out.println("Failed to load image: " + path);
+            return loadPlaceholder();
         }
     }
+
+
+    private Image loadPlaceholder() {
+
+        URL url = getClass().getResource("/images/restaurants/burgerhub.jpg");
+
+        if (url == null) {
+            System.out.println("Placeholder image missing!");
+            // absolute fallback (never crashes)
+            return new Image("https://via.placeholder.com/300x150.png");
+        }
+
+        return new Image(url.toExternalForm(), true);
+    }
+
 }

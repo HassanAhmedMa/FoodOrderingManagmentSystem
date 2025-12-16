@@ -12,13 +12,13 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws Exception {
 
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/com/example/demo2/SignUp.fxml")
+                getClass().getResource("/com/example/demo2/hello-view.fxml")
         );
 
         Parent root = loader.load();
 
         // 🔥 THIS LINE IS THE FIX
-        root.setUserData("/com/example/demo2/SignUp.fxml");
+        root.setUserData("/com/example/demo2/hello-view.fxml");
 
         Scene scene = new Scene(root);
 

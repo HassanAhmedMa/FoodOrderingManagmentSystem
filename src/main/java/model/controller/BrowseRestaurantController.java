@@ -105,7 +105,7 @@ public class BrowseRestaurantController {
         image.setSmooth(true);
         image.setMouseTransparent(true);
 
-        loadImageSafely(image, resolveRestaurantImage(r));
+        loadImageSafely(image, r.getImageUrl());
 
         /* ---------- RATING BADGE ---------- */
         Label rating = new Label("⭐ " + r.getRatingAvg());
@@ -163,18 +163,6 @@ public class BrowseRestaurantController {
 
     /* ================= IMAGE RESOLUTION ================= */
 
-    private String resolveRestaurantImage(Restaurant r) {
-
-        String name = r.getName().toLowerCase();
-
-        if (name.contains("pizza")) return "/images/restaurants/pizza palace.jpg";
-        if (name.contains("burger")) return "/images/restaurants/burgerhub.jpg";
-        if (name.contains("sushi")) return "/images/restaurants/sushi.jpg";
-        if (name.contains("pasta")) return "/images/restaurants/pasta.jpg";
-        if (name.contains("taco")) return "/images/restaurants/tacos.jpg";
-
-        return "/images/restaurants/burger palace.jpg"; // fallback
-    }
 
     /* ================= IMAGE SAFE LOADER ================= */
 

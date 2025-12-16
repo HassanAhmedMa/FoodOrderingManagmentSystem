@@ -44,7 +44,7 @@ public class RestaurantPageController {
         this.restaurantId = restaurantId;
         loadRestaurantHeader();
         loadMenuItems();
-        loadReviews(); // 🔥
+        loadReviews();
     }
 
     private void loadRestaurantHeader() {
