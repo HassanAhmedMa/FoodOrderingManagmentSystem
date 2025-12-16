@@ -13,12 +13,12 @@
             style="-fx-background-color: transparent;">
 
     <children>
-        <!-- Full screen container -->
+        <!-- Full width/height -->
         <HBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
               spacing="0.0">
 
-            <!-- LEFT SIDE (full height) -->
+            <!-- LEFT SIDE -->
             <VBox prefWidth="360.0" alignment="CENTER_LEFT" spacing="14.0"
                   style="-fx-background-color: linear-gradient(to bottom, #1b0f08, #3a1b0b, #6a2f12);
                          -fx-background-radius: 0;">
@@ -57,7 +57,7 @@
                            style="-fx-text-fill: #FDBA74; -fx-font-size: 12px;"/>
             </VBox>
 
-            <!-- RIGHT SIDE (full height) -->
+            <!-- RIGHT SIDE -->
             <VBox alignment="TOP_CENTER" spacing="16.0"
                   HBox.hgrow="ALWAYS"
                   style="-fx-background-color: white; -fx-background-radius: 0;">
@@ -84,6 +84,7 @@
                         <ColumnConstraints percentWidth="50"/>
                     </columnConstraints>
 
+                    <!-- Names -->
                     <Label text="First name" GridPane.rowIndex="0" GridPane.columnIndex="0"
                            style="-fx-text-fill: #0f172a; -fx-font-size: 12px; -fx-font-weight: bold;"/>
                     <Label text="Last name" GridPane.rowIndex="0" GridPane.columnIndex="1"
@@ -96,28 +97,38 @@
                                GridPane.rowIndex="1" GridPane.columnIndex="1"
                                style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #E5E7EB; -fx-padding: 10;"/>
 
+                    <!-- Email -->
                     <Label text="Email" GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.columnSpan="2"
                            style="-fx-text-fill: #0f172a; -fx-font-size: 12px; -fx-font-weight: bold;"/>
                     <TextField fx:id="emailField" promptText="name@example.com"
                                GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.columnSpan="2"
                                style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #E5E7EB; -fx-padding: 10;"/>
 
-                    <Label text="Password" GridPane.rowIndex="4" GridPane.columnIndex="0"
+                    <!-- Phone (NEW) -->
+                    <Label text="Phone" GridPane.rowIndex="4" GridPane.columnIndex="0" GridPane.columnSpan="2"
                            style="-fx-text-fill: #0f172a; -fx-font-size: 12px; -fx-font-weight: bold;"/>
-                    <Label text="Confirm" GridPane.rowIndex="4" GridPane.columnIndex="1"
+                    <TextField fx:id="phoneField" promptText="e.g. 01XXXXXXXXX"
+                               GridPane.rowIndex="5" GridPane.columnIndex="0" GridPane.columnSpan="2"
+                               style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #E5E7EB; -fx-padding: 10;"/>
+
+                    <!-- Passwords -->
+                    <Label text="Password" GridPane.rowIndex="6" GridPane.columnIndex="0"
+                           style="-fx-text-fill: #0f172a; -fx-font-size: 12px; -fx-font-weight: bold;"/>
+                    <Label text="Confirm" GridPane.rowIndex="6" GridPane.columnIndex="1"
                            style="-fx-text-fill: #0f172a; -fx-font-size: 12px; -fx-font-weight: bold;"/>
 
                     <PasswordField fx:id="passwordField" promptText="password"
-                                   GridPane.rowIndex="5" GridPane.columnIndex="0"
+                                   GridPane.rowIndex="7" GridPane.columnIndex="0"
                                    style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #E5E7EB; -fx-padding: 10;"/>
                     <PasswordField fx:id="confirmPasswordField" promptText="confirm password"
-                                   GridPane.rowIndex="5" GridPane.columnIndex="1"
+                                   GridPane.rowIndex="7" GridPane.columnIndex="1"
                                    style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #E5E7EB; -fx-padding: 10;"/>
 
-                    <Label text="Role" GridPane.rowIndex="6" GridPane.columnIndex="0" GridPane.columnSpan="2"
+                    <!-- Role -->
+                    <Label text="Role" GridPane.rowIndex="8" GridPane.columnIndex="0" GridPane.columnSpan="2"
                            style="-fx-text-fill: #0f172a; -fx-font-size: 12px; -fx-font-weight: bold;"/>
                     <ComboBox fx:id="roleBox" promptText="Choose role"
-                              GridPane.rowIndex="7" GridPane.columnIndex="0" GridPane.columnSpan="2"
+                              GridPane.rowIndex="9" GridPane.columnIndex="0" GridPane.columnSpan="2"
                               style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #E5E7EB;"/>
                 </GridPane>
 
@@ -127,9 +138,12 @@
                               style="-fx-text-fill: #334155; -fx-font-size: 12px;"/>
                 </HBox>
 
+                <!-- Button hover handlers (NEW) -->
                 <Button text="Create account"
                         fx:id="signupButton"
                         onAction="#onSignup"
+                        onMouseEntered="#signupHoverOn"
+                        onMouseExited="#signupHoverOff"
                         maxWidth="520.0"
                         style="-fx-background-color: #F97316; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 12; -fx-padding: 12 14;"/>
 
