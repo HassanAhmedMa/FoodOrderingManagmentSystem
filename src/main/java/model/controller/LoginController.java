@@ -63,7 +63,11 @@ public class LoginController {
 //        showSuccess("Welcome " + data.getFullName() + " (" + data.getRole() + ")");
         User user = userDAO.getUserByEmail(email);
         Session.setUser(user);
-        Navigator.goTo("/com/example/demo2/hello-view.fxml");
+        if ("RESTAURANT".equals(user.getRole())) {
+            Navigator.goTo("/com/example/demo2/restaurant-dashboard.fxml");
+        } else {
+            Navigator.goTo("/com/example/demo2/hello-view.fxml");
+        }
         // Next step: redirect by role
         // e.g. if role == Customer -> open customer dashboard
     }

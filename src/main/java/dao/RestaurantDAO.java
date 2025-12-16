@@ -131,4 +131,24 @@ public class RestaurantDAO {
         );
     }
 
+    public Restaurant getRestaurantByOwner(int ownerId) {
+
+        String sql = "SELECT * FROM restaurants WHERE owner_id = ? LIMIT 1";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, ownerId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return mapRestaurant(rs);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

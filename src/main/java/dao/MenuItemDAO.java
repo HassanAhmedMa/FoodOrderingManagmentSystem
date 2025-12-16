@@ -69,10 +69,12 @@ public class MenuItemDAO {
             while (rs.next()) {
 
                 MenuItem item = new MenuItem(
-                        rs.getInt("item_id"),
+                        rs.getInt("item_id"),          // ✅ item_id
+                        rs.getInt("restaurant_id"),    // ✅ restaurant_id
                         rs.getString("name"),
                         rs.getDouble("price")
                 );
+
 
                 item.setDescription(rs.getString("description"));
                 item.setCategory(rs.getString("category"));
@@ -113,4 +115,55 @@ public class MenuItemDAO {
             e.printStackTrace();
         }
     }
+
+    /* ================= DELETE ================= */
+
+    public void deleteMenuItem(int itemId) {
+
+        String sql = "UPDATE menu_items SET available = false WHERE item_id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, itemId);
+            stmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /* ================= UPDATE ================= */
+
+    public void updateMenuItem(MenuItem item) {
+
+        String sql = """
+        UPDATE menu_items
+        SET name = ?,
+            description = ?,
+            price = ?,
+            category = ?,
+            image_url = ?,
+            available = ?
+        WHERE item_id = ?
+    """;
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, item.getName());
+            stmt.setString(2, item.getDescription());
+            stmt.setDouble(3, item.getPrice());
+            stmt.setString(4, item.getCategory());
+            stmt.setString(5, item.getImageUrl());
+            stmt.setBoolean(6, item.isAvailable());
+            stmt.setInt(7, item.getItemId()); // 🔑 THIS IS WHY ID MATTERS
+
+            stmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
