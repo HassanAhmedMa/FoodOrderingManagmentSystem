@@ -11,7 +11,7 @@
 <ScrollPane fitToWidth="true"
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.demo2.CartController">
+            fx:controller="model.controller.CartController">
 
     <VBox spacing="30"
           style="-fx-background-color: #FFF8F2;">

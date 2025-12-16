@@ -1,5 +1,6 @@
 package model.controller;
 
+import com.example.demo2.Navigator;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -24,7 +25,7 @@ public class LoginController {
         }
 
         // UI-only test (no DB yet)
-        showSuccess("Login controller works (no DB yet).");
+        Navigator.goTo("/com/example/demo2/hello-view.fxml");
     }
 
     @FXML
@@ -44,16 +45,6 @@ public class LoginController {
 
     @FXML
     private void goToSignup() {
-        try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/com/example/demo2/SignUp.fxml")
-            );
-            Scene scene = new Scene(loader.load(), 1100, 650);
-
-            Stage stage = (Stage) emailField.getScene().getWindow();
-            stage.setScene(scene);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Navigator.goTo("/com/example/demo2/SignUp.fxml");
     }
 }

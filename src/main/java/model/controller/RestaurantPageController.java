@@ -1,5 +1,6 @@
 package model.controller;
 
+import com.example.demo2.Navigator;
 import dao.MenuItemDAO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -96,17 +97,6 @@ public class RestaurantPageController implements Initializable {
 
     @FXML
     private void handleBack() {
-        try {
-            Parent root = FXMLLoader.load(
-                    getClass().getResource("/com/example/demo2/hello-view.fxml")
-            );
-
-            Stage stage = (Stage) backButton.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Navigator.goTo("/com/example/demo2/hello-view.fxml");
     }
 }

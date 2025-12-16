@@ -4,13 +4,11 @@ module com.example.demo2 {
     requires java.sql;
     requires mysql.connector.j;
 
-    // 🔥 REQUIRED FOR *ALL* FXML CONTROLLERS
-    opens model.controller to javafx.fxml;
 
-    // Optional (for TableView / PropertyValueFactory, etc.)
-    opens model.restaurant to javafx.base;
-
+    opens com.example.demo2 to javafx.fxml;
     exports com.example.demo2;
+    exports com.example.demo2.db;
+    opens com.example.demo2.db to javafx.fxml;
+    opens model.controller to javafx.fxml;
+    exports model.controller;
 }
-
-

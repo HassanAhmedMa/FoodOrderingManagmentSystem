@@ -1,12 +1,7 @@
-package com.example.demo2;
+package model.controller;
 
+import com.example.demo2.Navigator;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class HomePageController {
 

@@ -1,5 +1,6 @@
 package model.controller;
 
+import com.example.demo2.Navigator;
 import dao.RestaurantDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -20,8 +21,7 @@ public class BrowseRestaurantController {
     @FXML
     private ComboBox<String> sortCombo;
 
-    @FXML
-    private CheckBox openNowCheck;
+
 
     @FXML
     private Label resultCountLabel;
@@ -52,7 +52,6 @@ public class BrowseRestaurantController {
 
         // Listeners for live filtering
         searchField.textProperty().addListener((obs, oldVal, newVal) -> applyFilters());
-        openNowCheck.selectedProperty().addListener((obs, oldVal, newVal) -> applyFilters());
         sortCombo.valueProperty().addListener((obs, oldVal, newVal) -> applyFilters());
     }
 
@@ -69,7 +68,6 @@ public class BrowseRestaurantController {
 
         List<Restaurant> filtered = allRestaurants.stream()
                 .filter(r -> r.getName().toLowerCase().contains(searchText))
-                .filter(r -> !openNowCheck.isSelected() || r.isOpen())
                 .collect(Collectors.toList());
 
         switch (sortCombo.getValue()) {
@@ -129,5 +127,9 @@ public class BrowseRestaurantController {
         );
 
         return card;
+    }
+    @FXML
+    private void handleBack() {
+        Navigator.goTo("/com/example/demo2/hello-view.fxml");
     }
 }
