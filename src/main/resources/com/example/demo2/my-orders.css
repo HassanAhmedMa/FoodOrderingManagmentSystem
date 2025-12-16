@@ -1,0 +1,194 @@
+/* =========================
+   GLOBAL
+========================= */
+
+.root {
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
+    -fx-background-color: #fff7ef;
+}
+
+/* =========================
+   PAGE TITLE
+========================= */
+
+.page-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1f2937;
+}
+
+/* =========================
+   ORDER CARD (TitledPane)
+========================= */
+
+.titled-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.titled-pane > .title {
+    -fx-background-color: linear-gradient(to bottom, #f3f3f3, #e9e9e9);
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-padding: 14 18;
+    -fx-font-size: 14px;
+}
+
+.titled-pane:expanded > .title {
+    -fx-background-radius: 12 12 0 0;
+}
+
+.titled-pane > .content {
+    -fx-background-color: white;
+    -fx-background-radius: 0 0 12 12;
+    -fx-border-radius: 0 0 12 12;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 14, 0, 0, 6);
+}
+
+/* =========================
+   HEADER CONTENT
+========================= */
+
+.order-header {
+    -fx-alignment: center-left;
+}
+
+.restaurant-name {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #111827;
+}
+
+.order-meta {
+    -fx-font-size: 11px;
+    -fx-text-fill: #6b7280;
+}
+
+.order-status {
+    -fx-background-color: rgba(255, 106, 0, 0.12);
+    -fx-text-fill: #ff6a00;
+    -fx-padding: 4 12;
+    -fx-background-radius: 20;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+/* =========================
+   ORDER PROGRESS
+========================= */
+
+.progress-container {
+    -fx-spacing: 30;
+    -fx-padding: 10 0 20 0;
+}
+
+.progress-step {
+    -fx-alignment: center;
+}
+
+.progress-circle {
+    -fx-background-color: #e5e7eb;
+    -fx-text-fill: #6b7280;
+    -fx-min-width: 26;
+    -fx-min-height: 26;
+    -fx-background-radius: 50;
+    -fx-alignment: center;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.progress-circle.active {
+    -fx-background-color: #ff6a00;
+    -fx-text-fill: white;
+}
+
+.progress-label {
+    -fx-font-size: 11px;
+    -fx-text-fill: #6b7280;
+}
+
+.progress-line {
+    -fx-background-color: #ff6a00;
+    -fx-pref-height: 2;
+}
+
+/* =========================
+   ITEMS LIST
+========================= */
+
+.section-title {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #111827;
+}
+
+.order-item {
+    -fx-padding: 6 0;
+}
+
+.item-name {
+    -fx-font-size: 13px;
+    -fx-text-fill: #111827;
+}
+
+.item-qty {
+    -fx-font-size: 11px;
+    -fx-text-fill: #6b7280;
+}
+
+.item-price {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #111827;
+}
+
+/* =========================
+   TOTAL SECTION
+========================= */
+
+.total-row {
+    -fx-padding: 12 0 0 0;
+}
+
+.total-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.total-price {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ff6a00;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.primary-button {
+    -fx-background-color: #ff6a00;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-padding: 8 18;
+}
+
+.primary-button:hover {
+    -fx-background-color: #e85f00;
+}
+
+/* =========================
+   DELIVERY / PAYMENT INFO
+========================= */
+
+.info-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6b7280;
+}
+
+.info-value {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #111827;
+}
