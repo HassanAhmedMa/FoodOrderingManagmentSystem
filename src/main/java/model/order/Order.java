@@ -1,7 +1,9 @@
 package model.order;
 
+import dao.PaymentDAO;
 import model.observer.Observer;
 import model.observer.Subject;
+import model.payment.Payment;
 import model.payment.PaymentStrategy;
 import model.restaurant.Restaurant;
 import model.state.OrderState;
@@ -31,26 +33,60 @@ public class Order implements Subject {
         this.restaurant = restaurant;
     }
 
+    /* =====================
+       Order Items
+       ===================== */
+
     public void addItem(OrderItem item) {
         items.add(item);
     }
 
     public double calculateTotal() {
-        return items.stream().mapToDouble(OrderItem::getTotalPrice).sum();
+        return items.stream()
+                .mapToDouble(OrderItem::getTotalPrice)
+                .sum();
     }
+
+    /* =====================
+       Payment (FINAL)
+       ===================== */
 
     public void setPaymentStrategy(PaymentStrategy strategy) {
         this.paymentStrategy = strategy;
     }
 
-    public void pay(double amount) {
-        paymentStrategy.pay(amount);
+    public void payOrder() {
+        if (paymentStrategy == null) {
+            throw new IllegalStateException("Payment strategy not set");
+        }
+
+        // 1️⃣ Create Payment (matches DAO)
+        Payment payment = new Payment(this.id, paymentStrategy);
+
+        // 2️⃣ Execute payment
+        payment.pay(calculateTotal());
+
+        // 3️⃣ Persist payment
+        PaymentDAO paymentDAO = new PaymentDAO();
+        paymentDAO.createPayment(
+                payment.getOrderId(),
+                payment.getMethod(),
+                payment.getPaymentStatus()
+        );
     }
+
+    /* =====================
+       Delivery
+       ===================== */
 
     public void assignDelivery(DeliveryStaff staff) {
         this.deliveryStaff = staff;
-        System.out.println("Assigned to delivery: " + staff.getName());
+        System.out.println("Assigned to delivery: " + staff.getFullName());
     }
+
+    /* =====================
+       State Pattern
+       ===================== */
 
     public void nextState() {
         state.next(this);
@@ -65,9 +101,17 @@ public class Order implements Subject {
         return state.getStatus();
     }
 
+    /* =====================
+       Getters
+       ===================== */
+
     public int getId() {
         return id;
     }
+
+    /* =====================
+       Observer Pattern
+       ===================== */
 
     @Override
     public void attach(Observer observer) {
