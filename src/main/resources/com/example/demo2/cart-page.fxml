@@ -37,10 +37,7 @@
                 <Label text="Your Cart" style="-fx-font-size: 26px; -fx-font-weight: bold;" />
 
                 <!-- 🔥 CART ITEMS CONTAINER -->
-                <VBox fx:id="cartItemsBox" spacing="15">
-                    <fx:include source="cart-item-card.fxml"/>
-                    <fx:include source="cart-item-card.fxml"/>
-                </VBox>
+                <VBox fx:id="cartItemsBox" spacing="15"/>
 
                 <Button fx:id="clearCartButton"
                         text="Clear Cart"

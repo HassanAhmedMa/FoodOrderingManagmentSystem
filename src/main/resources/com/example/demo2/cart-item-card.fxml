@@ -15,7 +15,8 @@
              -fx-background-radius: 12;
              -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10,0,0,4);"
       xmlns="http://javafx.com/javafx/17"
-      xmlns:fx="http://javafx.com/fxml">
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="model.controller.CartItemCardController"  >
 
     <padding>
         <Insets top="12" right="15" bottom="12" left="15"/>
@@ -39,18 +40,22 @@
 
         <HBox spacing="8">
             <Button text="-"
+                    onAction="#onDecrease"
                     prefWidth="26"
                     style="-fx-background-radius: 50;
-                           -fx-background-color: #f0f0f0;" />
+                   -fx-background-color: #f0f0f0;" />
 
-            <Label text="1"
+            <Label fx:id="quantityLabel"
+                   text="1"
                    style="-fx-font-weight: bold;" />
 
             <Button text="+"
+                    onAction="#onIncrease"
                     prefWidth="26"
                     style="-fx-background-radius: 50;
-                           -fx-background-color: #f0f0f0;" />
+                   -fx-background-color: #f0f0f0;" />
         </HBox>
+
     </VBox>
 
     <!-- Spacer -->
@@ -62,7 +67,7 @@
                text="14.99$"
                style="-fx-text-fill: #ff6a00; -fx-font-weight: bold;" />
 
-        <Button text="🗑"
+        <Button text="🗑" onAction="#onDelete"
                 style="-fx-background-color: transparent;" />
     </VBox>
 

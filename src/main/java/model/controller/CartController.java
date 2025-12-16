@@ -2,7 +2,9 @@ package model.controller;
 
 import dao.OrderDAO;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.order.Order;
 import model.order.OrderItem;
@@ -21,7 +23,6 @@ public class CartController {
 
     private Order currentOrder;
     private PaymentStrategy paymentStrategy;
-
     private static final double TAX_RATE = 0.10;
     private static final double DELIVERY_FEE = 2.99;
 
@@ -50,9 +51,18 @@ public class CartController {
 
     private void createDemoOrder() {
         currentOrder = new Order(1, null, null);
+
         MenuItem pizza = new MenuItem(1, "Margherita Pizza", 14.99);
-        currentOrder.addItem(new OrderItem(pizza, 1));
-        currentOrder.addItem(new OrderItem(pizza, 1));
+
+        OrderItem item1 = new OrderItem(pizza, 1);
+        OrderItem item2 = new OrderItem(pizza, 1);
+
+        currentOrder.addItem(item1);
+        currentOrder.addItem(item2);
+
+        addCartItem(item1);
+        addCartItem(item2);
+
         recalculate();
     }
 
@@ -73,7 +83,7 @@ public class CartController {
         inactive.setStyle("-fx-background-color:white;-fx-border-color:#ddd;-fx-background-radius:10;");
     }
 
-    private void recalculate() {
+    public  void recalculate() {
         double subtotal = currentOrder.calculateTotal();
         double tax = subtotal * TAX_RATE;
         double total = subtotal + tax + DELIVERY_FEE;
@@ -114,4 +124,27 @@ public class CartController {
         clearCart();
         disablePlaceOrder();
     }
+
+    public void removeItem(OrderItem item, HBox cardRoot) {
+        currentOrder.getItems().remove(item);
+        cartItemsBox.getChildren().remove(cardRoot);
+        recalculate();
+    }
+    private void addCartItem(OrderItem item) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/demo2/cart-item-card.fxml")
+            );
+            HBox card = loader.load();
+
+            CartItemCardController controller = loader.getController();
+            controller.init(item, this, card);
+
+            cartItemsBox.getChildren().add(card);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
