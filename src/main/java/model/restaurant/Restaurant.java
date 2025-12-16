@@ -10,11 +10,17 @@ public class Restaurant {
     private String location;
     private double ratingAvg;
     private boolean isOpen;
+    private String imageUrl;          // 🔥 NEW
     private RestaurantOwner owner;
 
-    public Restaurant(int id, String name, String description,
-                      String location, double ratingAvg,
-                      boolean isOpen, RestaurantOwner owner) {
+    public Restaurant(int id,
+                      String name,
+                      String description,
+                      String location,
+                      double ratingAvg,
+                      boolean isOpen,
+                      String imageUrl,       // 🔥 NEW
+                      RestaurantOwner owner) {
 
         this.id = id;
         this.name = name;
@@ -22,12 +28,13 @@ public class Restaurant {
         this.location = location;
         this.ratingAvg = ratingAvg;
         this.isOpen = isOpen;
+        this.imageUrl = imageUrl;
         this.owner = owner;
     }
+
     public Restaurant(int id) {
         this.id = id;
     }
-
 
     /* ================= GETTERS ================= */
 
@@ -37,8 +44,6 @@ public class Restaurant {
     public String getLocation() { return location; }
     public double getRatingAvg() { return ratingAvg; }
     public boolean isOpen() { return isOpen; }
+    public String getImageUrl() { return imageUrl; } // 🔥 NEW
     public RestaurantOwner getOwner() { return owner; }
-
-    public void addItem(MenuItem item) {
-    }
 }

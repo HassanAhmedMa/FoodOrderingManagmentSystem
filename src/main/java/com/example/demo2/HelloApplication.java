@@ -11,19 +11,23 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        Parent root = FXMLLoader.load(
-                getClass().getResource("/com/example/demo2/Login.fxml")
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/com/example/demo2/SignUp.fxml")
         );
+
+        Parent root = loader.load();
+
+        // 🔥 THIS LINE IS THE FIX
+        root.setUserData("/com/example/demo2/SignUp.fxml");
 
         Scene scene = new Scene(root);
 
-        // 🔥 Give Navigator BOTH stage + scene
+        // Give Navigator BOTH stage + scene
         Navigator.setStage(stage, scene);
 
         stage.setTitle("FoodHub");
         stage.setScene(scene);
 
-        // 🔥 FULL SCREEN ONCE — NEVER AGAIN
         stage.setMaximized(true);
         stage.setMinWidth(1200);
         stage.setMinHeight(800);

@@ -4,8 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
@@ -20,38 +18,31 @@
     <!-- NAVBAR -->
     <top>
         <HBox alignment="CENTER_LEFT" spacing="20" styleClass="navbar">
-
-            <Button
-                    fx:id="backButton"
+            <Button fx:id="backButton"
                     text="Back"
                     styleClass="back-button"
                     onAction="#handleBack"/>
-
             <Label text="FoodHub" styleClass="logo"/>
-
         </HBox>
     </top>
 
     <!-- CONTENT -->
     <center>
         <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
+            <VBox spacing="30">
 
-            <VBox spacing="30" >
-
-                <!-- HERO / RESTAURANT INFO -->
+                <!-- HERO -->
                 <VBox spacing="12" styleClass="restaurant-hero">
-
-                    <Label text="Pizza Heaven" styleClass="hero-title"/>
-
-                    <Label
-                            text="Authentic Italian pizzas made with love"
-                            styleClass="hero-desc"/>
+                    <Label fx:id="restaurantNameLabel"
+                           styleClass="hero-title"/>
+                    <Label fx:id="restaurantDescLabel"
+                           styleClass="hero-desc"/>
 
                     <HBox spacing="15">
-                        <Label text="Rating: 4.8 (456 reviews)" styleClass="hero-text"/>
-                        <Label text="Location: Midtown" styleClass="hero-text"/>
-                        <Label text="Time: 30-40 min" styleClass="hero-text"/>
-                        <Label text="1.99 delivery" styleClass="hero-delivery"/>
+                        <Label fx:id="ratingLabel" styleClass="hero-text"/>
+                        <Label fx:id="locationLabel" styleClass="hero-text"/>
+                        <Label fx:id="timeLabel" styleClass="hero-text"/>
+                        <Label fx:id="deliveryLabel" styleClass="hero-delivery"/>
                     </HBox>
 
                     <VBox.margin>
@@ -59,63 +50,36 @@
                     </VBox.margin>
                 </VBox>
 
-                <!-- MENU SECTION -->
+                <!-- MENU -->
                 <HBox spacing="30">
-
-                    <!-- CATEGORIES -->
                     <VBox spacing="10" styleClass="categories-box">
-
                         <Label text="Categories" styleClass="section-title"/>
-
                         <Button text="All" styleClass="category-btn"/>
                         <Button text="Pizza" styleClass="category-btn"/>
                         <Button text="Sides" styleClass="category-btn"/>
                         <Button text="Drinks" styleClass="category-btn"/>
-
                     </VBox>
 
-                    <!-- MENU ITEMS -->
                     <VBox spacing="20">
-
                         <Label text="Menu" styleClass="section-title"/>
-
-                        <FlowPane fx:id="menuFlowPane" hgap="20" vgap="20">
-
-                        <!-- FOOD CARD -->
-                            <VBox spacing="8" styleClass="food-card">
-
-                                <ImageView fitWidth="160" fitHeight="120">
-                                    <image>
-                                        <Image url="https://picsum.photos/200/120"/>
-                                    </image>
-                                </ImageView>
-
-                                <Label text="Margherita Pizza" styleClass="food-title"/>
-
-                                <Label
-                                        text="Classic tomato and mozzarella"
-                                        styleClass="food-desc"/>
-
-                                <HBox spacing="10" alignment="CENTER_RIGHT">
-                                    <Label text="14.99" styleClass="food-price"/>
-                                    <Button text="+ Add" styleClass="add-btn"/>
-                                </HBox>
-
-                            </VBox>
-
-                        </FlowPane>
-
+                        <FlowPane fx:id="menuFlowPane" hgap="20" vgap="20"/>
                     </VBox>
                 </HBox>
 
-                <!-- REVIEWS -->
+                <!-- ✅ REVIEWS (FIXED) -->
                 <VBox spacing="10" styleClass="reviews-box">
 
-                    <Label text="Reviews (0)" styleClass="section-title"/>
+                    <HBox alignment="CENTER_LEFT" spacing="20">
+                        <Label fx:id="reviewsCountLabel"
+                               text="Reviews (0)"
+                               styleClass="section-title"/>
 
-                    <Label
-                            text="No reviews yet. Be the first to review!"
-                            styleClass="review-text"/>
+                        <Button text="Add Review"
+                                styleClass="add-btn"
+                                />
+                    </HBox>
+
+                    <VBox fx:id="reviewsBox" spacing="10"/>
 
                 </VBox>
 

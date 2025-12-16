@@ -11,9 +11,8 @@ import java.util.List;
 
 public class MenuItemDAO {
 
-    /* =========================
-       INSERT MENU ITEM
-       ========================= */
+    /* ================= INSERT ================= */
+
     public void addMenuItem(
             int restaurantId,
             String name,
@@ -48,15 +47,15 @@ public class MenuItemDAO {
         }
     }
 
-    /* =========================
-       READ MENU ITEMS (Restaurant Page)
-       ========================= */
+    /* ================= READ ================= */
+
     public List<MenuItem> getMenuItemsByRestaurant(int restaurantId) {
 
         List<MenuItem> items = new ArrayList<>();
 
         String sql = """
-            SELECT restaurant_id, name, description, price, category, image_url, available
+            SELECT item_id, restaurant_id, name, description, price,
+                   category, image_url, available
             FROM menu_items
             WHERE restaurant_id = ? AND available = true
         """;
@@ -68,7 +67,9 @@ public class MenuItemDAO {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
+
                 MenuItem item = new MenuItem(
+                        rs.getInt("item_id"),
                         rs.getInt("restaurant_id"),
                         rs.getString("name"),
                         rs.getDouble("price")
@@ -87,5 +88,30 @@ public class MenuItemDAO {
         }
 
         return items;
+    }
+    public void createMenuItem(MenuItem item) {
+
+        String sql = """
+        INSERT INTO menu_items
+        (restaurant_id, name, description, price, category, image_url, available)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+    """;
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, item.getRestaurantId());
+            stmt.setString(2, item.getName());
+            stmt.setString(3, item.getDescription());
+            stmt.setDouble(4, item.getPrice());
+            stmt.setString(5, item.getCategory());
+            stmt.setString(6, item.getImageUrl());
+            stmt.setBoolean(7, item.isAvailable());
+
+            stmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
