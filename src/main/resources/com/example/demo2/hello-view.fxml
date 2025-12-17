@@ -27,7 +27,7 @@
             <Button onAction="#onBrowseClicked" text="Browse" />
             <Button onAction="#goToOrders" text="My Orders" />
 
-            <Label style="-fx-background-color: #FFE5D1;                           -fx-padding: 6 12;                           -fx-background-radius: 20;" text="hassanahmed9975" />
+            <Label fx:id="loggedInUser" style="-fx-background-color: #FFE5D1;                           -fx-padding: 6 12;                          -fx-background-radius: 20;" />
         </HBox>
 
         <!-- ================= HERO SECTION ================= -->

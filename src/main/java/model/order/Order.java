@@ -52,13 +52,21 @@ public class Order implements Subject {
     private List<Observer> observers = new ArrayList<>();
 
     /* =====================
-       CONSTRUCTOR
+       CONSTRUCTOR (DO NOT REMOVE)
        ===================== */
 
     public Order(int id, Customer customer, Restaurant restaurant) {
         this.id = id;
         this.customer = customer;
         this.restaurant = restaurant;
+    }
+
+    /* =====================
+       BUILDER ENTRY POINT
+       ===================== */
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     /* =====================
@@ -98,7 +106,6 @@ public class Order implements Subject {
         }
 
         Payment payment = new Payment(this.id, paymentStrategy);
-
         payment.pay(calculateTotal());
 
         PaymentDAO paymentDAO = new PaymentDAO();
@@ -139,7 +146,6 @@ public class Order implements Subject {
         this.state = state;
     }
 
-    /** ✅ FIX FOR YOUR ERROR */
     public String getStatus() {
         return state.getStatus();
     }
@@ -181,5 +187,83 @@ public class Order implements Subject {
     @Override
     public void notifyObservers() {
         observers.forEach(o -> o.update(this));
+    }
+
+    /* =========================================================
+       BUILDER (ADDED — DOES NOT BREAK EXISTING CODE)
+       ========================================================= */
+
+    public static class Builder {
+
+        private int id = -1;
+        private Customer customer;
+        private Restaurant restaurant;
+        private DeliveryStaff deliveryStaff;
+        private List<OrderItem> items = new ArrayList<>();
+        private PaymentStrategy paymentStrategy;
+        private String deliveryAddress;
+        private OrderState state = new PlacedState();
+
+        public Builder id(int id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder customer(Customer customer) {
+            this.customer = customer;
+            return this;
+        }
+
+        public Builder restaurant(Restaurant restaurant) {
+            this.restaurant = restaurant;
+            return this;
+        }
+
+        public Builder deliveryStaff(DeliveryStaff staff) {
+            this.deliveryStaff = staff;
+            return this;
+        }
+
+        public Builder addItem(OrderItem item) {
+            this.items.add(item);
+            return this;
+        }
+
+        public Builder items(List<OrderItem> items) {
+            this.items.addAll(items);
+            return this;
+        }
+
+        public Builder paymentStrategy(PaymentStrategy strategy) {
+            this.paymentStrategy = strategy;
+            return this;
+        }
+
+        public Builder deliveryAddress(String address) {
+            this.deliveryAddress = address;
+            return this;
+        }
+
+        public Builder state(OrderState state) {
+            this.state = state;
+            return this;
+        }
+
+        public Order build() {
+
+            if (restaurant == null) {
+                throw new IllegalStateException("Order must have a restaurant");
+            }
+
+            Order order = new Order(id, customer, restaurant);
+
+            order.items.addAll(this.items);
+            order.paymentStrategy = this.paymentStrategy;
+            order.deliveryAddress = this.deliveryAddress;
+            order.deliveryStaff = this.deliveryStaff;
+            order.state = this.state;
+
+            return order;
+        }
     }
 }

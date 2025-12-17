@@ -1,6 +1,7 @@
 package model.controller;
 
 import com.example.demo2.Navigator;
+import com.example.demo2.Session;
 import dao.RestaurantDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -15,6 +16,7 @@ import java.util.List;
 
 public class HomePageController {
 
+    public Label loggedInUser;
     @FXML
     private HBox popularRestaurantsBox;
 
@@ -37,7 +39,7 @@ public class HomePageController {
     /* ================= DATA ================= */
 
     private void loadPopularRestaurants() {
-
+        loggedInUser.setText(Session.getUser().getFullName());
         List<Restaurant> restaurants =
                 restaurantDAO.getTopRatedRestaurants(4);
 

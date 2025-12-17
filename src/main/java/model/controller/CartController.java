@@ -1,6 +1,7 @@
 package model.controller;
 
 import com.example.demo2.Navigator;
+import com.example.demo2.Session;
 import dao.OrderDAO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -127,20 +128,54 @@ public class CartController {
 
     private void placeOrder() {
 
-        double total = CartService.getInstance().getItems().stream()
+        OrderDAO orderDAO = new OrderDAO();
+
+        int customerId = Session.getUser().getId();
+
+        // assume cart has items from ONE restaurant
+        int restaurantId =
+                CartService.getInstance()
+                        .getItems()
+                        .get(0)
+                        .getItem()
+                        .getRestaurantId();
+
+        double subtotal = CartService.getInstance().getItems().stream()
                 .mapToDouble(i -> i.getItem().getPrice() * i.getQuantity())
                 .sum();
 
-        new OrderDAO().createOrder(
-                1, // customerId
-                1, // restaurantId
-                total
-        );
+        // 1️⃣ create order
+        int orderId = orderDAO.createOrder(customerId, restaurantId, subtotal);
 
-        clearCart();
+        if (orderId == -1) {
+            System.out.println("❌ Order creation failed");
+            return;
+        }
+
+        // 2️⃣ insert order items
+        for (OrderItem item : CartService.getInstance().getItems()) {
+
+            orderDAO.insertOrderItem(
+                    orderId,
+                    item.getItem().getItemId(),
+                    item.getQuantity(),
+                    item.getItem().getPrice()
+            );
+        }
+
+        // 3️⃣ clear cart
+        CartService.getInstance().clear();
+        cartItemsBox.getChildren().clear();
+
         paymentStrategy = null;
+        recalculate();
         validate();
+
+        // 4️⃣ go to orders page
+        Navigator.goTo("/com/example/demo2/my-orders.fxml");
     }
+
+
 
     /* ================= ITEM UI ================= */
 

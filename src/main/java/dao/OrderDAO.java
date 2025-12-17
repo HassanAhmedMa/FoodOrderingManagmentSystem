@@ -122,7 +122,50 @@ public class OrderDAO {
             e.printStackTrace();
         }
     }
+    public void insertOrderItem(
+            int orderId,
+            int itemId,
+            int quantity,
+            double priceAtOrder
+    ) {
 
+        String sql = """
+        INSERT INTO order_items (order_id, item_id, quantity, price_at_order)
+        VALUES (?, ?, ?, ?)
+    """;
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, orderId);
+            stmt.setInt(2, itemId);
+            stmt.setInt(3, quantity);
+            stmt.setDouble(4, priceAtOrder);
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void addOrderItem(int orderId, int itemId, int quantity) {
+
+        String sql = """
+        INSERT INTO order_items (order_id, item_id, quantity)
+        VALUES (?, ?, ?)
+    """;
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, orderId);
+            stmt.setInt(2, itemId);
+            stmt.setInt(3, quantity);
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     // ======================================================
     // GET ORDERS BY RESTAURANT
     // ======================================================
