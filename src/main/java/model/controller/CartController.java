@@ -6,10 +6,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import model.cart.CartService;
 import model.order.Order;
 import model.order.OrderItem;
 import model.payment.*;
-import model.restaurant.MenuItem;
 
 public class CartController {
 
@@ -23,6 +23,7 @@ public class CartController {
 
     private Order currentOrder;
     private PaymentStrategy paymentStrategy;
+
     private static final double TAX_RATE = 0.10;
     private static final double DELIVERY_FEE = 2.99;
 
@@ -46,22 +47,13 @@ public class CartController {
 
         addressField.textProperty().addListener((a,b,c) -> validate());
 
-        createDemoOrder();
-    }
+        // ✅ LOAD REAL CART (NO DEMO DATA)
+        currentOrder = CartService.getInstance().getOrder();
 
-    private void createDemoOrder() {
-        currentOrder = new Order(1, null, null);
-
-        MenuItem pizza = new MenuItem(1, "Margherita Pizza", 14.99);
-
-        OrderItem item1 = new OrderItem(pizza, 1);
-        OrderItem item2 = new OrderItem(pizza, 1);
-
-        currentOrder.addItem(item1);
-        currentOrder.addItem(item2);
-
-        addCartItem(item1);
-        addCartItem(item2);
+        cartItemsBox.getChildren().clear();
+        for (OrderItem item : currentOrder.getItems()) {
+            addCartItem(item);
+        }
 
         recalculate();
     }
@@ -83,7 +75,7 @@ public class CartController {
         inactive.setStyle("-fx-background-color:white;-fx-border-color:#ddd;-fx-background-radius:10;");
     }
 
-    public  void recalculate() {
+    public void recalculate() {
         double subtotal = currentOrder.calculateTotal();
         double tax = subtotal * TAX_RATE;
         double total = subtotal + tax + DELIVERY_FEE;
@@ -91,6 +83,7 @@ public class CartController {
         subtotalLabel.setText("Subtotal " + String.format("%.2f$", subtotal));
         taxLabel.setText("Tax " + String.format("%.2f$", tax));
         totalLabel.setText("Total " + String.format("%.2f$", total));
+
         validate();
     }
 
@@ -113,14 +106,14 @@ public class CartController {
     }
 
     private void clearCart() {
-        currentOrder.getItems().clear();
-        cartItemsBox.getChildren().clear(); // 🔥 UI FIX
+        CartService.getInstance().clear();
+        cartItemsBox.getChildren().clear();
         recalculate();
     }
 
     private void placeOrder() {
         currentOrder.setPaymentStrategy(paymentStrategy);
-        new OrderDAO().createOrder(1,1,currentOrder.calculateTotal());
+        new OrderDAO().createOrder(1, 1, currentOrder.calculateTotal());
         clearCart();
         disablePlaceOrder();
     }
@@ -130,6 +123,7 @@ public class CartController {
         cartItemsBox.getChildren().remove(cardRoot);
         recalculate();
     }
+
     private void addCartItem(OrderItem item) {
         try {
             FXMLLoader loader = new FXMLLoader(
@@ -145,6 +139,4 @@ public class CartController {
             e.printStackTrace();
         }
     }
-
-
 }

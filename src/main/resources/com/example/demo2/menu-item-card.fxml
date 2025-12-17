@@ -7,29 +7,54 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox prefWidth="380" spacing="15" style="-fx-background-color: white;              -fx-background-radius: 12;              -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10,0,0,4);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox
+        prefWidth="380"
+        spacing="15"
+        xmlns="http://javafx.com/javafx/23.0.1"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="model.controller.MenuItemCardController"
+        style="-fx-background-color: white;
+           -fx-background-radius: 12;
+           -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10,0,0,4);">
 
     <padding>
-        <Insets bottom="15" left="15" right="15" top="15" />
+        <Insets top="15" right="15" bottom="15" left="15"/>
     </padding>
 
-    <ImageView fx:id="itemImage" fitHeight="70" fitWidth="70" preserveRatio="true" />
+    <ImageView
+            fx:id="itemImage"
+            fitHeight="70"
+            fitWidth="70"
+            preserveRatio="true"/>
 
     <VBox spacing="6" HBox.hgrow="ALWAYS">
-        <Label fx:id="itemName" style="-fx-font-weight: bold;" text="Margerita" />
+        <Label fx:id="itemName"
+               style="-fx-font-weight: bold;"/>
 
-        <Label fx:id="itemDescription" style="-fx-text-fill: #777;" text="Pizza with margerita and vegies" />
+        <Label fx:id="itemDescription"
+               style="-fx-text-fill: #777;"/>
 
-        <Label fx:id="itemPrice" style="-fx-text-fill: #ff6a00;                       -fx-font-weight: bold;" text="11.99" />
+        <Label fx:id="itemPrice"
+               style="-fx-text-fill: #ff6a00;
+                      -fx-font-weight: bold;"/>
     </VBox>
 
-    <Button style="-fx-background-color: #ff6a00;                    -fx-text-fill: white;                    -fx-background-radius: 20;" text="+ Add">
+    <!-- ✅ BUTTON IS NOW CONNECTED -->
+    <Button
+            fx:id="addButton"
+            text="+ Add"
+            onAction="#handleAdd"
+            style="-fx-background-color: #ff6a00;
+               -fx-text-fill: white;
+               -fx-background-radius: 20;">
+
         <padding>
-            <Insets bottom="8" left="16" right="16" top="8" />
+            <Insets top="8" right="16" bottom="8" left="16"/>
         </padding>
-      <HBox.margin>
-         <Insets top="30.0" />
-      </HBox.margin>
+
+        <HBox.margin>
+            <Insets top="30"/>
+        </HBox.margin>
     </Button>
 
 </HBox>

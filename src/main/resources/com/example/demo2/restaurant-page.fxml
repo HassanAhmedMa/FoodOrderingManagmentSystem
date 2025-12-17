@@ -28,8 +28,14 @@
 
     <!-- CONTENT -->
     <center>
-        <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
-            <VBox spacing="30">
+        <!-- 🔥 FIX 1: let ScrollPane stretch -->
+        <ScrollPane fitToWidth="true"
+                    fitToHeight="true"
+                    hbarPolicy="NEVER"
+                    vbarPolicy="AS_NEEDED">
+
+            <!-- 🔥 FIX 2: VBox must grow -->
+            <VBox spacing="30" VBox.vgrow="ALWAYS">
 
                 <!-- HERO -->
                 <VBox spacing="12" styleClass="restaurant-hero">
@@ -51,7 +57,9 @@
                 </VBox>
 
                 <!-- MENU -->
-                <HBox spacing="30">
+                <HBox spacing="30" VBox.vgrow="ALWAYS">
+
+                    <!-- Categories -->
                     <VBox spacing="10" styleClass="categories-box">
                         <Label text="Categories" styleClass="section-title"/>
                         <Button text="All" styleClass="category-btn"/>
@@ -60,13 +68,21 @@
                         <Button text="Drinks" styleClass="category-btn"/>
                     </VBox>
 
-                    <VBox spacing="20">
+                    <!-- Menu items -->
+                    <VBox spacing="20" VBox.vgrow="ALWAYS">
                         <Label text="Menu" styleClass="section-title"/>
-                        <FlowPane fx:id="menuFlowPane" hgap="20" vgap="20"/>
+
+                        <!-- 🔥 FIX 3: FlowPane must have wrap length -->
+                        <FlowPane fx:id="menuFlowPane"
+                                  hgap="20"
+                                  vgap="20"
+                                  prefWrapLength="800"
+                                  VBox.vgrow="ALWAYS"/>
                     </VBox>
+
                 </HBox>
 
-                <!-- ✅ REVIEWS (FIXED) -->
+                <!-- REVIEWS -->
                 <VBox spacing="10" styleClass="reviews-box">
 
                     <HBox alignment="CENTER_LEFT" spacing="20">
@@ -75,12 +91,10 @@
                                styleClass="section-title"/>
 
                         <Button text="Add Review"
-                                styleClass="add-btn"
-                                />
+                                styleClass="add-btn"/>
                     </HBox>
 
                     <VBox fx:id="reviewsBox" spacing="10"/>
-
                 </VBox>
 
             </VBox>

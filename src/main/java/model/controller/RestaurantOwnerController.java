@@ -15,7 +15,7 @@ public class RestaurantOwnerController {
         item.setRestaurantId(restaurant.getId());
 
         // 🔥 save to DB
-        menuItemDAO.createMenuItem(item);
+        menuItemDAO.updateMenuItem(item);
 
         System.out.println("Menu item added to restaurant " + restaurant.getName());
     }

@@ -97,7 +97,6 @@ public class BrowseRestaurantController {
 
     private VBox createRestaurantCard(Restaurant r) {
 
-        /* ---------- IMAGE ---------- */
         ImageView image = new ImageView();
         image.setFitWidth(300);
         image.setFitHeight(160);
@@ -107,7 +106,6 @@ public class BrowseRestaurantController {
 
         loadImageSafely(image, r.getImageUrl());
 
-        /* ---------- RATING BADGE ---------- */
         Label rating = new Label("⭐ " + r.getRatingAvg());
         rating.getStyleClass().add("rating-badge");
 
@@ -116,7 +114,6 @@ public class BrowseRestaurantController {
         StackPane.setMargin(rating, new Insets(10));
         imageWrapper.getChildren().add(rating);
 
-        /* ---------- CLOSED OVERLAY ---------- */
         if (!r.isOpen()) {
             Label closed = new Label("Currently Closed");
             closed.setStyle("""
@@ -130,7 +127,6 @@ public class BrowseRestaurantController {
             imageWrapper.getChildren().add(closed);
         }
 
-        /* ---------- TEXT ---------- */
         Label name = new Label(r.getName());
         name.getStyleClass().add("restaurant-name");
 
@@ -141,11 +137,9 @@ public class BrowseRestaurantController {
         Label info = new Label("25–35 min · " + r.getLocation());
         info.getStyleClass().add("restaurant-info");
 
-        /* ---------- CARD ---------- */
         VBox card = new VBox(10, imageWrapper, name, desc, info);
         card.getStyleClass().add("restaurant-card");
 
-        // 🔥 CLICK FEEDBACK (THIS IS WHERE IT GOES)
         card.setOnMousePressed(e ->
                 card.setStyle(card.getStyle() + "; -fx-opacity: 0.9;")
         );
@@ -154,6 +148,7 @@ public class BrowseRestaurantController {
                 card.setStyle(card.getStyle().replace("-fx-opacity: 0.9;", ""))
         );
 
+        // ✅ CORRECT NAVIGATION
         card.setOnMouseClicked(e ->
                 Navigator.goToRestaurant(r.getId())
         );
@@ -161,13 +156,9 @@ public class BrowseRestaurantController {
         return card;
     }
 
-    /* ================= IMAGE RESOLUTION ================= */
-
-
     /* ================= IMAGE SAFE LOADER ================= */
 
     private void loadImageSafely(ImageView imageView, String path) {
-
         try {
             URL url = getClass().getResource(path);
             if (url != null) {
@@ -180,8 +171,10 @@ public class BrowseRestaurantController {
         }
     }
 
+    /* ================= BACK ================= */
+
     @FXML
     private void handleBack() {
-        Navigator.goTo("/com/example/demo2/hello-view.fxml");
+        Navigator.goBack(); // ✅ FIXED
     }
 }

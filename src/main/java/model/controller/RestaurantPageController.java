@@ -5,16 +5,15 @@ import dao.MenuItemDAO;
 import dao.RestaurantDAO;
 import dao.ReviewDAO;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.geometry.Pos;
 import model.restaurant.MenuItem;
 import model.restaurant.Restaurant;
 import model.review.Review;
-import model.user.Customer;
 
 import java.util.List;
 
@@ -30,7 +29,6 @@ public class RestaurantPageController {
     @FXML private Label timeLabel;
     @FXML private Label deliveryLabel;
 
-    // ✅ Reviews
     @FXML private VBox reviewsBox;
     @FXML private Label reviewsCountLabel;
 
@@ -40,6 +38,7 @@ public class RestaurantPageController {
 
     private int restaurantId;
 
+    // 🔥 MUST BE CALLED FROM NAVIGATION
     public void setRestaurantId(int restaurantId) {
         this.restaurantId = restaurantId;
         loadRestaurantHeader();
@@ -62,34 +61,25 @@ public class RestaurantPageController {
     private void loadMenuItems() {
         List<MenuItem> items = menuItemDAO.getMenuItemsByRestaurant(restaurantId);
         menuFlowPane.getChildren().clear();
+
         for (MenuItem item : items) {
-            menuFlowPane.getChildren().add(createFoodCard(item));
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("/com/example/demo2/menu-item-card.fxml")
+                );
+
+                HBox card = loader.load();
+
+                MenuItemCardController controller = loader.getController();
+                controller.setData(item);
+
+                menuFlowPane.getChildren().add(card);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
-
-    private VBox createFoodCard(MenuItem item) {
-        Label title = new Label(item.getName());
-        title.getStyleClass().add("food-title");
-
-        Label desc = new Label(item.getDescription());
-        desc.getStyleClass().add("food-desc");
-
-        Label price = new Label(item.getPrice() + " EGP");
-        price.getStyleClass().add("food-price");
-
-        Button addBtn = new Button("+ Add");
-        addBtn.getStyleClass().add("add-btn");
-
-        HBox bottom = new HBox(10, price, addBtn);
-        bottom.setAlignment(Pos.CENTER_RIGHT);
-
-        VBox card = new VBox(8, title, desc, bottom);
-        card.getStyleClass().add("food-card");
-
-        return card;
-    }
-
-    // ================= REVIEWS =================
 
     private void loadReviews() {
         List<Review> reviews = reviewDAO.getReviewsForRestaurant(restaurantId);
@@ -110,7 +100,6 @@ public class RestaurantPageController {
     }
 
     private VBox createReviewCard(Review review) {
-
         Label user = new Label(review.getCustomer().getName());
         user.getStyleClass().add("review-user");
 
@@ -126,8 +115,6 @@ public class RestaurantPageController {
 
         return card;
     }
-
-
 
     @FXML
     private void handleBack() {
