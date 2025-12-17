@@ -6,6 +6,21 @@ public class MenuItem {
     private String name;
     private String description;
     private double price;
+    public MenuItem(
+            int restaurantId,
+            String name,
+            String description,
+            double price,
+            String category,
+            boolean available
+    ) {
+        this.restaurantId = restaurantId;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.category = category;
+        this.available = available;
+    }
 
     public void setName(String name) {
         this.name = name;

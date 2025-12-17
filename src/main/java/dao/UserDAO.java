@@ -175,4 +175,40 @@ public class UserDAO {
         public String getPassword() { return password; }
         public String getRole() { return role; }
     }
+    public User getFirstAvailableDeliveryStaffWithCapacity() {
+
+        String sql = """
+        SELECT u.user_id, u.full_name, u.email, u.phone
+        FROM users u
+        WHERE u.role = 'DELIVERY'
+          AND (
+              SELECT COUNT(*)
+              FROM orders o
+              WHERE o.delivery_id = u.user_id
+                AND o.status = 'OUT_FOR_DELIVERY'
+          ) < 3
+        ORDER BY u.user_id
+        LIMIT 1
+    """;
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            if (rs.next()) {
+                return new User(
+                        rs.getInt("user_id"),
+                        rs.getString("full_name"),
+                        rs.getString("email"),
+                        rs.getString("phone"),
+                        "DELIVERY"
+                ) {};
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

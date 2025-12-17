@@ -165,5 +165,31 @@ public class MenuItemDAO {
             e.printStackTrace();
         }
     }
+    public void addMenuItem(MenuItem item) {
+
+        String sql = """
+        INSERT INTO menu_items
+        (restaurant_id, name, description, price, category, image_url, available)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+    """;
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, item.getRestaurantId());
+            stmt.setString(2, item.getName());
+            stmt.setString(3, item.getDescription());
+            stmt.setDouble(4, item.getPrice());
+            stmt.setString(5, item.getCategory());
+            stmt.setString(6, item.getImageUrl()); // can be null
+            stmt.setBoolean(7, item.isAvailable());
+
+            stmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

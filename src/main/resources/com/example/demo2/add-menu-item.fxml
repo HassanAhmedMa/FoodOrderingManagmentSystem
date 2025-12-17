@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="12"
+      xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="model.controller.AddMenuItemController">
+
+    <padding>
+        <Insets top="16" right="16" bottom="16" left="16"/>
+    </padding>
+
+    <Label text="Add Menu Item"
+           style="-fx-font-size: 16; -fx-font-weight: bold;" />
+
+    <TextField fx:id="nameField" promptText="Item name"/>
+    <TextArea fx:id="descField" promptText="Description" prefRowCount="3"/>
+    <TextField fx:id="priceField" promptText="Price"/>
+    <TextField fx:id="categoryField" promptText="Category"/>
+
+    <CheckBox fx:id="availableCheck" text="Available" selected="true"/>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Cancel" onAction="#onCancel"/>
+        <Button text="Save"
+                style="-fx-background-color: #22c55e; -fx-text-fill: white;"
+                onAction="#onSave"/>
+    </HBox>
+
+</VBox>

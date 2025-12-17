@@ -43,6 +43,10 @@ public class LoginController {
             if(user.getRole().equals("RESTAURANT")) {
                 Navigator.goTo("/com/example/demo2/restaurant-dashboard.fxml");
             }
+            else if(user.getRole().equals("DELIVERY"))
+            {
+                Navigator.goTo("/com/example/demo2/delivery-dashboard.fxml");
+            }
             else{
                 Navigator.goTo("/com/example/demo2/hello-view.fxml");
             }

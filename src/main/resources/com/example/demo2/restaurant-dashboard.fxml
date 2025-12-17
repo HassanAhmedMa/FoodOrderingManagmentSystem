@@ -1,124 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.Region?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox spacing="30"
-      xmlns="http://javafx.com/javafx/17"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="model.controller.RestaurantDashboardController"
-      style="-fx-background-color: #fff7ef;">
+<VBox spacing="30" style="-fx-background-color: #fff7ef;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="model.controller.RestaurantDashboardController">
 
     <!-- ================= NAV BAR ================= -->
-    <HBox spacing="20"
-          alignment="CENTER_LEFT"
-          style="-fx-background-color: white; -fx-border-color: #eee;">
+    <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: white; -fx-border-color: #eee;">
         <padding>
-            <Insets top="14" right="30" bottom="14" left="30"/>
+            <Insets bottom="14" left="30" right="30" top="14" />
         </padding>
 
-        <Label text="🍴 FoodHub"
-               style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+        <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="🍴 FoodHub" />
 
-        <Region HBox.hgrow="ALWAYS"/>
+        <Region HBox.hgrow="ALWAYS" />
 
-        <Label text="Browse"/>
-        <Label text="My Orders"/>
-        <Label text="Dashboard"
-               style="-fx-font-weight: bold;"/>
+        <Label text="Browse" />
+        <Label text="My Orders" />
+        <Label style="-fx-font-weight: bold;" text="Dashboard" />
 
-        <Region prefWidth="20"/>
+        <Region prefWidth="20" />
 
-        <Label fx:id="restaurantNameLabel"
-               text="Pizza Hut"
-               style="-fx-background-color: #FFE5D1;
-                      -fx-padding: 6 14;
-                      -fx-background-radius: 20;" />
+        <Label fx:id="restaurantNameLabel" style="-fx-background-color: #FFE5D1;                       -fx-padding: 6 14;                       -fx-background-radius: 20;" text="Pizza Hut" />
 
-        <Label text="Restaurant"
-               style="-fx-text-fill: #ff6a00;
-                      -fx-font-size: 11px;" />
+        <Label style="-fx-text-fill: #ff6a00;                       -fx-font-size: 11px;" text="Restaurant" />
     </HBox>
 
     <!-- ================= HEADER ================= -->
     <VBox spacing="6">
         <padding>
-            <Insets left="40" right="40"/>
+            <Insets left="40" right="40" />
         </padding>
 
-        <Label text="Restaurant Dashboard"
-               style="-fx-font-size: 26px;
-                      -fx-font-weight: bold;" />
+        <Label style="-fx-font-size: 26px;                       -fx-font-weight: bold;" text="Restaurant Dashboard" />
 
-        <Label text="Manage your menu and orders"
-               style="-fx-text-fill: #777;" />
+        <Label style="-fx-text-fill: #777;" text="Manage your menu and orders" />
     </VBox>
 
     <!-- ================= STATS ================= -->
     <HBox spacing="20">
         <padding>
-            <Insets left="40" right="40"/>
+            <Insets left="40" right="40" />
         </padding>
 
         <VBox spacing="6" style="-fx-background-color: white; -fx-background-radius: 14;">
-            <padding><Insets top="18" bottom="18" left="20" right="20"/></padding>
-            <Label text="Total Orders"/>
-            <Label fx:id="totalOrdersLabel"
-                   text="1"
-                   style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+            <padding><Insets bottom="18" left="20" right="20" top="18" /></padding>
+            <Label text="Total Orders" />
+            <Label fx:id="totalOrdersLabel" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="1" />
         </VBox>
 
         <VBox spacing="6" style="-fx-background-color: white; -fx-background-radius: 14;">
-            <padding><Insets top="18" bottom="18" left="20" right="20"/></padding>
-            <Label text="Revenue"/>
-            <Label fx:id="revenueLabel"
-                   text="45.84"
-                   style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+            <padding><Insets bottom="18" left="20" right="20" top="18" /></padding>
+            <Label text="Revenue" />
+            <Label fx:id="revenueLabel" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="45.84" />
         </VBox>
 
         <VBox spacing="6" style="-fx-background-color: white; -fx-background-radius: 14;">
-            <padding><Insets top="18" bottom="18" left="20" right="20"/></padding>
-            <Label text="Avg. Rating"/>
-            <Label text="4.5 ⭐"
-                   style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+            <padding><Insets bottom="18" left="20" right="20" top="18" /></padding>
+            <Label text="Avg. Rating" />
+            <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="4.5 ⭐" />
         </VBox>
     </HBox>
+    <HBox alignment="CENTER_LEFT">
+        <padding>
+            <Insets left="40" right="40" top="10" />
+        </padding>
+
+        <Label style="-fx-font-size: 18px;                   -fx-font-weight: bold;" text="Orders" />
+    </HBox>
+
+    <!-- ================= ORDERS LIST ================= -->
+    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent;" vbarPolicy="AS_NEEDED">
+        <content>
+            <VBox fx:id="ordersContainer" spacing="12">
+            <padding>
+               <Insets bottom="20.0" left="20.0" right="20.0" />
+            </padding>
+
+                <!-- restaurant-order-card.fxml injected here -->
+            </VBox>
+        </content>
+    </ScrollPane>
+
 
     <!-- ================= MENU HEADER ================= -->
     <HBox alignment="CENTER_LEFT">
         <padding>
-            <Insets left="40" right="40" top="10"/>
+            <Insets left="40" right="40" top="10" />
         </padding>
 
-        <Label text="Menu Items"
-               style="-fx-font-size: 18px;
-                      -fx-font-weight: bold;" />
+        <Label style="-fx-font-size: 18px;                       -fx-font-weight: bold;" text="Menu Items" />
 
-        <Region HBox.hgrow="ALWAYS"/>
+        <Region HBox.hgrow="ALWAYS" />
 
-        <Button text="+ Add Item"
-                style="-fx-background-color: #ff6a00;
-                       -fx-text-fill: white;
-                       -fx-background-radius: 12;
-                       -fx-padding: 6 18;
-                       -fx-font-weight: bold;" />
+        <Button onAction="#onAddItem" style="-fx-background-color: #ff6a00;                        -fx-text-fill: white;                        -fx-background-radius: 12;                        -fx-padding: 6 18;                        -fx-font-weight: bold;" text="+ Add Item" />
     </HBox>
 
     <!-- ================= MENU LIST ================= -->
-    <ScrollPane fitToWidth="true"
-                vbarPolicy="AS_NEEDED"
-                hbarPolicy="NEVER"
-                style="-fx-background-color: transparent;">
+    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent;" vbarPolicy="AS_NEEDED">
         <content>
-            <VBox fx:id="menuItemsContainer"
-                  spacing="12">
+            <VBox fx:id="menuItemsContainer" spacing="12">
                 <padding>
-                    <Insets left="40" right="40" bottom="40"/>
+                    <Insets bottom="40" left="40" right="40" />
                 </padding>
 
                 <!-- menu-item-card.fxml injected here -->
