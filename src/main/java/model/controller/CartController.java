@@ -7,7 +7,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.cart.CartService;
-import model.order.Order;
 import model.order.OrderItem;
 import model.payment.*;
 
@@ -21,11 +20,12 @@ public class CartController {
     private Button cardButton, cashButton, placeOrderButton;
     private Label subtotalLabel, taxLabel, totalLabel;
 
-    private Order currentOrder;
     private PaymentStrategy paymentStrategy;
 
     private static final double TAX_RATE = 0.10;
     private static final double DELIVERY_FEE = 2.99;
+
+    /* ================= INIT ================= */
 
     @FXML
     public void initialize() {
@@ -38,25 +38,30 @@ public class CartController {
         taxLabel = (Label) orderSummary.lookup("#taxLabel");
         totalLabel = (Label) orderSummary.lookup("#totalLabel");
 
-        disablePlaceOrder();
-
         cardButton.setOnAction(e -> selectCard());
         cashButton.setOnAction(e -> selectCash());
         clearCartButton.setOnAction(e -> clearCart());
         placeOrderButton.setOnAction(e -> placeOrder());
 
-        addressField.textProperty().addListener((a,b,c) -> validate());
+        addressField.textProperty().addListener((a, b, c) -> validate());
 
-        // ✅ LOAD REAL CART (NO DEMO DATA)
-        currentOrder = CartService.getInstance().getOrder();
+        loadCart();
+    }
 
+    /* ================= LOAD CART ================= */
+
+    private void loadCart() {
         cartItemsBox.getChildren().clear();
-        for (OrderItem item : currentOrder.getItems()) {
+
+        for (OrderItem item : CartService.getInstance().getItems()) {
             addCartItem(item);
         }
 
         recalculate();
+        validate();
     }
+
+    /* ================= PAYMENT ================= */
 
     private void selectCard() {
         paymentStrategy = new CardPayment();
@@ -75,53 +80,66 @@ public class CartController {
         inactive.setStyle("-fx-background-color:white;-fx-border-color:#ddd;-fx-background-radius:10;");
     }
 
+    /* ================= CALCULATION ================= */
+
     public void recalculate() {
-        double subtotal = currentOrder.calculateTotal();
+
+        double subtotal = CartService.getInstance().getItems().stream()
+                .mapToDouble(i -> i.getItem().getPrice() * i.getQuantity())
+                .sum();
+
         double tax = subtotal * TAX_RATE;
         double total = subtotal + tax + DELIVERY_FEE;
 
-        subtotalLabel.setText("Subtotal " + String.format("%.2f$", subtotal));
-        taxLabel.setText("Tax " + String.format("%.2f$", tax));
-        totalLabel.setText("Total " + String.format("%.2f$", total));
-
-        validate();
+        subtotalLabel.setText(String.format("Subtotal %.2f$", subtotal));
+        taxLabel.setText(String.format("Tax %.2f$", tax));
+        totalLabel.setText(String.format("Total %.2f$", total));
     }
+
+    /* ================= VALIDATION ================= */
 
     private void validate() {
-        if (currentOrder.isEmpty() || paymentStrategy == null || addressField.getText().isBlank()) {
-            disablePlaceOrder();
-        } else {
-            enablePlaceOrder();
-        }
+        boolean valid =
+                !CartService.getInstance().getItems().isEmpty()
+                        && paymentStrategy != null
+                        && !addressField.getText().isBlank();
+
+        placeOrderButton.setDisable(!valid);
     }
 
-    private void enablePlaceOrder() {
-        placeOrderButton.setDisable(false);
-        placeOrderButton.setStyle("-fx-background-color:#ff6a00;-fx-text-fill:white;-fx-background-radius:12;");
-    }
-
-    private void disablePlaceOrder() {
-        placeOrderButton.setDisable(true);
-        placeOrderButton.setStyle("-fx-background-color:#f0f0f0;-fx-text-fill:#999;-fx-background-radius:12;");
-    }
+    /* ================= ACTIONS ================= */
 
     private void clearCart() {
         CartService.getInstance().clear();
         cartItemsBox.getChildren().clear();
         recalculate();
+        validate();
     }
 
     private void placeOrder() {
-        currentOrder.setPaymentStrategy(paymentStrategy);
-        new OrderDAO().createOrder(1, 1, currentOrder.calculateTotal());
+
+        double total = CartService.getInstance().getItems().stream()
+                .mapToDouble(i -> i.getItem().getPrice() * i.getQuantity())
+                .sum();
+
+        new OrderDAO().createOrder(
+                1,   // customerId (replace later)
+                1,   // restaurantId (replace later)
+                total
+        );
+
         clearCart();
-        disablePlaceOrder();
+        paymentStrategy = null;
+        validate();
     }
 
+    /* ================= ITEM UI ================= */
+
     public void removeItem(OrderItem item, HBox cardRoot) {
-        currentOrder.getItems().remove(item);
+        CartService.getInstance().getItems().remove(item);
         cartItemsBox.getChildren().remove(cardRoot);
         recalculate();
+        validate();
     }
 
     private void addCartItem(OrderItem item) {
@@ -129,12 +147,14 @@ public class CartController {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/com/example/demo2/cart-item-card.fxml")
             );
+
             HBox card = loader.load();
 
             CartItemCardController controller = loader.getController();
             controller.init(item, this, card);
 
             cartItemsBox.getChildren().add(card);
+
         } catch (Exception e) {
             e.printStackTrace();
         }

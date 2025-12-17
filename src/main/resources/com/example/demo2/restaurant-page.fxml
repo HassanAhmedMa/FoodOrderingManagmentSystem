@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane
@@ -15,86 +16,79 @@
         fx:controller="model.controller.RestaurantPageController"
         stylesheets="@restaurant-page.css">
 
-    <!-- NAVBAR -->
+    <!-- ================= NAVBAR ================= -->
     <top>
         <HBox alignment="CENTER_LEFT" spacing="20" styleClass="navbar">
-            <Button fx:id="backButton"
-                    text="Back"
+
+            <Button text="Back"
                     styleClass="back-button"
                     onAction="#handleBack"/>
+
             <Label text="FoodHub" styleClass="logo"/>
+
+            <!-- CART ICON -->
+            <StackPane HBox.hgrow="ALWAYS" alignment="CENTER_RIGHT">
+                <Button text="🛒"
+                        styleClass="cart-button"
+                        onAction="#handleCart"/>
+
+                <!-- CART BADGE -->
+                <Label fx:id="cartBadge"
+                       text="0"
+                       visible="false"
+                       styleClass="cart-badge"/>
+            </StackPane>
+
         </HBox>
     </top>
 
-    <!-- CONTENT -->
+    <!-- ================= CONTENT ================= -->
     <center>
-        <!-- 🔥 FIX 1: let ScrollPane stretch -->
-        <ScrollPane fitToWidth="true"
-                    fitToHeight="true"
-                    hbarPolicy="NEVER"
-                    vbarPolicy="AS_NEEDED">
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
 
-            <!-- 🔥 FIX 2: VBox must grow -->
-            <VBox spacing="30" VBox.vgrow="ALWAYS">
+            <VBox spacing="30">
 
                 <!-- HERO -->
                 <VBox spacing="12" styleClass="restaurant-hero">
-                    <Label fx:id="restaurantNameLabel"
-                           styleClass="hero-title"/>
-                    <Label fx:id="restaurantDescLabel"
-                           styleClass="hero-desc"/>
+                    <Label fx:id="restaurantNameLabel" styleClass="hero-title"/>
+                    <Label fx:id="restaurantDescLabel" styleClass="hero-desc"/>
 
                     <HBox spacing="15">
-                        <Label fx:id="ratingLabel" styleClass="hero-text"/>
-                        <Label fx:id="locationLabel" styleClass="hero-text"/>
-                        <Label fx:id="timeLabel" styleClass="hero-text"/>
-                        <Label fx:id="deliveryLabel" styleClass="hero-delivery"/>
+                        <Label fx:id="ratingLabel"/>
+                        <Label fx:id="locationLabel"/>
+                        <Label fx:id="timeLabel"/>
+                        <Label fx:id="deliveryLabel"/>
                     </HBox>
-
-                    <VBox.margin>
-                        <Insets top="10"/>
-                    </VBox.margin>
                 </VBox>
 
                 <!-- MENU -->
-                <HBox spacing="30" VBox.vgrow="ALWAYS">
+                <HBox spacing="30">
 
-                    <!-- Categories -->
                     <VBox spacing="10" styleClass="categories-box">
-                        <Label text="Categories" styleClass="section-title"/>
-                        <Button text="All" styleClass="category-btn"/>
-                        <Button text="Pizza" styleClass="category-btn"/>
-                        <Button text="Sides" styleClass="category-btn"/>
-                        <Button text="Drinks" styleClass="category-btn"/>
+                        <Label text="Categories"/>
+                        <Button text="All"/>
+                        <Button text="Pizza"/>
+                        <Button text="Sides"/>
+                        <Button text="Drinks"/>
                     </VBox>
 
-                    <!-- Menu items -->
-                    <VBox spacing="20" VBox.vgrow="ALWAYS">
-                        <Label text="Menu" styleClass="section-title"/>
-
-                        <!-- 🔥 FIX 3: FlowPane must have wrap length -->
+                    <VBox spacing="20">
+                        <Label text="Menu"/>
                         <FlowPane fx:id="menuFlowPane"
                                   hgap="20"
                                   vgap="20"
-                                  prefWrapLength="800"
-                                  VBox.vgrow="ALWAYS"/>
+                                  prefWrapLength="800"/>
                     </VBox>
 
                 </HBox>
 
                 <!-- REVIEWS -->
-                <VBox spacing="10" styleClass="reviews-box">
-
-                    <HBox alignment="CENTER_LEFT" spacing="20">
-                        <Label fx:id="reviewsCountLabel"
-                               text="Reviews (0)"
-                               styleClass="section-title"/>
-
-                        <Button text="Add Review"
-                                styleClass="add-btn"/>
+                <VBox spacing="10">
+                    <HBox spacing="20">
+                        <Label fx:id="reviewsCountLabel"/>
+                        <Button text="Add Review"/>
                     </HBox>
-
-                    <VBox fx:id="reviewsBox" spacing="10"/>
+                    <VBox fx:id="reviewsBox"/>
                 </VBox>
 
             </VBox>

@@ -6,11 +6,11 @@ import dao.RestaurantDAO;
 import dao.ReviewDAO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import model.cart.CartService;
 import model.restaurant.MenuItem;
 import model.restaurant.Restaurant;
 import model.review.Review;
@@ -20,7 +20,6 @@ import java.util.List;
 public class RestaurantPageController {
 
     @FXML private FlowPane menuFlowPane;
-    @FXML private Button backButton;
 
     @FXML private Label restaurantNameLabel;
     @FXML private Label restaurantDescLabel;
@@ -32,19 +31,26 @@ public class RestaurantPageController {
     @FXML private VBox reviewsBox;
     @FXML private Label reviewsCountLabel;
 
+    // 🛒 CART BADGE
+    @FXML private Label cartBadge;
+
     private final MenuItemDAO menuItemDAO = new MenuItemDAO();
     private final RestaurantDAO restaurantDAO = new RestaurantDAO();
     private final ReviewDAO reviewDAO = new ReviewDAO();
 
     private int restaurantId;
 
-    // 🔥 MUST BE CALLED FROM NAVIGATION
+    /* ================= INIT ================= */
+
     public void setRestaurantId(int restaurantId) {
         this.restaurantId = restaurantId;
         loadRestaurantHeader();
         loadMenuItems();
         loadReviews();
+        updateCartBadge();
     }
+
+    /* ================= HEADER ================= */
 
     private void loadRestaurantHeader() {
         Restaurant r = restaurantDAO.getRestaurantById(restaurantId);
@@ -57,6 +63,8 @@ public class RestaurantPageController {
         timeLabel.setText("30-40 min");
         deliveryLabel.setText("$1.99 delivery");
     }
+
+    /* ================= MENU ================= */
 
     private void loadMenuItems() {
         List<MenuItem> items = menuItemDAO.getMenuItemsByRestaurant(restaurantId);
@@ -81,6 +89,8 @@ public class RestaurantPageController {
         }
     }
 
+    /* ================= REVIEWS ================= */
+
     private void loadReviews() {
         List<Review> reviews = reviewDAO.getReviewsForRestaurant(restaurantId);
 
@@ -88,32 +98,26 @@ public class RestaurantPageController {
         reviewsCountLabel.setText("Reviews (" + reviews.size() + ")");
 
         if (reviews.isEmpty()) {
-            Label empty = new Label("No reviews yet. Be the first to review!");
-            empty.getStyleClass().add("review-text");
-            reviewsBox.getChildren().add(empty);
+            reviewsBox.getChildren().add(new Label("No reviews yet."));
             return;
         }
 
         for (Review review : reviews) {
-            reviewsBox.getChildren().add(createReviewCard(review));
+            reviewsBox.getChildren().add(new Label(review.getComment()));
         }
     }
 
-    private VBox createReviewCard(Review review) {
-        Label user = new Label(review.getCustomer().getName());
-        user.getStyleClass().add("review-user");
+    /* ================= CART ================= */
 
-        Label rating = new Label("⭐".repeat(review.getRating()));
-        rating.getStyleClass().add("review-rating");
+    private void updateCartBadge() {
+        int count = CartService.getInstance().getTotalItemsCount();
+        cartBadge.setText(String.valueOf(count));
+        cartBadge.setVisible(count > 0);
+    }
 
-        Label comment = new Label(review.getComment());
-        comment.setWrapText(true);
-        comment.getStyleClass().add("review-comment");
-
-        VBox card = new VBox(5, user, rating, comment);
-        card.getStyleClass().add("review-card");
-
-        return card;
+    @FXML
+    private void handleCart() {
+        Navigator.goTo("/com/example/demo2/cart-page.fxml");
     }
 
     @FXML
