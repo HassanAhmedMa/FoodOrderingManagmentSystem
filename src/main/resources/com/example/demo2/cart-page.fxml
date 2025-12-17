@@ -12,14 +12,27 @@
     <VBox spacing="30" style="-fx-background-color: #FFF8F2;">
 
         <!-- NAVBAR -->
-        <HBox spacing="20" style="-fx-background-color: white; -fx-border-color: #eee;">
+        <HBox spacing="20"
+              alignment="CENTER_LEFT"
+              style="-fx-background-color: white; -fx-border-color: #eee;">
             <padding>
                 <Insets top="15" right="20" bottom="15" left="20"/>
             </padding>
 
-            <Label text="🍴 FoodHub" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+            <!-- 🔥 BACK BUTTON -->
+            <Button fx:id="backButton"
+                    text="Back"
+                    style="-fx-background-color: transparent;"
+                    onAction="#handleBack"/>
+
+            <Label text="🍴 FoodHub"
+                   style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+
             <Region HBox.hgrow="ALWAYS"/>
-            <Button text="Browse" style="-fx-background-color: transparent;" />
+
+            <Button text="Browse"
+                    style="-fx-background-color: transparent;" />
+
             <Label text="hassan"
                    style="-fx-background-color: #FFE5D1;
                           -fx-padding: 6 12;
@@ -34,9 +47,10 @@
 
             <!-- LEFT CART -->
             <VBox spacing="20" prefWidth="600">
-                <Label text="Your Cart" style="-fx-font-size: 26px; -fx-font-weight: bold;" />
+                <Label text="Your Cart"
+                       style="-fx-font-size: 26px; -fx-font-weight: bold;" />
 
-                <!-- 🔥 CART ITEMS CONTAINER -->
+                <!-- CART ITEMS -->
                 <VBox fx:id="cartItemsBox" spacing="15"/>
 
                 <Button fx:id="clearCartButton"
@@ -45,7 +59,8 @@
             </VBox>
 
             <!-- RIGHT SUMMARY -->
-            <fx:include fx:id="orderSummary" source="order-summary-card.fxml"/>
+            <fx:include fx:id="orderSummary"
+                        source="order-summary-card.fxml"/>
         </HBox>
 
         <Region prefHeight="40"/>

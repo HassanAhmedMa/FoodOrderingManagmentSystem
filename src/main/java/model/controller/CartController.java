@@ -1,5 +1,6 @@
 package model.controller;
 
+import com.example.demo2.Navigator;
 import dao.OrderDAO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +16,7 @@ public class CartController {
     @FXML private VBox orderSummary;
     @FXML private VBox cartItemsBox;
     @FXML private Button clearCartButton;
+    @FXML private Button backButton;
 
     private TextField addressField;
     private Button cardButton, cashButton, placeOrderButton;
@@ -46,6 +48,13 @@ public class CartController {
         addressField.textProperty().addListener((a, b, c) -> validate());
 
         loadCart();
+    }
+
+    /* ================= BACK ================= */
+
+    @FXML
+    private void handleBack() {
+        Navigator.goBack();
     }
 
     /* ================= LOAD CART ================= */
@@ -123,8 +132,8 @@ public class CartController {
                 .sum();
 
         new OrderDAO().createOrder(
-                1,   // customerId (replace later)
-                1,   // restaurantId (replace later)
+                1, // customerId
+                1, // restaurantId
                 total
         );
 
