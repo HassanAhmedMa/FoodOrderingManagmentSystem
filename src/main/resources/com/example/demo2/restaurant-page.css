@@ -1,136 +1,221 @@
+/* ========= ROOT ========= */
 .root {
-    -fx-background-color: #fafafa;
-    -fx-font-family: "Segoe UI";
+    -fx-background-color: #f3f4f6;
 }
 
-/* ================= NAVBAR ================= */
+.scroll {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.page {
+    -fx-background-color: transparent;
+}
+
+/* ========= NAVBAR ========= */
 .navbar {
-    -fx-background-color: #ff6a1a;
-    -fx-padding: 16 24;
+    -fx-background-color: #f97316;
 }
 
-.logo {
-    -fx-font-size: 18;
-    -fx-font-weight: bold;
-    -fx-text-fill: white;
-}
-
-.back-button {
+.nav-back {
     -fx-background-color: transparent;
     -fx-text-fill: white;
-    -fx-font-weight: bold;
+    -fx-font-weight: 800;
+    -fx-cursor: hand;
 }
 
-/* =========================
-   RESTAURANT HERO (ORANGE GRADIENT)
-   ========================= */
-.restaurant-hero {
-    -fx-background-color: linear-gradient(
-            to right,
-            #6c2404,
-            #d15814
-    );
-    -fx-background-radius: 28;
-    -fx-padding: 28;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 20, 0.3, 0, 6);
+.nav-back:hover {
+    -fx-underline: true;
 }
 
-/* Title */
+.nav-title {
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: 900;
+    -fx-padding: 0 0 0 10;
+}
+
+.cart-wrap { }
+
+.cart-btn {
+    -fx-background-color: rgba(255,255,255,0.95);
+    -fx-background-radius: 10;
+    -fx-padding: 8 10;
+    -fx-cursor: hand;
+}
+
+.cart-btn:hover {
+    -fx-background-color: white;
+}
+
+.cart-badge {
+    -fx-background-color: #ef4444;
+    -fx-text-fill: white;
+    -fx-font-weight: 900;
+    -fx-padding: 2 7;
+    -fx-background-radius: 999;
+    -fx-translate-x: 10;
+    -fx-translate-y: -10;
+}
+
+/* ========= HERO ========= */
+.hero {
+    -fx-background-color: linear-gradient(to right, #7c2d12, #b45309);
+    -fx-background-radius: 26;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.20), 18, 0.2, 0, 4);
+}
+
 .hero-title {
-    -fx-font-size: 26;
-    -fx-font-weight: bold;
     -fx-text-fill: white;
+    -fx-font-size: 30px;
+    -fx-font-weight: 900;
 }
 
-/* Description */
-.hero-desc {
-    -fx-text-fill: #ffe7d9;
+.hero-sub {
+    -fx-text-fill: rgba(255,255,255,0.88);
+    -fx-font-size: 13px;
 }
 
-/* Info text */
-.hero-text {
-    -fx-text-fill: #fff3ec;
+.hero-meta {
+    -fx-padding: 6 0 0 0;
 }
 
-/* Delivery highlight */
-.hero-delivery {
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
+.hero-meta-item {
+    -fx-text-fill: rgba(255,255,255,0.92);
+    -fx-font-size: 12px;
 }
-/* ================= CATEGORIES ================= */
-.categories-box {
+
+.hero-meta-item.strong {
+    -fx-font-weight: 900;
+}
+
+/* ========= CARDS ========= */
+.card {
     -fx-background-color: white;
-    -fx-padding: 18;
     -fx-background-radius: 18;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 12, 0.2, 0, 2);
 }
 
-.category-btn {
-    -fx-background-color: transparent;
-    -fx-text-fill: #333;
-    -fx-font-size: 14;
+.card-title {
+    -fx-text-fill: #111827;
+    -fx-font-size: 16px;
+    -fx-font-weight: 900;
 }
 
-.category-btn:hover {
-    -fx-text-fill: #ff6a1a;
-}
-
-/* ================= MENU ================= */
 .section-title {
-    -fx-font-size: 18;
-    -fx-font-weight: bold;
-    -fx-text-fill: #222;
+    -fx-text-fill: #111827;
+    -fx-font-size: 16px;
+    -fx-font-weight: 900;
 }
 
-.food-card {
-    -fx-background-color: white;
-    -fx-padding: 14;
-    -fx-background-radius: 18;
+/*.menu-card .label {*/
+/*    -fx-text-fill: #111827;*/
+/*}*/
+
+/*.menu-card .item-title {*/
+/*    -fx-font-size: 14px;*/
+/*    -fx-font-weight: 900;*/
+/*}*/
+
+/* categories card width like screenshot */
+.categories {
+    -fx-pref-width: 190;
 }
 
-.food-title {
-    -fx-font-weight: bold;
-    -fx-text-fill: #222;
+/* category buttons look like simple links (like screenshot) */
+.cat-link {
+    -fx-background-color: transparent;
+    -fx-text-fill: #111827;
+    -fx-font-size: 13px;
+    -fx-padding: 6 6;
+    -fx-alignment: CENTER_LEFT;
+    -fx-cursor: hand;
 }
 
-.food-desc {
-    -fx-text-fill: #666;
+.cat-link:hover {
+    -fx-underline: true;
 }
 
-.food-price {
-    -fx-text-fill: #ff6a1a;
-    -fx-font-weight: bold;
+/* ========= MENU ========= */
+.menu-flow {
+    -fx-padding: 8 0 0 0;
 }
 
-.add-btn {
-    -fx-background-color: #ff6a1a;
+/* ========= REVIEWS ========= */
+.reviews {
+    -fx-min-height: 220;
+    -fx-background-color: #ffffff;
+    -fx-background-insets: 0;
+    -fx-opacity: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.14), 14, 0.25, 0, 2);
+}
+
+.reviews .label {
+    -fx-text-fill: #111827; /* dark text on white card */
+    -fx-opacity: 1;
+}
+
+.reviews .label.secondary {
+    -fx-text-fill: #6b7280; /* gray for secondary text if needed */
+}
+
+.reviews .label {
+    -fx-font-size: 13px;
+}
+
+.reviews .label.username {
+    -fx-font-weight: 700;
+}
+
+.reviews .label.comment {
+    -fx-text-fill: #374151;
+}
+
+.scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Add Review button (orange pill) */
+.pill-btn {
+    -fx-background-color: #f97316;
     -fx-text-fill: white;
-    -fx-background-radius: 18;
-    -fx-font-weight: bold;
+    -fx-font-weight: 900;
+    -fx-background-radius: 999;
+    -fx-padding: 6 14;
+    -fx-cursor: hand;
 }
 
-/* ================= REVIEWS ================= */
-.reviews-box {
-    -fx-background-color: white;
-    -fx-padding: 22;
-    -fx-background-radius: 18;
+.pill-btn:hover {
+    -fx-background-color: #fb923c;
 }
 
-.review-text {
-    -fx-text-fill: #777;
+.menu-flow .label {
+    -fx-text-fill: #111827;   /* dark text so it shows on white cards */
+}
+
+.menu-flow .label:disabled {
+    -fx-text-fill: #111827;
 }
 
 
-/* Food card hover */
-.food-card {
-    -fx-background-color: white;
-    -fx-padding: 12;
-    -fx-background-radius: 14;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0.2, 0, 4);
-    -fx-scale-x: 1;
-    -fx-scale-y: 1;
+/* ---------- FORCE reviews text to be visible ---------- */
+
+/* If your reviews are Labels */
+.root .reviews #reviewsBox .label,
+.root .reviews #reviewsBox Label {
+    -fx-text-fill: #111827;
+    -fx-opacity: 1;
 }
 
-.food-card:hover {
-    -fx-scale-x: 1.05;
-    -fx-scale-y: 1.05;
+/* If your reviews are Text nodes */
+.root .reviews #reviewsBox Text {
+    -fx-fill: #111827;
+    -fx-opacity: 1;
+}
+
+/* If something is accidentally disabled */
+.root .reviews #reviewsBox .label:disabled,
+.root .reviews #reviewsBox Label:disabled {
+    -fx-text-fill: #111827;
+    -fx-opacity: 1;
 }

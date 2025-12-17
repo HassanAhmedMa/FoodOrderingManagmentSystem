@@ -14,25 +14,31 @@
         xmlns="http://javafx.com/javafx/23.0.1"
         xmlns:fx="http://javafx.com/fxml/1"
         fx:controller="model.controller.RestaurantPageController"
-        stylesheets="@restaurant-page.css">
+        stylesheets="@restaurant-page.css"
+        styleClass="root">
 
     <!-- ================= NAVBAR ================= -->
     <top>
-        <HBox alignment="CENTER_LEFT" spacing="20" styleClass="navbar">
+        <HBox styleClass="navbar" alignment="CENTER_LEFT">
+            <padding>
+                <Insets top="12" right="18" bottom="12" left="18"/>
+            </padding>
 
             <Button text="Back"
-                    styleClass="back-button"
+                    styleClass="nav-back"
                     onAction="#handleBack"/>
 
-            <Label text="FoodHub" styleClass="logo"/>
+            <Label text="FoodHub" styleClass="nav-title"/>
 
-            <!-- CART ICON -->
-            <StackPane HBox.hgrow="ALWAYS" alignment="CENTER_RIGHT">
+            <!-- spacer -->
+            <StackPane HBox.hgrow="ALWAYS"/>
+
+            <!-- cart -->
+            <StackPane alignment="CENTER_RIGHT" styleClass="cart-wrap">
                 <Button text="🛒"
-                        styleClass="cart-button"
+                        styleClass="cart-btn"
                         onAction="#handleCart"/>
 
-                <!-- CART BADGE -->
                 <Label fx:id="cartBadge"
                        text="0"
                        visible="false"
@@ -42,53 +48,74 @@
         </HBox>
     </top>
 
-    <!-- ================= CONTENT ================= -->
+    <!-- ================= BODY ================= -->
     <center>
-        <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" styleClass="scroll">
+            <VBox styleClass="page" spacing="22">
+                <padding>
+                    <Insets top="14" right="18" bottom="22" left="18"/>
+                </padding>
 
-            <VBox spacing="30">
+                <!-- HERO CARD -->
+                <VBox styleClass="hero" spacing="10">
+                    <padding>
+                        <Insets top="22" right="24" bottom="22" left="24"/>
+                    </padding>
 
-                <!-- HERO -->
-                <VBox spacing="12" styleClass="restaurant-hero">
                     <Label fx:id="restaurantNameLabel" styleClass="hero-title"/>
-                    <Label fx:id="restaurantDescLabel" styleClass="hero-desc"/>
+                    <Label fx:id="restaurantDescLabel" styleClass="hero-sub"/>
 
-                    <HBox spacing="15">
-                        <Label fx:id="ratingLabel"/>
-                        <Label fx:id="locationLabel"/>
-                        <Label fx:id="timeLabel"/>
-                        <Label fx:id="deliveryLabel"/>
+                    <HBox spacing="18" styleClass="hero-meta">
+                        <Label fx:id="ratingLabel"   styleClass="hero-meta-item"/>
+                        <Label fx:id="locationLabel" styleClass="hero-meta-item"/>
+                        <Label fx:id="timeLabel"     styleClass="hero-meta-item"/>
+                        <Label fx:id="deliveryLabel" styleClass="hero-meta-item strong"/>
                     </HBox>
                 </VBox>
 
-                <!-- MENU -->
-                <HBox spacing="30">
+                <!-- MENU + CATEGORIES ROW -->
+                <HBox spacing="26" alignment="TOP_LEFT">
 
-                    <VBox spacing="10" styleClass="categories-box">
-                        <Label text="Categories"/>
-                        <Button text="All"/>
-                        <Button text="Pizza"/>
-                        <Button text="Sides"/>
-                        <Button text="Drinks"/>
+                    <!-- Categories Card -->
+                    <VBox styleClass="card categories" spacing="10">
+                        <padding>
+                            <Insets top="16" right="14" bottom="16" left="14"/>
+                        </padding>
+
+                        <Label text="Categories" styleClass="card-title"/>
+
+                        <!-- keep same logic -->
+                        <Button text="All"    styleClass="cat-link"/>
+                        <Button text="Pizza"  styleClass="cat-link"/>
+                        <Button text="Sides"  styleClass="cat-link"/>
+                        <Button text="Drinks" styleClass="cat-link"/>
                     </VBox>
 
-                    <VBox spacing="20">
-                        <Label text="Menu"/>
+                    <!-- Menu Area -->
+                    <VBox spacing="10" HBox.hgrow="ALWAYS">
+                        <Label text="Menu" styleClass="section-title"/>
+
                         <FlowPane fx:id="menuFlowPane"
-                                  hgap="20"
-                                  vgap="20"
-                                  prefWrapLength="800"/>
+                                  styleClass="menu-flow"
+                                  hgap="22"
+                                  vgap="22"
+                                  prefWrapLength="920"/>
                     </VBox>
 
                 </HBox>
 
-                <!-- REVIEWS -->
-                <VBox spacing="10">
-                    <HBox spacing="20">
-                        <Label fx:id="reviewsCountLabel"/>
-                        <Button text="Add Review"/>
+                <!-- REVIEWS CARD (big white rounded like screenshot) -->
+                <VBox styleClass="card reviews" spacing="12">
+                    <padding>
+                        <Insets top="16" right="18" bottom="16" left="18"/>
+                    </padding>
+
+                    <HBox alignment="CENTER_LEFT" spacing="14">
+                        <Label fx:id="reviewsCountLabel" styleClass="section-title"/>
+                        <Button text="Add Review" styleClass="pill-btn"/>
                     </HBox>
-                    <VBox fx:id="reviewsBox"/>
+
+                    <VBox fx:id="reviewsBox" spacing="10"/>
                 </VBox>
 
             </VBox>
