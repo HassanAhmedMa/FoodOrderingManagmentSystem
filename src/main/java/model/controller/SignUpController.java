@@ -50,7 +50,12 @@ public class SignUpController {
         r.phone = phoneField.getText().trim();
         r.password = passwordField.getText();
         r.confirmPassword = confirmPasswordField.getText();
-        r.role = roleBox.getValue();
+        r.role = switch (roleBox.getValue()) {
+            case "Customer" -> "CUSTOMER";
+            case "Restaurant Owner" -> "RESTAURANT";
+            case "Delivery Staff" -> "DELIVERY";
+            default -> null;
+        };
         r.acceptedTerms = termsCheck.isSelected();
 
         SignupHandler chain = new NameValidationHandler();
@@ -71,7 +76,7 @@ public class SignUpController {
             String fullName = r.firstName + " " + r.lastName;
             userDAO.createUser(fullName, r.email, r.password, r.role, r.phone);
 
-            // Go to login
+
             Navigator.goTo("/com/example/demo2/Login.fxml");
 
         } catch (SignupValidationException ex) {

@@ -1,9 +1,11 @@
 package model.controller;
 
+import com.example.demo2.Navigator;
 import com.example.demo2.Session;
 import dao.MenuItemDAO;
 import dao.OrderDAO;
 import dao.RestaurantDAO;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,6 +24,7 @@ import java.util.List;
 
 public class RestaurantDashboardController {
 
+    public Label loggedInUser;
     // ================= FXML =================
     @FXML
     private VBox menuItemsContainer;
@@ -51,6 +54,7 @@ public class RestaurantDashboardController {
     public void initialize() {
 
         User user = Session.getUser();
+        loggedInUser.setText(user.getFullName());
         if (user == null) return;
 
         restaurant = restaurantDAO.getRestaurantByOwner(user.getId());
@@ -170,7 +174,7 @@ public class RestaurantDashboardController {
         }
     }
 
-    // ================= REFRESH =================
+
     public void refreshOrders() {
         loadOrders();
     }
@@ -179,28 +183,9 @@ public class RestaurantDashboardController {
         loadMenuItems();
     }
 
-    // ================= REMOVED / UNUSED =================
-    /*
-     * ❌ REMOVED METHOD:
-     *
-     * onOrderReady(Order order)
-     *
-     * Reason:
-     * - Not connected to FXML
-     * - Delivery assignment is handled in RestaurantOrderCardController
-     * - Keeping it causes duplicate logic and bugs
-     *
-     * Delivery logic MUST stay in:
-     * RestaurantOrderCardController + DAO
-     */
 
-    /*
-     * ❌ REMOVED METHOD:
-     *
-     * onNextStatus(Order order)
-     *
-     * Reason:
-     * - Status progression is handled per-order card
-     * - Dashboard should not directly mutate order state
-     */
+    public void onLogoutClicked(ActionEvent actionEvent) {
+        Session.setUser(null);
+        Navigator.goTo("/com/example/demo2/Login.fxml");
+    }
 }

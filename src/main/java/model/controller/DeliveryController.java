@@ -1,9 +1,12 @@
 package model.controller;
 
+import com.example.demo2.Navigator;
 import com.example.demo2.Session;
 import dao.OrderDAO;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import model.order.Order;
 import model.user.User;
@@ -12,6 +15,7 @@ import java.util.List;
 
 public class DeliveryController {
 
+    public Label loggedInUser;
     // ================= FXML =================
     @FXML
     private VBox ordersContainer;
@@ -24,7 +28,7 @@ public class DeliveryController {
     public void initialize() {
 
         User user = Session.getUser();
-
+        loggedInUser.setText(user.getFullName());
         // 🔐 allow only delivery staff
         if (user == null || !"DELIVERY".equalsIgnoreCase(user.getRole())) {
             return;
@@ -68,5 +72,10 @@ public class DeliveryController {
     // ================= REFRESH =================
     public void refreshOrders() {
         loadOrders();
+    }
+
+    public void onLogoutClicked(ActionEvent actionEvent) {
+        Session.setUser(null);
+        Navigator.goTo("/com/example/demo2/Login.fxml");
     }
 }

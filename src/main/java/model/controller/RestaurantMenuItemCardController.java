@@ -69,7 +69,7 @@ public class RestaurantMenuItemCardController {
         // example delete logic (we'll formalize it next)
         menuItemDAO.deleteMenuItem(item.getItemId());
 
-        // 🔁 refresh dashboard after delete
+
         if (parent != null) {
             parent.refreshMenu();
         }

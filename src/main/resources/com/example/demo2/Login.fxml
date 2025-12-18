@@ -25,7 +25,7 @@
                     <Insets top="34" right="34" bottom="34" left="34"/>
                 </padding>
 
-                <Label text="Fresh Hub Market"
+                <Label text="Food Hub Market"
                        style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;"/>
                 <Label text="Welcome back! Log in to continue."
                        wrapText="true"

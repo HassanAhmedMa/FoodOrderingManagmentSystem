@@ -51,7 +51,7 @@ public class OrderDAO {
         if (currentStatus == null) return false;
 
         if (!isAllowed(currentStatus, nextStatus, role)) {
-            System.out.println("❌ Status change blocked: "
+            System.out.println("Status change blocked: "
                     + currentStatus + " → " + nextStatus);
             return false;
         }
@@ -81,7 +81,7 @@ public class OrderDAO {
         User delivery = userDAO.getFirstAvailableDeliveryStaffWithCapacity();
 
         if (delivery == null) {
-            System.out.println("❌ No delivery staff available");
+            System.out.println("No delivery staff available");
             return false;
         }
 
