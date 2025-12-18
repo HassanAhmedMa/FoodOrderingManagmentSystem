@@ -13,7 +13,7 @@ import model.order.OrderItem;
 import model.payment.*;
 
 public class CartController {
-
+    public Label loggedInUser;
     @FXML private VBox orderSummary;
     @FXML private VBox cartItemsBox;
     @FXML private Button clearCartButton;
@@ -32,7 +32,7 @@ public class CartController {
 
     @FXML
     public void initialize() {
-
+        loggedInUser.setText(Session.getUser().getFullName());
         addressField = (TextField) orderSummary.lookup("#addressField");
         cardButton = (Button) orderSummary.lookup("#cardButton");
         cashButton = (Button) orderSummary.lookup("#cashButton");
@@ -202,5 +202,8 @@ public class CartController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public void goToHome(){
+        Navigator.goTo("/com/example/demo2/hello-view.fxml");
     }
 }

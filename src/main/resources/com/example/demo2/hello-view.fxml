@@ -10,25 +10,52 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="model.controller.HomePageController">
-
+<ScrollPane fitToWidth="true"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="model.controller.HomePageController"
+            stylesheets="@home-page.css">
     <VBox spacing="40" style="-fx-background-color: #FFF8F2;">
 
         <!-- ================= NAVBAR ================= -->
-        <HBox alignment="CENTER_LEFT" spacing="30" style="-fx-background-color: white; -fx-border-color: #eee;">
+        <HBox styleClass="navbar" alignment="CENTER_LEFT" spacing="16">
             <padding>
-                <Insets bottom="15" left="15" right="15" top="15" />
+                <Insets top="14" right="24" bottom="14" left="24"/>
             </padding>
 
-            <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="🍴 FoodHub" />
+            <!-- Title -->
+            <Label onMouseClicked="#goToHome" text="FoodHub" styleClass="nav-title"/>
 
+            <!-- spacer -->
             <Region HBox.hgrow="ALWAYS" />
 
-            <Button onAction="#onBrowseClicked" text="Browse" />
-            <Button onAction="#goToOrders" text="My Orders" />
+            <!-- keep SAME logic (same onAction methods) -->
+            <Button text="Browse"
+                    styleClass="nav-link"
+                    onAction="#onBrowseClicked"/>
 
-            <Label fx:id="loggedInUser" style="-fx-background-color: #FFE5D1;                           -fx-padding: 6 12;                          -fx-background-radius: 20;" />
+            <Button text="My Orders"
+                    styleClass="nav-link"
+                    onAction="#goToOrders"/>
+
+            <Region prefWidth="8"/>
+            <!-- keep SAME fx:id -->
+            <Label fx:id="loggedInUser"
+                   styleClass="nav-user"/>
+
+            <Region prefWidth="12"/>
+            <StackPane alignment="CENTER_RIGHT" styleClass="cart-wrap">
+                <Button text="🛒"
+                        styleClass="cart-btn"
+                        onAction="#handleCart"/>
+
+                <Label fx:id="cartBadge"
+                       text="0"
+                       visible="false"
+                       styleClass="cart-badge"/>
+            </StackPane>
         </HBox>
+
 
         <!-- ================= HERO SECTION ================= -->
         <StackPane prefHeight="420" style="-fx-background-color: linear-gradient(to right, #4a1f0f, #ff7a18);">

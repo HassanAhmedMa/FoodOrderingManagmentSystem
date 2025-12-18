@@ -6,6 +6,7 @@ import com.example.demo2.Session;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import model.order.Order;
 import model.user.Customer;
@@ -14,6 +15,7 @@ import java.util.List;
 
 public class MyOrdersController {
 
+    public Label loggedInUser;
     @FXML
     private VBox ordersContainer;
 
@@ -21,7 +23,7 @@ public class MyOrdersController {
 
     @FXML
     public void initialize() {
-
+        loggedInUser.setText(Session.getUser().getFullName());
         Customer customer = (Customer) Session.getUser();
         if (customer == null) {
             System.out.println("❌ No logged-in customer in session");
@@ -56,8 +58,11 @@ public class MyOrdersController {
     }
 
     @FXML
-    public void handleBack(){
+    public void goToBrowse(){
         Navigator.goTo("/com/example/demo2/browse-restaurants.fxml");
+    }
+    public void goToHome(){
+        Navigator.goTo("/com/example/demo2/hello-view.fxml");
     }
 
 

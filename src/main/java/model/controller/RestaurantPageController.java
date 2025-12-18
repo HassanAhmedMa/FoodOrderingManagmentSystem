@@ -124,4 +124,7 @@ public class RestaurantPageController {
     private void handleBack() {
         Navigator.goBack();
     }
+    public void goToHome(){
+        Navigator.goTo("/com/example/demo2/hello-view.fxml");
+    }
 }

@@ -25,7 +25,7 @@
             <Insets bottom="15" left="20" right="20" top="15"/>
         </padding>
 
-        <Label text="FoodHub"
+        <Label onMouseClicked="#goToHome" text="FoodHub"
                styleClass="nav-title"/>
 
         <Region HBox.hgrow="ALWAYS"/>

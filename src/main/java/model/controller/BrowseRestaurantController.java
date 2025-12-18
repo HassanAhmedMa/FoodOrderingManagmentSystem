@@ -175,6 +175,9 @@ public class BrowseRestaurantController {
 
     @FXML
     private void handleBack() {
-        Navigator.goBack(); // ✅ FIXED
+        Navigator.goTo("/com/example/demo2/hello-view.fxml"); // ✅ FIXED
+    }
+    public void goToHome(){
+        Navigator.goTo("/com/example/demo2/hello-view.fxml");
     }
 }

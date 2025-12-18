@@ -7,37 +7,31 @@
 <ScrollPane fitToWidth="true"
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml"
+            stylesheets="@cart-page.css"
             fx:controller="model.controller.CartController">
 
     <VBox spacing="30" style="-fx-background-color: #FFF8F2;">
 
         <!-- NAVBAR -->
-        <HBox spacing="20"
-              alignment="CENTER_LEFT"
-              style="-fx-background-color: white; -fx-border-color: #eee;">
+        <HBox styleClass="navbar" alignment="CENTER_LEFT" spacing="14">
             <padding>
-                <Insets top="15" right="20" bottom="15" left="20"/>
+                <Insets top="12" right="18" bottom="12" left="18"/>
             </padding>
 
-            <!-- 🔥 BACK BUTTON -->
+            <!-- 🔥 BACK BUTTON (same fx:id + same onAction) -->
             <Button fx:id="backButton"
                     text="Back"
-                    style="-fx-background-color: transparent;"
+                    styleClass="nav-back"
                     onAction="#handleBack"/>
 
-            <Label text="🍴 FoodHub"
-                   style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+            <Label onMouseClicked="#goToHome" text="FoodHub" styleClass="nav-title"/>
 
             <Region HBox.hgrow="ALWAYS"/>
 
-            <Button text="Browse"
-                    style="-fx-background-color: transparent;" />
-
-            <Label text="hassan"
-                   style="-fx-background-color: #FFE5D1;
-                          -fx-padding: 6 12;
-                          -fx-background-radius: 20;" />
+            <Label fx:id="loggedInUser"
+                   styleClass="nav-user"/>
         </HBox>
+
 
         <!-- CONTENT -->
         <HBox spacing="40">

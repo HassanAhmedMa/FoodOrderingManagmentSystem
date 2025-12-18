@@ -28,7 +28,7 @@
                     styleClass="nav-back"
                     onAction="#handleBack"/>
 
-            <Label text="FoodHub" styleClass="nav-title"/>
+            <Label onMouseClicked="#goToHome" text="FoodHub" styleClass="nav-title"/>
 
             <!-- spacer -->
             <StackPane HBox.hgrow="ALWAYS"/>
