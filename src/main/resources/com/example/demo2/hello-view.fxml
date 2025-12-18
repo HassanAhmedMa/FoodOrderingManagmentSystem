@@ -33,6 +33,9 @@
             <Button text="Browse"
                     styleClass="nav-link"
                     onAction="#onBrowseClicked"/>
+            <Button text="Logout"
+                    styleClass="nav-link"
+                    onAction="#onLogoutClicked"/>
 
             <Button text="My Orders"
                     styleClass="nav-link"
@@ -75,6 +78,7 @@
                     <TextField prefWidth="300" promptText="Enter your delivery address..." />
                     <Button onAction="#onBrowseClicked" prefWidth="120" style="-fx-background-color: #ff6a00;                                    -fx-text-fill: white;                                    -fx-font-weight: bold;" text="Find Food" />
                 </HBox>
+
 
                 <HBox spacing="30">
                     <padding>

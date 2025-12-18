@@ -3,6 +3,7 @@ package model.controller;
 import com.example.demo2.Navigator;
 import com.example.demo2.Session;
 import dao.RestaurantDAO;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -169,5 +170,10 @@ public class HomePageController {
         int count = CartService.getInstance().getTotalItemsCount();
         cartBadge.setText(String.valueOf(count));
         cartBadge.setVisible(count > 0);
+    }
+
+    public void onLogoutClicked(ActionEvent actionEvent) {
+        Session.setUser(null);
+        Navigator.goTo("/com/example/demo2/login.fxml");
     }
 }
