@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="model.controller.RestaurantSetupController"
+            stylesheets="@restaurant-setup.css">
+
+    <!-- ================= LEFT PANEL ================= -->
+    <left>
+        <VBox spacing="20"
+              prefWidth="420"
+              styleClass="setup-left">
+
+            <padding>
+                <Insets top="40" left="40" right="40" bottom="40"/>
+            </padding>
+
+            <Label text="Welcome, Restaurant Owner"
+                   styleClass="setup-title"/>
+
+            <Label text="Let’s set up your restaurant. This only takes a minute."
+                   wrapText="true"
+                   styleClass="setup-subtitle"/>
+
+            <VBox spacing="10" styleClass="setup-tip-box">
+                <Label text="What you'll do"
+                       styleClass="tip-title"/>
+                <Label text="• Add your restaurant details"/>
+                <Label text="• Upload a photo"/>
+                <Label text="• Start adding menu items"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- ================= CENTER FORM ================= -->
+    <center>
+        <VBox spacing="18"
+              alignment="CENTER"
+              styleClass="setup-right">
+
+            <Label text="Restaurant Information"
+                   styleClass="form-title"/>
+
+            <VBox spacing="6" maxWidth="420">
+                <Label text="Restaurant Name"/>
+                <TextField fx:id="nameField"
+                           promptText="e.g. Pizza Palace"
+                           styleClass="input"/>
+            </VBox>
+
+            <VBox spacing="6" maxWidth="420">
+                <Label text="Description"/>
+                <TextArea fx:id="descriptionField"
+                          promptText="Short description about your restaurant"
+                          prefRowCount="3"
+                          styleClass="input"/>
+            </VBox>
+
+            <VBox spacing="6" maxWidth="420">
+                <Label text="Location"/>
+                <TextField fx:id="locationField"
+                           promptText="City / Area"
+                           styleClass="input"/>
+            </VBox>
+
+
+            <Button text="Continue to Dashboard →"
+                    onAction="#onNext"
+                    styleClass="primary-btn"
+                    maxWidth="420"/>
+        </VBox>
+    </center>
+
+</BorderPane>

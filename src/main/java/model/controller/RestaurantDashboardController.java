@@ -23,7 +23,7 @@ import model.user.User;
 import java.util.List;
 
 public class RestaurantDashboardController {
-
+    @FXML
     public Label loggedInUser;
     // ================= FXML =================
     @FXML
@@ -53,26 +53,42 @@ public class RestaurantDashboardController {
     @FXML
     public void initialize() {
 
+        // 1️⃣ Get logged-in user
         User user = Session.getUser();
+        if (user == null) {
+            // No session → kick to login
+            Navigator.goTo("/com/example/demo2/Login.fxml");
+            return;
+        }
+
+        // 2️⃣ Show user name in navbar
         loggedInUser.setText(user.getFullName());
-        if (user == null) return;
 
+        // 3️⃣ Load restaurant owned by this user
         restaurant = restaurantDAO.getRestaurantByOwner(user.getId());
-        if (restaurant == null) return;
 
-        // Load restaurant name
+        if (restaurant == null) {
+            // No restaurant yet → redirect to setup
+            Navigator.goTo("/com/example/demo2/RestaurantSetup.fxml");
+            return;
+        }
+
+        // 4️⃣ Restaurant info
         restaurantNameLabel.setText(restaurant.getName());
 
-        // Load statistics
+        // 5️⃣ Statistics
         int totalOrders = orderDAO.getTotalOrdersByRestaurant(restaurant.getId());
         totalOrdersLabel.setText(String.valueOf(totalOrders));
 
         // TODO: replace with real revenue calculation
         revenueLabel.setText("45.84");
 
+        // 6️⃣ Load data
         loadMenuItems();
         loadOrders();
     }
+
+
 
     // ================= MENU =================
     private void loadMenuItems() {

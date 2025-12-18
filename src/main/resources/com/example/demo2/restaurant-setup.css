@@ -1,0 +1,78 @@
+/* ================= LEFT PANEL ================= */
+
+.setup-left {
+    -fx-background-color: linear-gradient(
+        to bottom,
+        #1a0c05,
+        #4a1f0f
+    );
+}
+
+.setup-title {
+    -fx-text-fill: white;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+.setup-subtitle {
+    -fx-text-fill: #f3d1b8;
+    -fx-font-size: 14px;
+}
+
+.setup-tip-box {
+    -fx-background-color: rgba(255, 255, 255, 0.08);
+    -fx-padding: 16;
+    -fx-background-radius: 12;
+}
+
+.tip-title {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+/* ================= RIGHT PANEL ================= */
+
+.setup-right {
+    -fx-background-color: white;
+}
+
+.form-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+}
+
+/* ================= INPUTS ================= */
+
+.input {
+    -fx-padding: 12;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #ddd;
+}
+
+.input:focused {
+    -fx-border-color: #ff6a00;
+}
+
+/* ================= BUTTONS ================= */
+
+.primary-btn {
+    -fx-background-color: #ff6a00;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 14;
+    -fx-background-radius: 12;
+}
+
+.primary-btn:hover {
+    -fx-background-color: #ff8c42;
+}
+
+.upload-btn {
+    -fx-background-color: transparent;
+    -fx-border-color: #ff6a00;
+    -fx-text-fill: #ff6a00;
+    -fx-padding: 10;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}

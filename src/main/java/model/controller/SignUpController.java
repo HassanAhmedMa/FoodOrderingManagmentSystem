@@ -1,10 +1,12 @@
 package model.controller;
 
 import com.example.demo2.Navigator;
+import com.example.demo2.Session;
 import dao.UserDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import model.user.User;
 import model.validation.signup.*;
 
 public class SignUpController {
@@ -76,8 +78,17 @@ public class SignUpController {
             String fullName = r.firstName + " " + r.lastName;
             userDAO.createUser(fullName, r.email, r.password, r.role, r.phone);
 
+            User user = userDAO.getUserByEmail(r.email);
 
-            Navigator.goTo("/com/example/demo2/Login.fxml");
+// 🔥 SET SESSION
+            Session.setUser(user);
+
+            if ("RESTAURANT".equals(r.role)) {
+                Navigator.goTo("/com/example/demo2/restaurant-setup.fxml");
+            } else {
+                Navigator.goTo("/com/example/demo2/Login.fxml");
+            }
+
 
         } catch (SignupValidationException ex) {
             markInvalidByKey(ex.getFieldKey());
