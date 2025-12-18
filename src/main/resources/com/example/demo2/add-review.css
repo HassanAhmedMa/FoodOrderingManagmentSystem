@@ -1,0 +1,70 @@
+.review-root {
+    -fx-background-color: #FF6A00;   /* 🔥 ORANGE ROOT */
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+}
+
+
+/* ===== TITLE BAR ===== */
+.title-bar {
+    -fx-background-color: #FF6A00;
+    -fx-background-radius: 16 16 0 0;
+    -fx-padding: 12 16 12 16;
+}
+
+.title-text {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.close-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+.close-btn:hover {
+    -fx-text-fill: #ffe0cc;
+}
+
+/* ===== CONTENT ===== */
+.review-content {
+    -fx-background-color: white;
+    -fx-background-radius: 0 0 16 16; /* bottom only */
+}
+
+
+/* ===== STARS ===== */
+.star {
+    -fx-font-size: 28px;
+    -fx-text-fill: #cccccc;
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+
+.star:selected,
+.star:hover {
+    -fx-text-fill: #FF6A00;
+}
+
+/* ===== TEXT AREA ===== */
+.review-textarea {
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #dddddd;
+}
+
+/* ===== BUTTON ===== */
+.submit-btn {
+    -fx-background-color: #FF6A00;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 12;
+    -fx-padding: 10 0;
+}
+
+.submit-btn:hover {
+    -fx-background-color: #e65f00;
+}

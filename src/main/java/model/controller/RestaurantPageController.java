@@ -131,10 +131,11 @@ public class RestaurantPageController {
             System.out.println("ADD REVIEW BUTTON CLICKED");
 
             Stage stage = new Stage();
-            stage.setTitle("Add Review");
             stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initStyle(javafx.stage.StageStyle.UNDECORATED); // 🔥 REMOVE OS BAR
             stage.setScene(new Scene(root));
             stage.showAndWait();
+
 
         } catch (Exception e) {
             e.printStackTrace();

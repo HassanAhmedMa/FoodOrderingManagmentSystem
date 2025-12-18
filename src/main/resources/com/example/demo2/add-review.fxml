@@ -2,31 +2,57 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.*?>
 
-<VBox spacing="12"
+<VBox spacing="0"
+      fx:id="root"
+      styleClass="review-root"
       xmlns="http://javafx.com/javafx/17"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="model.controller.AddReviewController">
+      fx:controller="model.controller.AddReviewController"
+      stylesheets="@add-review.css">
 
-    <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
-    </padding>
+    <!-- ===== CUSTOM TITLE BAR ===== -->
+    <HBox fx:id="titleBar"
+          alignment="CENTER_LEFT"
+          styleClass="title-bar">
 
-    <Label text="Your Rating" />
+        <Label text="Add Review"
+               styleClass="title-text"/>
 
-    <HBox spacing="8">
-        <ToggleButton fx:id="star1" text="⭐"/>
-        <ToggleButton fx:id="star2" text="⭐"/>
-        <ToggleButton fx:id="star3" text="⭐"/>
-        <ToggleButton fx:id="star4" text="⭐"/>
-        <ToggleButton fx:id="star5" text="⭐"/>
+        <Region HBox.hgrow="ALWAYS"/>
+
+        <Button text="✕"
+                onAction="#handleClose"
+                styleClass="close-btn"/>
     </HBox>
 
-    <Label text="Comment" />
-    <TextArea fx:id="commentArea" prefRowCount="4"/>
+    <!-- ===== CONTENT ===== -->
+    <VBox spacing="16" styleClass="review-content">
+        <padding>
+            <Insets top="20" right="24" bottom="24" left="24"/>
+        </padding>
 
-    <Button text="Submit Review"
-            onAction="#handleSubmit"/>
+        <Label text="Rate your experience"
+               styleClass="review-title"/>
+
+        <HBox spacing="10" styleClass="stars-box">
+            <ToggleButton fx:id="star1" text="★" styleClass="star"/>
+            <ToggleButton fx:id="star2" text="★" styleClass="star"/>
+            <ToggleButton fx:id="star3" text="★" styleClass="star"/>
+            <ToggleButton fx:id="star4" text="★" styleClass="star"/>
+            <ToggleButton fx:id="star5" text="★" styleClass="star"/>
+        </HBox>
+
+        <TextArea fx:id="commentArea"
+                  promptText="Share your thoughts..."
+                  prefRowCount="4"
+                  wrapText="true"
+                  styleClass="review-textarea"/>
+
+        <Button text="Submit Review"
+                onAction="#handleSubmit"
+                styleClass="submit-btn"/>
+    </VBox>
+
 </VBox>
