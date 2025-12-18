@@ -112,7 +112,11 @@
 
                     <HBox alignment="CENTER_LEFT" spacing="14">
                         <Label fx:id="reviewsCountLabel" styleClass="section-title"/>
-                        <Button text="Add Review" styleClass="pill-btn"/>
+                        <Button text="Add Review"
+                                styleClass="pill-btn"
+                                onAction="#handleAddReview"/>
+
+
                     </HBox>
 
                     <VBox fx:id="reviewsBox" spacing="10"/>

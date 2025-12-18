@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+
+<VBox spacing="12"
+      xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="model.controller.AddReviewController">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label text="Your Rating" />
+
+    <HBox spacing="8">
+        <ToggleButton fx:id="star1" text="⭐"/>
+        <ToggleButton fx:id="star2" text="⭐"/>
+        <ToggleButton fx:id="star3" text="⭐"/>
+        <ToggleButton fx:id="star4" text="⭐"/>
+        <ToggleButton fx:id="star5" text="⭐"/>
+    </HBox>
+
+    <Label text="Comment" />
+    <TextArea fx:id="commentArea" prefRowCount="4"/>
+
+    <Button text="Submit Review"
+            onAction="#handleSubmit"/>
+</VBox>
