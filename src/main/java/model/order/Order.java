@@ -1,9 +1,6 @@
 package model.order;
 
-import dao.PaymentDAO;
-import model.observer.Observer;
-import model.observer.Subject;
-import model.payment.Payment;
+
 import model.payment.PaymentStrategy;
 import model.restaurant.Restaurant;
 import model.state.OrderState;
@@ -11,148 +8,64 @@ import model.state.PlacedState;
 import model.user.Customer;
 import model.user.DeliveryStaff;
 
+import javax.security.auth.Subject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Order implements Subject {
-
-    /* =====================
-       CORE FIELDS
-       ===================== */
+public class Order {
 
     private int id;
     private Customer customer;
     private Restaurant restaurant;
     private DeliveryStaff deliveryStaff;
-
-    private List<OrderItem> items = new ArrayList<>();
-
-    /* =====================
-       PAYMENT
-       ===================== */
-
+    private List<OrderItem> items;
     private PaymentStrategy paymentStrategy;
-
-    /* =====================
-       DELIVERY
-       ===================== */
-
     private String deliveryAddress;
+    private OrderState state;
 
-    /* =====================
-       STATE PATTERN
-       ===================== */
 
-    private OrderState state = new PlacedState();
+    /* Constructor used ONLY by builder */
+    public Order() {
+        this.items = new ArrayList<>();
+        this.state = new PlacedState();
+    }
 
-    /* =====================
-       OBSERVER PATTERN
-       ===================== */
+    /* ================= SETTERS (USED BY BUILDER) ================= */
 
-    private List<Observer> observers = new ArrayList<>();
-
-    /* =====================
-       CONSTRUCTOR (DO NOT REMOVE)
-       ===================== */
-
-    public Order(int id, Customer customer, Restaurant restaurant) {
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
     }
 
-    /* =====================
-       BUILDER ENTRY POINT
-       ===================== */
-
-    public static Builder builder() {
-        return new Builder();
+    public void setDeliveryStaff(DeliveryStaff deliveryStaff) {
+        this.deliveryStaff = deliveryStaff;
     }
-
-    /* =====================
-       ORDER ITEMS
-       ===================== */
 
     public void addItem(OrderItem item) {
-        items.add(item);
+        this.items.add(item);
     }
 
-    public List<OrderItem> getItems() {
-        return items;
+    public void setPaymentStrategy(PaymentStrategy paymentStrategy) {
+        this.paymentStrategy = paymentStrategy;
     }
 
-    public boolean isEmpty() {
-        return items.isEmpty();
-    }
-
-    public double calculateTotal() {
-        return items.stream()
-                .mapToDouble(OrderItem::getTotalPrice)
-                .sum();
-    }
-
-    /* =====================
-       PAYMENT LOGIC
-       ===================== */
-
-    public void setPaymentStrategy(PaymentStrategy strategy) {
-        this.paymentStrategy = strategy;
-    }
-
-    public void payOrder() {
-
-        if (paymentStrategy == null) {
-            throw new IllegalStateException("Payment strategy not set");
-        }
-
-        Payment payment = new Payment(this.id, paymentStrategy);
-        payment.pay(calculateTotal());
-
-        PaymentDAO paymentDAO = new PaymentDAO();
-        paymentDAO.createPayment(
-                payment.getOrderId(),
-                payment.getMethod(),
-                payment.getPaymentStatus()
-        );
-    }
-
-    /* =====================
-       DELIVERY
-       ===================== */
-
-    public void assignDelivery(DeliveryStaff staff) {
-        this.deliveryStaff = staff;
-        System.out.println("Assigned to delivery: " + staff.getFullName());
-    }
-
-    public void setDeliveryAddress(String address) {
-        this.deliveryAddress = address;
-    }
-
-    public String getDeliveryAddress() {
-        return deliveryAddress;
-    }
-
-    /* =====================
-       STATE MANAGEMENT
-       ===================== */
-
-    public void nextState() {
-        state.next(this);
-        notifyObservers();
+    public void setDeliveryAddress(String deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
     }
 
     public void setState(OrderState state) {
         this.state = state;
     }
 
-    public String getStatus() {
-        return state.getStatus();
-    }
+    /* ================= SUBJECT ================= */
 
-    /* =====================
-       GETTERS
-       ===================== */
 
     public int getId() {
         return id;
@@ -170,100 +83,37 @@ public class Order implements Subject {
         return deliveryStaff;
     }
 
-    /* =====================
-       OBSERVER IMPLEMENTATION
-       ===================== */
-
-    @Override
-    public void attach(Observer observer) {
-        observers.add(observer);
+    public List<OrderItem> getItems() {
+        return items;
     }
 
-    @Override
-    public void detach(Observer observer) {
-        observers.remove(observer);
+    public void setItems(List<OrderItem> items) {
+        this.items = items;
     }
 
-    @Override
-    public void notifyObservers() {
-        observers.forEach(o -> o.update(this));
+    public PaymentStrategy getPaymentStrategy() {
+        return paymentStrategy;
     }
 
-    /* =========================================================
-       BUILDER (ADDED — DOES NOT BREAK EXISTING CODE)
-       ========================================================= */
-
-    public static class Builder {
-
-        private int id = -1;
-        private Customer customer;
-        private Restaurant restaurant;
-        private DeliveryStaff deliveryStaff;
-        private List<OrderItem> items = new ArrayList<>();
-        private PaymentStrategy paymentStrategy;
-        private String deliveryAddress;
-        private OrderState state = new PlacedState();
-
-        public Builder id(int id) {
-            this.id = id;
-            return this;
-        }
-
-        public Builder customer(Customer customer) {
-            this.customer = customer;
-            return this;
-        }
-
-        public Builder restaurant(Restaurant restaurant) {
-            this.restaurant = restaurant;
-            return this;
-        }
-
-        public Builder deliveryStaff(DeliveryStaff staff) {
-            this.deliveryStaff = staff;
-            return this;
-        }
-
-        public Builder addItem(OrderItem item) {
-            this.items.add(item);
-            return this;
-        }
-
-        public Builder items(List<OrderItem> items) {
-            this.items.addAll(items);
-            return this;
-        }
-
-        public Builder paymentStrategy(PaymentStrategy strategy) {
-            this.paymentStrategy = strategy;
-            return this;
-        }
-
-        public Builder deliveryAddress(String address) {
-            this.deliveryAddress = address;
-            return this;
-        }
-
-        public Builder state(OrderState state) {
-            this.state = state;
-            return this;
-        }
-
-        public Order build() {
-
-            if (restaurant == null) {
-                throw new IllegalStateException("Order must have a restaurant");
-            }
-
-            Order order = new Order(id, customer, restaurant);
-
-            order.items.addAll(this.items);
-            order.paymentStrategy = this.paymentStrategy;
-            order.deliveryAddress = this.deliveryAddress;
-            order.deliveryStaff = this.deliveryStaff;
-            order.state = this.state;
-
-            return order;
-        }
+    public String getDeliveryAddress() {
+        return deliveryAddress;
     }
+    public String getStatus() {
+        return state.getStatus();
+    }
+    public OrderState getState() {
+        return state;
+    }
+    public double calculateTotal() {
+        return items.stream()
+                .mapToDouble(OrderItem::getTotalPrice)
+                .sum();
+    }
+    public void nextState() {
+        state.next(this);
+    }
+
+
+
+
 }
