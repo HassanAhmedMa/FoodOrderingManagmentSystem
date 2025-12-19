@@ -32,46 +32,51 @@ public class SignUpController {
             "-fx-background-color: #FB923C; -fx-text-fill: white; -fx-font-weight: bold;" +
                     "-fx-background-radius: 12; -fx-padding: 12 14;";
 
-    @FXML
-    private void initialize() {
-        roleBox.getItems().addAll("Customer", "Restaurant Owner", "Delivery Staff");
-        if (signupButton != null) signupButton.setStyle(BTN_NORMAL);
-        clearMessage();
+
+@FXML
+private void initialize() {
+    if (roleBox != null) {
+        roleBox.getItems().setAll("Customer", "Restaurant Owner", "Delivery Staff");
     }
+    if (signupButton != null) signupButton.setStyle(BTN_NORMAL);
+    clearMessage();
+}
 
     @FXML
     private void onSignup() {
         clearMarks();
         clearMessage();
 
-        // Build request from UI
-        SignupRequest r = new SignupRequest();
-        r.firstName = firstNameField.getText().trim();
-        r.lastName = lastNameField.getText().trim();
-        r.email = emailField.getText().trim();
-        r.phone = phoneField.getText().trim();
-        r.password = passwordField.getText();
-        r.confirmPassword = confirmPasswordField.getText();
-        r.role = switch (roleBox.getValue()) {
-            case "Customer" -> "CUSTOMER";
-            case "Restaurant Owner" -> "RESTAURANT";
-            case "Delivery Staff" -> "DELIVERY";
-            default -> null;
-        };
-        r.acceptedTerms = termsCheck.isSelected();
-
-        SignupHandler chain = new NameValidationHandler();
-        chain.setNext(new EmailValidationHandler())
-                .setNext(new PhoneValidationHandler())
-                .setNext(new PasswordValidationHandler())
-                .setNext(new RoleValidationHandler())
-                .setNext(new TermsValidationHandler())
-                .setNext(new DuplicateEmailHandler(userDAO))
-                .setNext(new DuplicatePhoneHandler(userDAO));
-
-
-
         try {
+            // Build request from UI (inside try so ANY issue shows message)
+            SignupRequest r = new SignupRequest();
+            r.firstName = firstNameField.getText() == null ? "" : firstNameField.getText().trim();
+            r.lastName  = lastNameField.getText()  == null ? "" : lastNameField.getText().trim();
+            r.email     = emailField.getText()     == null ? "" : emailField.getText().trim();
+            r.phone     = phoneField.getText()     == null ? "" : phoneField.getText().trim();
+            r.password  = passwordField.getText();
+            r.confirmPassword = confirmPasswordField.getText();
+
+            // ✅ NULL-SAFE role mapping
+            String selectedRole = (roleBox == null) ? null : roleBox.getValue();
+            r.role = (selectedRole == null) ? null : switch (selectedRole) {
+                case "Customer" -> "CUSTOMER";
+                case "Restaurant Owner" -> "RESTAURANT";
+                case "Delivery Staff" -> "DELIVERY";
+                default -> null;
+            };
+
+            r.acceptedTerms = (termsCheck != null) && termsCheck.isSelected();
+
+            SignupHandler chain = new NameValidationHandler();
+            chain.setNext(new EmailValidationHandler())
+                    .setNext(new PhoneValidationHandler())
+                    .setNext(new PasswordValidationHandler())
+                    .setNext(new RoleValidationHandler())
+                    .setNext(new TermsValidationHandler())
+                    .setNext(new DuplicateEmailHandler(userDAO))
+                    .setNext(new DuplicatePhoneHandler(userDAO));
+
             chain.handle(r);
 
             // Save user if everything passed
@@ -79,8 +84,6 @@ public class SignUpController {
             userDAO.createUser(fullName, r.email, r.password, r.role, r.phone);
 
             User user = userDAO.getUserByEmail(r.email);
-
-// 🔥 SET SESSION
             Session.setUser(user);
 
             if ("RESTAURANT".equals(r.role)) {
@@ -88,7 +91,6 @@ public class SignUpController {
             } else {
                 Navigator.goTo("/com/example/demo2/Login.fxml");
             }
-
 
         } catch (SignupValidationException ex) {
             markInvalidByKey(ex.getFieldKey());
