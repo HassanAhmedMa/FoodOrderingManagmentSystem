@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 import model.cart.CartService;
 import model.restaurant.Restaurant;
 
+import java.io.File;
 import java.net.URL;
 import java.util.List;
 
@@ -133,25 +134,55 @@ public class HomePageController {
     }
 
 
-    /* ================= IMAGE SAFE LOADER ================= */
-
     private void loadImageSafely(ImageView imageView, String path) {
 
-        if (path == null || path.isBlank()) {
-            return; // no image → empty card (allowed)
+        try {
+            // 1️⃣ Classpath image (default + seeded restaurants)
+            if (path != null && path.startsWith("/")) {
+                URL url = getClass().getResource(path);
+                if (url != null) {
+                    imageView.setImage(new Image(url.toExternalForm(), true));
+                    return;
+                }
+            }
+
+            // 2️⃣ Absolute / relative file path (uploaded images)
+            if (path != null && !path.isBlank()) {
+                File file = new File(path);
+                if (file.exists()) {
+                    imageView.setImage(new Image(file.toURI().toString(), true));
+                    return;
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        try {
-            URL url = getClass().getResource(path);
-            if (url != null) {
-                imageView.setImage(new Image(url.toExternalForm(), true));
-            } else {
-                System.out.println("Image not found: " + path);
-            }
-        } catch (Exception e) {
-            System.out.println("Failed to load image: " + path);
+        // 3️⃣ Guaranteed fallback
+        URL fallback = getClass().getResource("/images/restaurants/default.jpg");
+        if (fallback != null) {
+            imageView.setImage(new Image(fallback.toExternalForm(), true));
+        } else {
+            System.out.println("❌ Default restaurant image not found!");
         }
     }
+
+
+
+
+    private void setDefaultImage(ImageView imageView) {
+
+        URL url = getClass().getResource("/images/default-restaurant.png");
+
+        if (url != null) {
+            imageView.setImage(new Image(url.toExternalForm(), true));
+        } else {
+            System.out.println("❌ Default image not found!");
+        }
+    }
+
+
     @FXML
     public void goToOrders(){
         Navigator.goTo("/com/example/demo2/my-orders.fxml");

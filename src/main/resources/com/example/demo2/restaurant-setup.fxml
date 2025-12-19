@@ -4,6 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.image.ImageView?>
 <BorderPane xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="model.controller.RestaurantSetupController"
@@ -65,6 +66,21 @@
                 <TextField fx:id="locationField"
                            promptText="City / Area"
                            styleClass="input"/>
+            </VBox>
+            <VBox spacing="8" maxWidth="420">
+                <Label text="Restaurant Photo"/>
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <ImageView fx:id="previewImage"
+                               fitWidth="140"
+                               fitHeight="100"
+                               preserveRatio="true"
+                               style="-fx-border-color: #ddd; -fx-border-radius: 8;"/>
+
+                    <Button text="Choose Image"
+                            onAction="#onChooseImage"
+                            styleClass="secondary-btn"/>
+                </HBox>
             </VBox>
 
 

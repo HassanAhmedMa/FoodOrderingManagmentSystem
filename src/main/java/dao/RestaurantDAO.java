@@ -15,10 +15,10 @@ public class RestaurantDAO {
     public void createRestaurant(Restaurant restaurant) {
 
         String sql = """
-            INSERT INTO restaurants
-            (owner_id, name, description, location, rating_avg, is_open)
-            VALUES (?, ?, ?, ?, ?, ?)
-        """;
+        INSERT INTO restaurants
+        (owner_id, name, description, location, rating_avg, is_open, image_url)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+    """;
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -29,8 +29,11 @@ public class RestaurantDAO {
             stmt.setString(4, restaurant.getLocation());
             stmt.setDouble(5, restaurant.getRatingAvg());
             stmt.setBoolean(6, restaurant.isOpen());
+            stmt.setString(7, restaurant.getImageUrl()); // 🔥 THIS FIXES EVERYTHING
 
             stmt.executeUpdate();
+
+            System.out.println("✅ Restaurant inserted with image: " + restaurant.getImageUrl());
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -151,4 +154,20 @@ public class RestaurantDAO {
 
         return null;
     }
+    public void updateRestaurantImage(int restaurantId, String imagePath) {
+
+        String sql = "UPDATE restaurants SET image_url = ? WHERE restaurant_id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, imagePath);
+            stmt.setInt(2, restaurantId);
+            stmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

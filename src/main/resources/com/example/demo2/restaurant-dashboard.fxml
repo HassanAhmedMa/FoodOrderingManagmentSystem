@@ -34,8 +34,7 @@
 
         <!-- Restaurant pill (matches UI style) -->
         <Label fx:id="restaurantNameLabel" styleClass="restaurant-pill" text="Pizza Hut" />
-
-        <Label styleClass="nav-role" text="Restaurant" />
+        <Button onAction="#onChangePhoto" styleClass="nav-link" text="Change Photo" />
 
     </HBox>
 

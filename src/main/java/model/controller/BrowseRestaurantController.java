@@ -15,6 +15,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import model.restaurant.Restaurant;
 
+import java.io.File;
 import java.net.URL;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -156,20 +157,45 @@ public class BrowseRestaurantController {
         return card;
     }
 
-    /* ================= IMAGE SAFE LOADER ================= */
-
     private void loadImageSafely(ImageView imageView, String path) {
+
         try {
-            URL url = getClass().getResource(path);
-            if (url != null) {
-                imageView.setImage(new Image(url.toExternalForm(), true));
-            } else {
-                System.out.println("Image not found: " + path);
+            // 1️⃣ Classpath image (default + seeded restaurants)
+            if (path != null && path.startsWith("/")) {
+                URL url = getClass().getResource(path);
+                if (url != null) {
+                    imageView.setImage(new Image(url.toExternalForm(), true));
+                    return;
+                }
             }
+
+            // 2️⃣ Absolute / relative file path (uploaded images)
+            if (path != null && !path.isBlank()) {
+                File file = new File(path);
+                if (file.exists()) {
+                    imageView.setImage(new Image(file.toURI().toString(), true));
+                    return;
+                }
+            }
+
         } catch (Exception e) {
-            System.out.println("Failed to load image: " + path);
+            e.printStackTrace();
+        }
+
+        // 3️⃣ Guaranteed fallback
+        URL fallback = getClass().getResource("/images/restaurants/default.jpg");
+        if (fallback != null) {
+            imageView.setImage(new Image(fallback.toExternalForm(), true));
+        } else {
+            System.out.println("❌ Default restaurant image not found!");
         }
     }
+
+
+
+
+
+
 
     /* ================= BACK ================= */
 

@@ -19,6 +19,14 @@ import model.order.Order;
 import model.restaurant.MenuItem;
 import model.restaurant.Restaurant;
 import model.user.User;
+import javafx.stage.FileChooser;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+
 
 import java.util.List;
 
@@ -204,4 +212,65 @@ public class RestaurantDashboardController {
         Session.setUser(null);
         Navigator.goTo("/com/example/demo2/Login.fxml");
     }
+
+    @FXML
+    private void onChangePhoto() {
+
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Choose Restaurant Photo");
+        chooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter(
+                        "Image Files", "*.png", "*.jpg", "*.jpeg"
+                )
+        );
+
+        File file = chooser.showOpenDialog(menuItemsContainer.getScene().getWindow());
+        if (file == null) return;
+
+        try {
+            // Save image
+            String imagePath = saveImageToApp(file);
+
+            // Update DB
+            restaurantDAO.updateRestaurantImage(
+                    restaurant.getId(),
+                    imagePath
+            );
+
+            // Update local object
+            restaurant.setImageUrl(imagePath);
+
+            showSuccess("Restaurant photo updated successfully!");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            showError("Failed to update restaurant image");
+        }
+    }
+    private String saveImageToApp(File imageFile) throws Exception {
+
+        Path imagesDir = Path.of("user-data/images/restaurants");
+        Files.createDirectories(imagesDir);
+
+        String fileName = System.currentTimeMillis() + "_" + imageFile.getName();
+        Path destination = imagesDir.resolve(fileName);
+
+        Files.copy(
+                imageFile.toPath(),
+                destination,
+                StandardCopyOption.REPLACE_EXISTING
+        );
+
+        // IMPORTANT: store filesystem path
+        return destination.toString();
+    }
+    private void showSuccess(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+
 }
