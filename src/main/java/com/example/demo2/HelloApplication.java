@@ -28,12 +28,10 @@ public class HelloApplication extends Application {
 
         Parent root = loader.load();
 
-        // 🔥 THIS LINE IS THE FIX
         root.setUserData("/com/example/demo2/SignUp.fxml");
 
         Scene scene = new Scene(root);
 
-        // Give Navigator BOTH stage + scene
         Navigator.setStage(stage, scene);
 
         stage.setTitle("FoodHub");
