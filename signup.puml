@@ -1,0 +1,124 @@
+@startuml
+title Signup Module - Class Diagram (Selective)
+
+skinparam classAttributeIconSize 0
+
+'======================
+' Controller + UI layer
+'======================
+class SignUpController {
+  - firstNameField : TextField
+  - lastNameField : TextField
+  - emailField : TextField
+  - phoneField : TextField
+  - passwordField : PasswordField
+  - confirmPasswordField : PasswordField
+  - roleBox : ComboBox<String>
+  - termsCheck : CheckBox
+  - messageLabel : Label
+  - signupButton : Button
+  --
+  - userDAO : UserDAO
+  --
+  + initialize()
+  + onSignup()
+  + signupHoverOn()
+  + signupHoverOff()
+  + goToLogin()
+  ..
+  - showError(msg:String)
+  - clearMessage()
+  - markInvalid(c:Control)
+  - markInvalidByKey(key:String)
+  - clearMarks()
+}
+
+class Navigator {
+  + goTo(path:String)
+}
+
+class Session {
+  + setUser(user:User)
+}
+
+'======================
+' Domain + DAO
+'======================
+class UserDAO {
+  + createUser(fullName:String, email:String, password:String, role:String, phone:String)
+  + getUserByEmail(email:String) : User
+  ' (used by duplicate checks)
+  + emailExists(email:String) : boolean
+  + phoneExists(phone:String) : boolean
+}
+
+class User
+
+'======================
+' Signup validation model
+'======================
+class SignupRequest {
+  + firstName : String
+  + lastName : String
+  + email : String
+  + phone : String
+  + password : String
+  + confirmPassword : String
+  + role : String
+  + acceptedTerms : boolean
+}
+
+class SignupValidationException {
+  - fieldKey : String
+  + getFieldKey() : String
+}
+
+'=================================
+' Chain of Responsibility (Signup)
+'=================================
+abstract class SignupHandler {
+  - next : SignupHandler
+  + setNext(next:SignupHandler) : SignupHandler
+  + handle(r:SignupRequest)
+  # validate(r:SignupRequest)
+}
+
+class NameValidationHandler
+class EmailValidationHandler
+class PhoneValidationHandler
+class PasswordValidationHandler
+class RoleValidationHandler
+class TermsValidationHandler
+class DuplicateEmailHandler {
+  - userDAO : UserDAO
+}
+class DuplicatePhoneHandler {
+  - userDAO : UserDAO
+}
+
+SignupHandler <|-- NameValidationHandler
+SignupHandler <|-- EmailValidationHandler
+SignupHandler <|-- PhoneValidationHandler
+SignupHandler <|-- PasswordValidationHandler
+SignupHandler <|-- RoleValidationHandler
+SignupHandler <|-- TermsValidationHandler
+SignupHandler <|-- DuplicateEmailHandler
+SignupHandler <|-- DuplicatePhoneHandler
+
+DuplicateEmailHandler --> UserDAO
+DuplicatePhoneHandler --> UserDAO
+
+'======================
+' Main relationships
+'======================
+SignUpController --> SignupRequest : builds
+SignUpController --> SignupHandler : creates chain
+SignUpController --> SignupValidationException : catches
+SignUpController --> UserDAO : createUser(), getUserByEmail()
+SignUpController --> Session : setUser()
+SignUpController --> Navigator : goTo()
+
+SignupHandler --> SignupRequest : validate()
+SignupHandler --> SignupValidationException : throws
+
+@enduml

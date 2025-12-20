@@ -1,0 +1,230 @@
+@startuml
+
+/' diagram meta data start
+config=CallConfiguration;
+{
+  "rootMethod": "model.order.Order#getId()",
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": true,
+    "cutInterfaceStructures": true,
+    "cutDataStructures": true,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 3,
+    "backwardDepth": 3,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showMethodParametersTypes": false,
+    "showMethodParametersNames": false,
+    "showMethodReturnType": false,
+    "showPackageLevels": 2,
+    "showCallOrder": false,
+    "edgeMode": "MethodsOnly", // TypesOnly, MethodsOnly, TypesAndMethods, MethodsAndDirectTypeUsage
+    "showDetailedClassStructure": false
+  },
+  "rootClass": "model.order.Order",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="LR"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_106006350 { 
+   	label=order
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_2113869129 { 
+   	label=Order
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   Order574903223XXXgetId0[
+	label="+ getId()"
+	style=filled
+	fillcolor=white
+	tooltip="Order
+
+null"
+	penwidth=4
+	fontcolor=darkgreen
+];
+
+Order574903223XXXnextState0[
+	label="+ nextState()"
+	style=filled
+	fillcolor=white
+	tooltip="Order
+
+null"
+	fontcolor=darkgreen
+];
+
+Order574903223XXXnotifyObservers0[
+	label="+ notifyObservers()"
+	style=filled
+	fillcolor=white
+	tooltip="Order
+
+null"
+	fontcolor=darkgreen
+];
+} 
+} 
+
+subgraph cluster_348607190 { 
+   	label=observer
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_2010738311 { 
+   	label=CustomerObserver
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   CustomerObserver502056955XXXupdate76453678[
+	label="+ update()"
+	style=filled
+	fillcolor=white
+	tooltip="CustomerObserver
+
+null"
+	fontcolor=darkgreen
+];
+} 
+} 
+
+subgraph cluster_637428636 { 
+   	label=controller
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_1591661018 { 
+   	label=MyOrdersController
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   MyOrdersController2073764737XXXinitialize0[
+	label="+ initialize()"
+	style=filled
+	fillcolor=white
+	tooltip="MyOrdersController
+
+null"
+	fontcolor=darkgreen
+];
+} 
+
+subgraph cluster_184304283 { 
+   	label=RestaurantOwnerController
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   RestaurantOwnerController2073764737XXXacceptOrder76453678[
+	label="+ acceptOrder()"
+	style=filled
+	fillcolor=white
+	tooltip="RestaurantOwnerController
+
+null"
+	fontcolor=darkgreen
+];
+} 
+} 
+
+subgraph cluster_99218 { 
+   	label=dao
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_1234979936 { 
+   	label=OrderDAO
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   OrderDAO99218XXXgetOrdersByCustomer104431[
+	label="+ getOrdersByCustomer()"
+	style=filled
+	fillcolor=white
+	tooltip="OrderDAO
+
+null"
+	fontcolor=darkgreen
+];
+} 
+} 
+
+'edges    
+CustomerObserver502056955XXXupdate76453678 -> Order574903223XXXgetId0;
+MyOrdersController2073764737XXXinitialize0 -> OrderDAO99218XXXgetOrdersByCustomer104431;
+Order574903223XXXnextState0 -> Order574903223XXXnotifyObservers0;
+Order574903223XXXnotifyObservers0 -> CustomerObserver502056955XXXupdate76453678;
+OrderDAO99218XXXgetOrdersByCustomer104431 -> Order574903223XXXgetId0;
+RestaurantOwnerController2073764737XXXacceptOrder76453678 -> Order574903223XXXgetId0;
+    
+}
+@enduml

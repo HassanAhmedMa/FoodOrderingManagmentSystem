@@ -1,0 +1,212 @@
+@startuml
+
+/' diagram meta data start
+config=CallConfiguration;
+{
+  "rootMethod": "model.order.Order#payOrder()",
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": true,
+    "cutInterfaceStructures": true,
+    "cutDataStructures": true,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 3,
+    "backwardDepth": 3,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showMethodParametersTypes": false,
+    "showMethodParametersNames": false,
+    "showMethodReturnType": false,
+    "showPackageLevels": 2,
+    "showCallOrder": false,
+    "edgeMode": "MethodsOnly", // TypesOnly, MethodsOnly, TypesAndMethods, MethodsAndDirectTypeUsage
+    "showDetailedClassStructure": false
+  },
+  "rootClass": "model.order.Order",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="LR"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_106006350 { 
+   	label=order
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_2113869129 { 
+   	label=Order
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   Order574903223XXXcalculateTotal0[
+	label="+ calculateTotal()"
+	style=filled
+	fillcolor=white
+	tooltip="Order
+
+null"
+	fontcolor=darkgreen
+];
+
+Order574903223XXXpayOrder0[
+	label="+ payOrder()"
+	style=filled
+	fillcolor=white
+	tooltip="Order
+
+null"
+	penwidth=4
+	fontcolor=darkgreen
+];
+} 
+} 
+
+subgraph cluster_786681338 { 
+   	label=payment
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_1399396090 { 
+   	label=CashPayment
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   CashPayment1989215297XXXpay1325958191[
+	label="+ pay()"
+	style=filled
+	fillcolor=white
+	tooltip="CashPayment
+
+null"
+	fontcolor=darkgreen
+];
+} 
+
+subgraph cluster_2026751625 { 
+   	label=CardPayment
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   CardPayment1989215297XXXpay1325958191[
+	label="+ pay()"
+	style=filled
+	fillcolor=white
+	tooltip="CardPayment
+
+null"
+	fontcolor=darkgreen
+];
+} 
+
+subgraph cluster_344453831 { 
+   	label=Payment
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   Payment1989215297XXXpay1325958191[
+	label="+ pay()"
+	style=filled
+	fillcolor=white
+	tooltip="Payment
+
+null"
+	fontcolor=darkgreen
+];
+} 
+} 
+
+subgraph cluster_99218 { 
+   	label=dao
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_2007287896 { 
+   	label=PaymentDAO
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   PaymentDAO99218XXXcreatePayment687457735[
+	label="+ createPayment()"
+	style=filled
+	fillcolor=white
+	tooltip="PaymentDAO
+
+null"
+	fontcolor=darkgreen
+];
+} 
+} 
+
+'edges    
+Order574903223XXXpayOrder0 -> Order574903223XXXcalculateTotal0;
+Order574903223XXXpayOrder0 -> Payment1989215297XXXpay1325958191;
+Order574903223XXXpayOrder0 -> PaymentDAO99218XXXcreatePayment687457735;
+Payment1989215297XXXpay1325958191 -> CardPayment1989215297XXXpay1325958191;
+Payment1989215297XXXpay1325958191 -> CashPayment1989215297XXXpay1325958191;
+    
+}
+@enduml

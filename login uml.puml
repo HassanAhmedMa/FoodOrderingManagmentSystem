@@ -1,0 +1,101 @@
+@startuml
+title Login Module - Simple Class Diagram
+
+left to right direction
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam packageStyle rectangle
+hide circle
+hide empty members
+
+package "Controller" {
+  class LoginController <<JavaFX Controller>> {
+    - userDAO : UserDAO
+    --
+    + initialize() : void
+    + onLogin() : void
+    + goToSignup() : void
+    ..
+    - showError(msg:String) : void
+    - clearMessage() : void
+    - markInvalidByKey(key:String) : void
+    - clearMarks() : void
+  }
+}
+
+package "Login Validation" {
+  interface LoginHandler {
+    + setNext(next:LoginHandler) : LoginHandler
+    + handle(request:LoginRequest) : void
+  }
+
+  abstract class BaseLoginHandler {
+    - next : LoginHandler
+    + setNext(next:LoginHandler) : LoginHandler
+    # next(request:LoginRequest) : void
+  }
+
+  class LoginRequest <<DTO>> {
+    + email : String
+    + password : String
+    + loginData : UserDAO.UserLoginData
+  }
+
+  class LoginValidationException <<Exception>> {
+    - fieldKey : String
+    + getFieldKey() : String
+  }
+
+  class EmailValidationHandler
+  class PasswordRequiredHandler
+  class UserExistsHandler {
+    - userDAO : UserDAO
+  }
+  class PasswordMatchesHandler
+}
+
+package "Persistence / Domain" {
+  class UserDAO <<DAO>> {
+    + getLoginDataByEmail(email:String) : UserLoginData
+    + getUserByEmail(email:String) : User
+  }
+
+  class UserLoginData {
+    + getPassword() : String
+  }
+
+  class User <<Entity>> {
+    + getRole() : String
+  }
+}
+
+package "Navigation / Session" {
+  class Session <<Session>> {
+    + setUser(user:User) : void
+  }
+
+  class Navigator <<Utility>> {
+    + goTo(path:String) : void
+  }
+}
+
+' ----- relationships -----
+LoginHandler <|.. BaseLoginHandler
+BaseLoginHandler <|-- EmailValidationHandler
+BaseLoginHandler <|-- PasswordRequiredHandler
+BaseLoginHandler <|-- UserExistsHandler
+BaseLoginHandler <|-- PasswordMatchesHandler
+
+LoginController ..> LoginRequest : builds
+LoginController ..> LoginHandler : creates chain
+LoginController ..> UserDAO : getUserByEmail()
+LoginController ..> Session : setUser()
+LoginController ..> Navigator : goTo()
+LoginController ..> LoginValidationException : catches
+
+UserExistsHandler --> UserDAO : uses
+LoginRequest --> UserDAO.UserLoginData : stores
+UserDAO --> User : returns
+
+@enduml
