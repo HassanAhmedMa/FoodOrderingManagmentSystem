@@ -40,7 +40,7 @@
 
                     <Label style="-fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold;" text="Why sign up?" />
                     <Label style="-fx-text-fill: rgba(255,255,255,0.84); -fx-font-size: 12px;" text="• Track orders and delivery status" />
-                    <Label style="-fx-text-fill: rgba(255,255,255,0.84); -fx-font-size: 12px;" text="• Save favorites and addresses" />
+                    <Label style="-fx-text-fill: rgba(255,255,255,0.84); -fx-font-size: 12px;" text="• Order some delicious food" />
                     <Label style="-fx-text-fill: rgba(255,255,255,0.84); -fx-font-size: 12px;" text="• Restaurant owners manage menus" />
                 </VBox>
 

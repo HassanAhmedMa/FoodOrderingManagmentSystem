@@ -4,7 +4,6 @@ import java.util.regex.Pattern;
 
 public class PhoneValidationHandler extends BaseSignupHandler {
 
-    // Egypt: 11 digits starting with 01
     private static final Pattern PHONE_PATTERN = Pattern.compile("^01\\d{9}$");
 
     @Override

@@ -48,7 +48,6 @@ private void initialize() {
         clearMessage();
 
         try {
-            // Build request from UI (inside try so ANY issue shows message)
             SignupRequest r = new SignupRequest();
             r.firstName = firstNameField.getText() == null ? "" : firstNameField.getText().trim();
             r.lastName  = lastNameField.getText()  == null ? "" : lastNameField.getText().trim();
@@ -57,7 +56,6 @@ private void initialize() {
             r.password  = passwordField.getText();
             r.confirmPassword = confirmPasswordField.getText();
 
-            // ✅ NULL-SAFE role mapping
             String selectedRole = (roleBox == null) ? null : roleBox.getValue();
             r.role = (selectedRole == null) ? null : switch (selectedRole) {
                 case "Customer" -> "CUSTOMER";
@@ -79,7 +77,6 @@ private void initialize() {
 
             chain.handle(r);
 
-            // Save user if everything passed
             String fullName = r.firstName + " " + r.lastName;
             userDAO.createUser(fullName, r.email, r.password, r.role, r.phone);
 
@@ -101,7 +98,6 @@ private void initialize() {
         }
     }
 
-    // Hover effects
     @FXML
     private void signupHoverOn() {
         if (signupButton != null) signupButton.setStyle(BTN_HOVER);
@@ -117,7 +113,6 @@ private void initialize() {
         Navigator.goTo("/com/example/demo2/Login.fxml");
     }
 
-    // ---- UI helpers ----
     private void showError(String msg) {
         messageLabel.setStyle("-fx-text-fill: #b91c1c;");
         messageLabel.setText(msg);

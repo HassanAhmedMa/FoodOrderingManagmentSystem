@@ -66,7 +66,6 @@ public class LoginController {
         Navigator.goTo("/com/example/demo2/SignUp.fxml");
     }
 
-    // ---- UI Helpers ----
     private void showError(String msg) {
         messageLabel.setStyle("-fx-text-fill: #b91c1c;");
         messageLabel.setText(msg);

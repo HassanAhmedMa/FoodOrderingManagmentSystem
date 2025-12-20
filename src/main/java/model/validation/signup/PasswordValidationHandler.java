@@ -4,7 +4,6 @@ import java.util.regex.Pattern;
 
 public class PasswordValidationHandler extends BaseSignupHandler {
 
-    // 8+ chars, at least 1 uppercase, 1 lowercase, 1 digit
     private static final Pattern PASS_PATTERN =
             Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
 

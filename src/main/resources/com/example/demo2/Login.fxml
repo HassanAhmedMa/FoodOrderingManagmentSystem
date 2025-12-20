@@ -41,8 +41,6 @@
                            style="-fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold;"/>
                     <Label text="• Use the same email you used to sign up"
                            style="-fx-text-fill: rgba(255,255,255,0.84); -fx-font-size: 12px;"/>
-                    <Label text="• Choose your role after login (later)"
-                           style="-fx-text-fill: rgba(255,255,255,0.84); -fx-font-size: 12px;"/>
                 </VBox>
 
                 <Region VBox.vgrow="ALWAYS"/>
